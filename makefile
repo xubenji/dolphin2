@@ -1,30 +1,41 @@
-.PHONY:compiler clean
+#ifeq ($(DEBUG),"true")
+#CC = gcc -g
+.PONHY:clean all
 
-export BUILD_DIR = $(shell pwd)
-export HEAD_PATH = $(BUILD_DIR)/inc
-
-#OBJ_DIR = /root/dolphin2/build
-#ifneq ("$(wildcard $(OBJ_DIR)/*.o)","")
-#BIN = mp3
-#include ./makefile.co 
-#endif
-
-
-compiler:
-	make -C lcd
-	make -C media
-	make -C usb
-	make -C app
-	make -C build
-
-BIN = mp3
-include ./makefile.co 
+CC = gcc -I$(HEAD_PATH)
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+DEPS = $(SRCS:.c=.d)
+OBJ_DIR = $(BUILD_DIR)/build
+OBJS := $(addprefix $(OBJ_DIR)/,$(OBJS))
+OBJ = $(wildcard $(OBJ_DIR)/*.o)
+DEP_DIR = $(BUILD_DIR)/build/link
+DEPS := $(addprefix $(DEP_DIR)/,$(DEPS))
+BIN := $(addprefix $(BUILD_DIR)/,$(BIN))
 
 
-clean:
-	rm -fr app/*.o app/mp3  app/*.d
-	rm -fr usb/*.o usb/*.d
-	rm -fr lcd/*.o lcd/*.d
-	rm -fr media/*.o media/*.d
-	rm -fr mp3
-	rm -fr build/*.o
+all: $(DEPS) $(BIN) $(OBJS)
+
+ifneq ("$(wildcard $(DEPS"))","")
+include $(DEPS)
+endif
+
+$(BIN):$(OBJ)
+	$(CC) -o $@ $^ 
+
+#usb.o:usb.c usb.h 
+$(OBJ_DIR)/%.o:%.c 
+	$(CC) -o $@ -c $(filter %.c,$^)
+
+$(DEP_DIR)/%.d:%.c 
+	gcc -MM $^ | sed 's,\(.*\).o[ :]*,$(OBJ_DIR)/\1.o $@:.g' > $@
+
+
+
+#hello:helloworld.o
+#	gcc -o hello helloworld.o
+#helloworld.o:helloworld.c
+#	gcc -o helloworld.o -c helloworld.c 
+
+#clean:
+	#rm mp3 *.o *.d 
