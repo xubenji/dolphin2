@@ -1,41 +1,45 @@
 .PONHY:clean all
 
-OBJ = build/audio_aarch.o build/audio.o build/hardisk_aarch.o build/hardisk.o build/usb_aarch.o build/usb.o build/kernel.o
+PROJECT_DIR = $(shell pwd)
+HEAD_PATH = $(PROJECT_DIR)/include
+#OBJS = $(wildcard build/*.o)
+OBJS = build/audio_aarch.o build/audio.o build/hardisk.o build/hardisk_aarch.o build/usb.o build/usb_aarch.o build/kernel.o 
+CC = gcc -I$(HEAD_PATH)
 
 all: build/kernel.bin
 
-build/kernel.bin: $(OBJ)
+build/kernel.bin: $(OBJS)
 	gcc -o $@ $^
 
-build/audio_aarch.o:kernel/drives/audio/aarch/amd64/audio_drive.c
-	gcc -o $@ -c $(filter %.c,$^)
+build/audio_aarch.o:$(PROJECT_DIR)/kernel/drives/audio/aarch/amd64/audio_drive.c
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/audio.o:kernel/drives/audio/audio.c
-	gcc -o $@ -c $(filter %.c,$^)
+build/audio.o:$(PROJECT_DIR)/kernel/drives/audio/audio.c
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/hardisk_aarch.o:kernel/drives/hardisk/aarch/amd64/hardisk_drive.c
-	gcc -o $@ -c $(filter %.c,$^)
+build/hardisk_aarch.o:$(PROJECT_DIR)/kernel/drives/hardisk/aarch/amd64/hardisk_drive.c
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/hardisk.o:kernel/drives/hardisk/hardisk.c
-	gcc -o $@ -c $(filter %.c,$^)
+build/hardisk.o:$(PROJECT_DIR)/kernel/drives/hardisk/hardisk.c
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/usb_aarch.o:kernel/drives/usb/aarch/amd64/usb_drive.c
-	gcc -o $@ -c $(filter %.c,$^)
+build/usb_aarch.o:$(PROJECT_DIR)/kernel/drives/usb/aarch/amd64/usb_drive.c
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/usb.o:kernel/drives/usb/usb.c
-	gcc -o $@ -c $(filter %.c,$^)
+build/usb.o:$(PROJECT_DIR)/kernel/drives/usb/usb.c
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/kernel.o:kernel/kernel.c 
-	gcc -o $@ -c $(filter %.c,$^)
+build/kernel.o:$(PROJECT_DIR)/kernel/kernel.c 
+	$(CC) -o $@ -c $(filter %.c,$^)
 
-build/audio_aarch.o:kernel/drives/audio/aarch/amd64/audio_drive.c kernel/drives/audio/audio_drive.h
-build/audio.o:kernel/drives/audio/audio.c kernel/drives/audio/audio.h kernel/drives/audio/audio_drive.h
+build/audio_aarch.o:$(PROJECT_DIR)/kernel/drives/audio/aarch/amd64/audio_drive.c $(HEAD_PATH)/audio_drive.h
+build/audio.o:$(PROJECT_DIR)/kernel/drives/audio/audio.c $(HEAD_PATH)/audio.h
 
-build/hardisk_aarch.o:kernel/drives/hardisk/aarch/amd64/hardisk_drive.c kernel/drives/hardisk/hardisk_drive.h 
-build/hardisk.o:kernel/drives/hardisk/hardisk.c kernel/drives/hardisk/hardisk.h 
+build/hardisk_aarch.o:$(PROJECT_DIR)/kernel/drives/hardisk/aarch/amd64/hardisk_drive.c $(HEAD_PATH)/hardisk_drive.h 
+build/hardisk.o:$(PROJECT_DIR)/kernel/drives/hardisk/hardisk.c $(HEAD_PATH)/hardisk.h 
 
-build/usb_aarch.o:kernel/drives/usb/aarch/amd64/usb_drive.c kernel/drives/usb/usb_drive.h 
-build/usb.o:kernel/drives/usb/usb.c kernel/drives/usb/usb.h 
+build/usb_aarch.o:$(PROJECT_DIR)/kernel/drives/usb/aarch/amd64/usb_drive.c $(HEAD_PATH)/usb_drive.h 
+build/usb.o:$(PROJECT_DIR)/kernel/drives/usb/usb.c $(HEAD_PATH)/usb.h 
 
 
 clean:
