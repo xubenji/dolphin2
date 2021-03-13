@@ -1,3 +1,3 @@
-BIN = mp3
+BIN 	= $(BUILD_PATH)/kernel.bin
 
-include ../makefile.co
+include $(PROJECT_DIR)/make/makefile
