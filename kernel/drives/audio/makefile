@@ -3,13 +3,13 @@ BIN =
 compiler:all
 	make -C $(AARCH)
 
-CC = gcc -I/root/udemy/include
+CC = gcc -I$(BUILD_PATH)
 
-all: /root/udemy/build/audio.o 
+all: $(BUILD_PATH)/audio.o 
 
 audio.o: audio.c audio_drive.h audio.h 
 
-/root/udemy/build/audio.o: audio.c 
+$(BUILD_PATH)/audio.o: audio.c 
 	$(CC) -o $@ -c $(filter-out audio_drive.h audio.h,$^) 
 	
 
