@@ -1,2 +1,0 @@
-BIN = 
-include ../makefile.co
