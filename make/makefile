@@ -10,7 +10,7 @@ CC = gcc -I$(HEAD_PATH) -g
 
 all: $(BIN) $(OBJ)
 	
-#-include $(DEPS)
+-include $(DEPS)
 
 $(BIN): $(OBJS)
 	gcc -o $@ $^
