@@ -1,0 +1,1 @@
+hardisk.o: hardisk.c hardisk.h 
