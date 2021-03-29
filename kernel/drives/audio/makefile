@@ -13,4 +13,4 @@ compiler:all
 #	$(CC) -o $@ -c $(filter-out audio_drive.h audio.h,$^) 
 	
 
-include $(PROJECT_DIR)/make/makefile
+include $(MKFILE_PATH)/makefile

@@ -1,13 +1,8 @@
-#include <stdio.h>
-//#include <../boot/init_boot.h>
-#include <audio.h>
-#include <hardisk.h>
-#include <usb.h>
 
+void kernel_init(){
+     char* p = (char*)0xb8000;
 
-void main(){
-    //init_boot();
-    audio();
-    hardisk();
-    usb();
+    p[0] = 'C';
+    p[1] = 0xa;
+    __asm__ __volatile__("1: jmp 1b");
 }

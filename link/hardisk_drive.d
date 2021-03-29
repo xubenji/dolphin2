@@ -1,1 +1,0 @@
-hardisk_drive.o: hardisk_drive.c hardisk_drive.h

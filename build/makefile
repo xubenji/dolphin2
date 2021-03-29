@@ -1,3 +1,9 @@
-BIN 	= $(BUILD_PATH)/kernel.bin
+BIN			= kernel.bin
 
-include $(PROJECT_DIR)/make/makefile
+dd:bootdd
+	dd if=kernel.bin of=boot.img bs=512 count=100 seek=6 conv=notrunc 
+
+bootdd:all
+	make -C boot
+	
+include $(MKFILE_PATH)/makefile
