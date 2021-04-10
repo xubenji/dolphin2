@@ -1,4 +1,4 @@
 BIN = 
 
 
-include $(MKFILE_PATH)/makefile
+include $(MKFILE_PATH_COMMON)

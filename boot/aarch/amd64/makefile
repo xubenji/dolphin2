@@ -1,6 +1,6 @@
 IMG = 
 
-include $(MKFILE_PATH_BOOT)/makefile
+include $(MKFILE_PATH_BOOT)
 
 
 

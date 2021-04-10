@@ -3,4 +3,4 @@ BIN =
 compiler:all
 	make -C $(AARCH)
 
-include $(MKFILE_PATH)/makefile
+include $(MKFILE_PATH_COMMON)
