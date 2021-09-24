@@ -9,7 +9,7 @@ DEPS 		= $(addprefix $(DEPS_PATH)/,$(SRCS:.c=.d))
 OBJS 		= $(wildcard $(BUILD_PATH)/*.o)
 
 ifeq ($(ARCH),x86)
-CC 			= gcc 
+CC 			= gcc -c 
 COPS		= -I$(HEAD_PATH) -g -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone
 ASMOPS		= -I$(HEAD_PATH)
 LD 			= ld 
@@ -19,8 +19,8 @@ OBJCOPY 	= objcopy -O binary
 endif
 
 ifeq ($(ARCH),arm)
-CC			= aarch64-elf-gcc
-COPS 		= -Wall -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -mgeneral-regs-only
+CC			= aarch64-elf-gcc -c
+COPS 		= -Wall -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -mgeneral-regs-only -g -fno-stack-protector
 ASMOPS		= -I$(HEAD_PATH)
 LD			= aarch64-elf-ld
 LDOPS 		= -T $(PROJECT_DIR)/link/lds/link_arm.lds -o

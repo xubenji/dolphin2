@@ -1,0 +1,319 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2014 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Thu Sep 23 22:28:17 2021
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# makefile (from 'makefile', line 3)
+MKFILE_PATH_BOOT = $(PROJECT_DIR)/source/boot.mk
+# default
+.SHELLFLAGS := -c
+# environment
+VSCODE_AGENT_FOLDER = /root/.vscode-server
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# environment
+PLATFORMIO_IDE = 2.3.3
+# makefile (from 'config.mk', line 3)
+PROJECT_DIR = $(shell pwd)
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# default
+MAKE_VERSION := 4.1
+# makefile
+CURDIR := /root/benjixu/dolphin2
+# makefile
+SHELL = /bin/sh
+# environment
+JRE_HOME = /usr/environment/jdk-11.0.12+7/jre
+# environment
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_translationsConfigFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/tcf.json","_cacheRoot":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_resolvedLanguagePackCoreLocation":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/83bd43bc519d15e50c4272c6cf5c1479df196a4d","_corruptedFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/corrupted.info","_languagePackSupport":true}
+# environment
+_ = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/node
+# environment
+MAVEN_HOME = /usr/environment/apache-maven-3.6.3
+# makefile (from 'config.mk', line 1)
+MAKEFILE_LIST :=  makefile config.mk
+# makefile (from 'makefile', line 19)
+RUNNING_INSTURCTION = qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial null -serial stdio
+# makefile (from 'makefile', line 2)
+MKFILE_PATH_COMMON = $(PROJECT_DIR)/source/common.mk
+# makefile (from 'makefile', line 20)
+DEBUG = qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial null -serial stdio -s -S
+# makefile (from 'makefile', line 1)
+DEPS_PATH = $(PROJECT_DIR)/link
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /root
+# environment
+SSH_CONNECTION = 71.187.230.215 61450 104.244.92.245 22
+# environment
+NO_PROXY = 127.0.0.1
+# environment
+XDG_RUNTIME_DIR = /run/user/0
+# makefile (from 'makefile', line 4)
+MKFILEFLAGS = --no-print-directory
+# environment
+VSCODE_LOG_STACK = false
+# environment
+MAVEN_BIN = /usr/environment/apache-maven-3.6.3/bin/
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = 
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = localhost:10.0
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /root/benjixu/dolphin2
+# environment
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-03c0cc33-a2e2-476e-9e8f-cc5095a875d5.sock
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
+# environment
+HOME = /root
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+LOGNAME = root
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# automatic
++F = $(notdir $+)
+# environment
+M2_HOME = /usr/environment/apache-maven-3.6.3
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# environment
+PLATFORMIO_PATH = /root/.platformio/penv/bin:/root/.platformio/penv:/root/.platformio/python3/bin:/root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
+# makefile (from 'makefile', line 17)
+BUILD_PATH = $(PROJECT_DIR)/build/arm
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+PATH = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
+# environment
+SHLVL = 3
+# environment
+JAVA_HOME = /usr/environment/jdk-11.0.12+7
+# makefile (from 'config.mk', line 5)
+BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
+# environment
+XDG_SESSION_ID = 1
+# environment
+USER = root
+# makefile
+.DEFAULT_GOAL := all
+# makefile (from 'makefile', line 18)
+SUFFIX = S
+# environment
+CLASSPATH = .:.:.:.::/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := make
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile (from 'config.mk', line 2)
+ARCH = arm
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# environment
+SSH_CLIENT = 71.187.230.215 61450 22
+# environment
+MAIL = /var/mail/root
+# makefile (from 'makefile', line 5)
+HEAD_PATH = $(PROJECT_DIR)/include
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+BROWSER = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin/helpers/browser.sh
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+PLATFORMIO_CALLER = vscode
+# makefile (from 'makefile', line 16)
+AARCH = aarch/arm
+# environment
+LC_ALL = C
+# automatic
+^F = $(notdir $^)
+# default
+SUFFIXES := 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/remote/node_modules
+# default
+.RECIPEPREFIX := 
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+LANG = C
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# variable set hash-table stats:
+# Load=89/1024=9%, Rehash=0, Collisions=11/142=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2050, inode 224003): 15 files, no impossibilities.
+
+# 15 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+# No implicit rules.
+
+# Files
+
+d:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 37):
+	$(DEBUG)
+
+# Not a target:
+config.mk:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-23 22:27:48.581319991
+#  File has been updated.
+#  Successfully updated.
+
+all:
+#  Command line target.
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := all
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=5/28=18%
+#  recipe to execute (from 'makefile', line 28):
+	@for dir in $(BUILD_DIR);	\
+	do	\
+		make -C $$dir;	\
+	done
+
+# Not a target:
+.SUFFIXES:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+makefile:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-23 22:27:48.581319991
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+run: all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 34):
+	$(RUNNING_INSTURCTION)
+
+clean:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 40):
+	rm -rf link/*.d \
+	$(PROJECT_DIR)/build/amd64/*.bin \
+	$(PROJECT_DIR)/build/arm/*.bin \
+	$(PROJECT_DIR)/build/amd64/*.elf \
+	$(PROJECT_DIR)/build/arm/*.elf \
+	$(PROJECT_DIR)/build/amd64/*.o \
+	$(PROJECT_DIR)/build/arm/*.o \
+	$(PROJECT_DIR)/build/amd64/boot/*.bin \
+	$(PROJECT_DIR)/build/arm/boot/*.bin \
+	$(PROJECT_DIR)/build/amd64/*.d \
+	$(PROJECT_DIR)/build/arm/*.d \
+	$(PROJECT_DIR)/build/amd64/kernel8.img \
+	$(PROJECT_DIR)/build/arm/kernel8.img \
+	$(PROJECT_DIR)/file/* 
+	
+
+# files hash-table stats:
+# Load=8/1024=1%, Rehash=0, Collisions=0/22=0%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+ 
+# strcache buffers: 1 (0) / strings = 23 / storage = 162 B / avg = 7 B
+# current buf: size = 8162 B / used = 162 B / count = 23 / avg = 7 B
+
+# strcache performance: lookups = 36 / hit rate = 36%
+# hash-table stats:
+# Load=23/8192=0%, Rehash=0, Collisions=1/36=3%
+# Finished Make data base on Thu Sep 23 22:28:17 2021
+
+ 

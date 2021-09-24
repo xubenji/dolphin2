@@ -10,12 +10,14 @@ ifeq ($(ARCH),x86)
 	BUILD_PATH				= $(PROJECT_DIR)/build/amd64
 	SUFFIX					= asm
 	RUNNING_INSTURCTION     = qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d
+	DEBUG					= qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d -s -S
 endif
 ifeq ($(ARCH),arm)
 	AARCH					= aarch/arm
 	BUILD_PATH				= $(PROJECT_DIR)/build/arm
 	SUFFIX					= S
 	RUNNING_INSTURCTION		= qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial null -serial stdio
+	DEBUG					= qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial null -serial stdio -s -S
 endif
 
 export AARCH
@@ -31,8 +33,8 @@ all:
 run:all
 	$(RUNNING_INSTURCTION)
 
-s:all
-	qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d -s -S
+d:
+	$(DEBUG)
 
 clean:
 	rm -rf link/*.d \

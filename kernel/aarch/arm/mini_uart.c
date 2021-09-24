@@ -1,3 +1,4 @@
+/*
 #include "arm/utils.h"
 #include "arm/peripherals/mini_uart.h"
 #include "arm/peripherals/gpio.h"
@@ -53,3 +54,4 @@ void uart_init ( void )
 
 	put32(AUX_MU_CNTL_REG,3);               //Finally, enable transmitter and receiver
 }
+*/

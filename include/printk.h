@@ -2,6 +2,7 @@
 #define	_PRINTK_H
 
 void test_print();
-void output();
+//void output();
+void show();
 
 #endif

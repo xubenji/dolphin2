@@ -12,7 +12,6 @@ print("请输入一个16进制的数字，我们将其转化为一个可读的�
 print("Please enter a hexnumber. We will convert it to comprehensible computer memory size，enter 'q' exit:")
 def main():
     hexnumber=input('Please input:')
-    print("\n")
     if hexnumber == 'q':
         return
     if hexnumber == 'Q':
