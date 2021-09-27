@@ -33,7 +33,7 @@ all:
 run:all
 	$(RUNNING_INSTURCTION)
 
-d:
+d:all
 	$(DEBUG)
 
 clean:

@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Sep 23 22:28:17 2021
+# Make data base, printed on Sun Sep 26 01:13:02 2021
 
 # Variables
 
@@ -24,8 +24,6 @@ VSCODE_AGENT_FOLDER = /root/.vscode-server
 VSCODE_LOG_NATIVE = false
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
-# environment
-PLATFORMIO_IDE = 2.3.3
 # makefile (from 'config.mk', line 3)
 PROJECT_DIR = $(shell pwd)
 # automatic
@@ -41,9 +39,9 @@ SHELL = /bin/sh
 # environment
 JRE_HOME = /usr/environment/jdk-11.0.12+7/jre
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_translationsConfigFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/tcf.json","_cacheRoot":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_resolvedLanguagePackCoreLocation":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/83bd43bc519d15e50c4272c6cf5c1479df196a4d","_corruptedFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_translationsConfigFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/tcf.json","_cacheRoot":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_resolvedLanguagePackCoreLocation":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/7f6ab5485bbc008386c4386d08766667e155244e","_corruptedFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/node
+_ = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/node
 # environment
 MAVEN_HOME = /usr/environment/apache-maven-3.6.3
 # makefile (from 'config.mk', line 1)
@@ -65,9 +63,9 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 61450 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 52379 104.244.92.245 22
 # environment
-NO_PROXY = 127.0.0.1
+PATH = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
 XDG_RUNTIME_DIR = /run/user/0
 # makefile (from 'makefile', line 4)
@@ -89,7 +87,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-03c0cc33-a2e2-476e-9e8f-cc5095a875d5.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-704f80b8-ccca-4bcc-9895-45004446ef80.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -112,8 +110,6 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 MAKELEVEL := 0
-# environment
-PLATFORMIO_PATH = /root/.platformio/penv/bin:/root/.platformio/penv:/root/.platformio/python3/bin:/root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # makefile (from 'makefile', line 17)
 BUILD_PATH = $(PROJECT_DIR)/build/arm
 # default
@@ -121,15 +117,13 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-PATH = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
-# environment
 SHLVL = 3
 # environment
 JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 5)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 1
+XDG_SESSION_ID = 12
 # environment
 USER = root
 # makefile
@@ -142,6 +136,8 @@ CLASSPATH = .:.:.:.::/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
+# environment
+OLDPWD = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e
 # default
 .VARIABLES := 
 # automatic
@@ -153,7 +149,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 61450 22
+SSH_CLIENT = 71.187.230.215 52379 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -161,13 +157,11 @@ HEAD_PATH = $(PROJECT_DIR)/include
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/bin/helpers/browser.sh
+BROWSER = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin/helpers/browser.sh
 # default
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# environment
-PLATFORMIO_CALLER = vscode
 # makefile (from 'makefile', line 16)
 AARCH = aarch/arm
 # environment
@@ -179,7 +173,7 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/83bd43bc519d15e50c4272c6cf5c1479df196a4d/remote/node_modules
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/remote/node_modules
 # default
 .RECIPEPREFIX := 
 # default
@@ -189,7 +183,7 @@ LANG = C
 # environment
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # variable set hash-table stats:
-# Load=89/1024=9%, Rehash=0, Collisions=11/142=8%
+# Load=86/1024=8%, Rehash=0, Collisions=10/139=7%
 
 # Pattern-specific Variable Values
 
@@ -207,7 +201,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 
 # Files
 
-d:
+d: all
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -217,7 +211,7 @@ d:
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-23 22:27:48.581319991
+#  Last modified 2021-09-23 23:29:10.653782962
 #  File has been updated.
 #  Successfully updated.
 
@@ -261,7 +255,7 @@ all:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-23 22:27:48.581319991
+#  Last modified 2021-09-25 19:07:07.958923712
 #  File has been updated.
 #  Successfully updated.
 
@@ -283,6 +277,7 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 40):
+ 
 	rm -rf link/*.d \
 	$(PROJECT_DIR)/build/amd64/*.bin \
 	$(PROJECT_DIR)/build/arm/*.bin \
@@ -300,20 +295,19 @@ clean:
 	
 
 # files hash-table stats:
-# Load=8/1024=1%, Rehash=0, Collisions=0/22=0%
+# Load=8/1024=1%, Rehash=0, Collisions=0/23=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
- 
 # strcache buffers: 1 (0) / strings = 23 / storage = 162 B / avg = 7 B
 # current buf: size = 8162 B / used = 162 B / count = 23 / avg = 7 B
 
-# strcache performance: lookups = 36 / hit rate = 36%
+# strcache performance: lookups = 37 / hit rate = 37%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=1/36=3%
-# Finished Make data base on Thu Sep 23 22:28:17 2021
+# Load=23/8192=0%, Rehash=0, Collisions=1/37=3%
+# Finished Make data base on Sun Sep 26 01:13:02 2021
 
  

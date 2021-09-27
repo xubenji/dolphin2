@@ -20,10 +20,11 @@ endif
 
 ifeq ($(ARCH),arm)
 CC			= aarch64-elf-gcc -c
-COPS 		= -Wall -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -mgeneral-regs-only -g -fno-stack-protector
+COPS 		= -Wall -O2 -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc
+#-mgeneral-regs-only
 ASMOPS		= -I$(HEAD_PATH)
 LD			= aarch64-elf-ld
-LDOPS 		= -T $(PROJECT_DIR)/link/lds/link_arm.lds -o
+LDOPS 		= -nostdlib -nostartfiles -T $(PROJECT_DIR)/link/lds/link_arm.lds -o
 KERNEL_ELF  = kernel8.elf
 OBJCOPY 	= aarch64-elf-objcopy -O binary
 endif

@@ -30,6 +30,33 @@
 unsigned int width, height, pitch, isrgb;   /* dimensions and channel order */
 unsigned char *lfb;                         /* raw frame buffer address */
 
+#define x 0x00ffffff
+
+//22x18
+int A[396] ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    \ 
+             0,0,0,0,0,0,x,x,x,x,0,0,0,0,0,0,0,0,    \
+             0,0,0,0,0,0,x,x,x,x,0,0,0,0,0,0,0,0,    \
+             0,0,0,0,0,x,x,0,0,x,x,0,0,0,0,0,0,0,    \
+             0,0,0,0,0,x,x,0,0,x,x,0,0,0,0,0,0,0,    \
+             0,0,0,0,0,x,x,0,0,x,x,0,0,0,0,0,0,0,    \
+             0,0,0,0,x,x,0,0,0,0,x,x,0,0,0,0,0,0,    \
+             0,0,0,0,x,x,0,0,0,0,x,x,0,0,0,0,0,0,   \
+             0,0,0,0,x,x,0,0,0,0,0,x,x,0,0,0,0,0,   \
+             0,0,0,0,x,x,0,0,0,0,0,x,x,0,0,0,0,0,   \
+             0,0,0,x,x,x,x,x,x,x,x,x,x,x,0,0,0,0,   \
+             0,0,0,x,x,x,x,x,x,x,x,x,x,x,0,0,0,0,   \
+             0,0,0,x,x,0,0,0,0,0,0,0,x,x,0,0,0,0,   \
+             0,0,x,x,0,0,0,0,0,0,0,0,0,x,x,0,0,0,   \
+             0,0,x,x,0,0,0,0,0,0,0,0,0,x,x,0,0,0,   \
+             0,0,x,x,0,0,0,0,0,0,0,0,0,x,x,0,0,0,   \
+             0,x,x,0,0,0,0,0,0,0,0,0,0,0,x,x,0,0,   \
+             0,x,x,0,0,0,0,0,0,0,0,0,0,0,x,x,0,0,   \
+             0,x,x,0,0,0,0,0,0,0,0,0,0,0,x,x,0,0,   \
+             x,x,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,0,   \
+             x,x,0,0,0,0,0,0,0,0,0,0,0,0,0,x,x,0,   \
+             0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,   \
+             };
+
 /**
  * Set screen resolution to 1024x768
  */
@@ -94,36 +121,45 @@ void lfb_init()
 }
 
 /**
- * Show a picture
+ * Show a picture 
  */
 void lfb_showpicture()
 {
-    int x,y;
+    int z,y;
     unsigned char *ptr=lfb;
-    char *data=homer_data, pixel[4];
+    //char *data=homer_data, pixel[4];
+    int t=0;
 
     //ptr += (height-homer_height)/2*pitch + (width-homer_width)*2;
     for(y=0;y<homer_height;y++) {
-        for(x=0;x<homer_width;x++) {
-            HEADER_PIXE(data, pixel);
+        for(z=0;z<homer_width;z++) {
+            //HEADER_PIXE(data, pixel);
             // the image is in RGB. So if we have an RGB framebuffer, we can copy the pixels
             // directly, but for BGR we must swap R (pixel[0]) and B (pixel[2]) channels.
             //*((unsigned int*)ptr)=isrgb ? *((unsigned int *)&pixel) : (unsigned int)(pixel[0]<<16 | pixel[1]<<8 | pixel[2]);
-            *((unsigned int*)ptr)=0xFFFFFFFFF;
+            
+
+            *((unsigned int*)ptr)=0x00ffffff; //00 B G R
             ptr+=4;
         }
         ptr+=pitch-homer_width*4;
     }
+
+    ptr=lfb;
+    
+    for (int j = 0; j < 22; j++)
+    {
+    for (int i = 0; i < 18; i++)
+    {
+        t++;
+
+        *((unsigned int*)ptr)=A[t]; //00 B G R
+      //  *((unsigned int*)ptr)=P->B;
+       // *((unsigned int*)(ptr+1))=P->G;
+       // *((unsigned int*)(ptr+2))=P->R;
+    
+        ptr+=4;
+    }
+    ptr+=homer_width*4 - 18 * 4;
+    }
 }
-/*
-文档名称：《代码笔记》
-文档格式：PDF文档
-特别注意：建议电脑端打开下载，手机端打开偶尔会莫名报错
-
-下载链接: https://pan.baidu.com/s/1pWqJYzw4Yvnk2QmkstmiZg
-
-提取码: gh5g 建议电脑端打开下载，手机端偶尔会莫名报错！
-
-
-感谢支持，老规矩，后续整理出来的资源和文档还会持续在此分享！
-*/
