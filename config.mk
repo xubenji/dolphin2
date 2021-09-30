@@ -1,5 +1,5 @@
-#x86 or arm
-export ARCH 	  		 = arm
+#The computer architecture. 
+export ARCH 	  		 = x86
 export PROJECT_DIR		 = $(shell pwd)
 
 BUILD_DIR				 = $(PROJECT_DIR)/boot/	\

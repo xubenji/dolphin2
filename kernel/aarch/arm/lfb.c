@@ -62,6 +62,7 @@ int A[396] ={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,    \
  */
 void lfb_init()
 {
+    uart_puts("AAAAA\n");
     mbox[0] = 35*4;
     mbox[1] = MBOX_REQUEST;
 
@@ -131,7 +132,7 @@ void lfb_showpicture()
     int t=0;
 
     //ptr += (height-homer_height)/2*pitch + (width-homer_width)*2;
-    for(y=0;y<homer_height;y++) {
+  /*  for(y=0;y<homer_height;y++) {
         for(z=0;z<homer_width;z++) {
             //HEADER_PIXE(data, pixel);
             // the image is in RGB. So if we have an RGB framebuffer, we can copy the pixels
@@ -139,11 +140,11 @@ void lfb_showpicture()
             //*((unsigned int*)ptr)=isrgb ? *((unsigned int *)&pixel) : (unsigned int)(pixel[0]<<16 | pixel[1]<<8 | pixel[2]);
             
 
-            *((unsigned int*)ptr)=0x00ffffff; //00 B G R
+            *((unsigned int*)ptr)=0x00000000; //00 B G R
             ptr+=4;
         }
         ptr+=pitch-homer_width*4;
-    }
+    }*/
 
     ptr=lfb;
     

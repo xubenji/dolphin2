@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Sep 26 01:13:02 2021
+# Make data base, printed on Thu Sep 30 16:54:01 2021
 
 # Variables
 
@@ -46,12 +46,12 @@ _ = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/node
 MAVEN_HOME = /usr/environment/apache-maven-3.6.3
 # makefile (from 'config.mk', line 1)
 MAKEFILE_LIST :=  makefile config.mk
-# makefile (from 'makefile', line 19)
-RUNNING_INSTURCTION = qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial null -serial stdio
+# makefile (from 'makefile', line 12)
+RUNNING_INSTURCTION = qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d
 # makefile (from 'makefile', line 2)
 MKFILE_PATH_COMMON = $(PROJECT_DIR)/source/common.mk
-# makefile (from 'makefile', line 20)
-DEBUG = qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial null -serial stdio -s -S
+# makefile (from 'makefile', line 13)
+DEBUG = qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d -s -S
 # makefile (from 'makefile', line 1)
 DEPS_PATH = $(PROJECT_DIR)/link
 # 'override' directive
@@ -63,7 +63,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 52379 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 58682 104.244.92.245 22
 # environment
 PATH = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
@@ -87,7 +87,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-704f80b8-ccca-4bcc-9895-45004446ef80.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-c086c4d3-ad07-4561-aec7-70f76f6da832.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -110,8 +110,8 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
 MAKELEVEL := 0
-# makefile (from 'makefile', line 17)
-BUILD_PATH = $(PROJECT_DIR)/build/arm
+# makefile (from 'makefile', line 10)
+BUILD_PATH = $(PROJECT_DIR)/build/amd64
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -123,33 +123,31 @@ JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 5)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 12
+XDG_SESSION_ID = 3
 # environment
 USER = root
 # makefile
 .DEFAULT_GOAL := all
-# makefile (from 'makefile', line 18)
-SUFFIX = S
+# makefile (from 'makefile', line 11)
+SUFFIX = asm
 # environment
 CLASSPATH = .:.:.:.::/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib:/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.0.12+7/jre/lib
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
-# environment
-OLDPWD = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e
 # default
 .VARIABLES := 
 # automatic
 *F = $(notdir $*)
 # makefile (from 'config.mk', line 2)
-ARCH = arm
+ARCH = x86
 # makefile
 MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 52379 22
+SSH_CLIENT = 71.187.230.215 58682 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -162,8 +160,8 @@ BROWSER = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin/
 MAKEFILES := 
 # automatic
 <F = $(notdir $<)
-# makefile (from 'makefile', line 16)
-AARCH = aarch/arm
+# makefile (from 'makefile', line 9)
+AARCH = aarch/amd64
 # environment
 LC_ALL = C
 # automatic
@@ -183,7 +181,7 @@ LANG = C
 # environment
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # variable set hash-table stats:
-# Load=86/1024=8%, Rehash=0, Collisions=10/139=7%
+# Load=85/1024=8%, Rehash=0, Collisions=10/138=7%
 
 # Pattern-specific Variable Values
 
@@ -191,9 +189,9 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 
 # Directories
 
-# . (device 2050, inode 224003): 15 files, no impossibilities.
+# . (device 2050, inode 224003): 17 files, no impossibilities.
 
-# 15 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -211,7 +209,7 @@ d: all
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-23 23:29:10.653782962
+#  Last modified 2021-09-30 00:58:13.958227594
 #  File has been updated.
 #  Successfully updated.
 
@@ -255,7 +253,7 @@ all:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-25 19:07:07.958923712
+#  Last modified 2021-09-27 20:40:22.672617879
 #  File has been updated.
 #  Successfully updated.
 
@@ -277,7 +275,6 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'makefile', line 40):
- 
 	rm -rf link/*.d \
 	$(PROJECT_DIR)/build/amd64/*.bin \
 	$(PROJECT_DIR)/build/arm/*.bin \
@@ -292,6 +289,7 @@ clean:
 	$(PROJECT_DIR)/build/amd64/kernel8.img \
 	$(PROJECT_DIR)/build/arm/kernel8.img \
 	$(PROJECT_DIR)/file/* 
+ 
 	
 
 # files hash-table stats:
@@ -302,12 +300,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 23 / storage = 162 B / avg = 7 B
-# current buf: size = 8162 B / used = 162 B / count = 23 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 25 / storage = 188 B / avg = 7 B
+# current buf: size = 8162 B / used = 188 B / count = 25 / avg = 7 B
 
-# strcache performance: lookups = 37 / hit rate = 37%
+# strcache performance: lookups = 39 / hit rate = 35%
 # hash-table stats:
-# Load=23/8192=0%, Rehash=0, Collisions=1/37=3%
-# Finished Make data base on Sun Sep 26 01:13:02 2021
+# Load=25/8192=0%, Rehash=0, Collisions=1/39=3%
+# Finished Make data base on Thu Sep 30 16:54:01 2021
 
  

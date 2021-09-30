@@ -9,6 +9,8 @@ DEPS 		= $(addprefix $(DEPS_PATH)/,$(SRCS:.c=.d))
 OBJS 		= $(wildcard $(BUILD_PATH)/*.o)
 
 ifeq ($(ARCH),x86)
+NASM 		= nasm
+ASM_FLAGS   = -f elf
 CC 			= gcc -c 
 COPS		= -I$(HEAD_PATH) -g -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone
 ASMOPS		= -I$(HEAD_PATH)
@@ -55,4 +57,7 @@ $(BUILD_PATH)/%.o: %.c
 
 $(BUILD_PATH)/%.o: %.$(SUFFIX) 
 	$(CC) $(ASMOPS) -o $@ -c $(filter %.$(SUFFIX),$^)
+
+$(BUILD_PATH)/%.o: %.asm
+	$(NASM) $(ASM_FLAGS) -o $@ $^
 

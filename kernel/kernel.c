@@ -1,5 +1,9 @@
 #include "printk.h"
+#include "init.h"
 
 void kernel_init(void){
-    test_print();
+    init();
+    //printk("heelop2");
+    while(1){}
+    //test_print();
 }
