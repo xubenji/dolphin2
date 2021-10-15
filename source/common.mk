@@ -10,11 +10,12 @@ OBJS 		= $(wildcard $(BUILD_PATH)/*.o)
 
 ifeq ($(ARCH),x86)
 NASM 		= nasm
-ASM_FLAGS   = -f elf
-CC 			= gcc -c 
-COPS		= -I$(HEAD_PATH) -g -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone
+ASM_FLAGS   = -f elf64 -F dwarf
+CC 			= gcc 
+COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -g
 ASMOPS		= -I$(HEAD_PATH)
 LD 			= ld 
+#时刻要注意init.o是不是第一个被链接
 LDOPS 		= -nostdlib -T $(PROJECT_DIR)/link/lds/link_x86.lds -o
 KERNEL_ELF  = kernel8.elf
 OBJCOPY 	= objcopy -O binary
@@ -42,7 +43,7 @@ export OBJCOPY
 all: $(BIN) $(OBJ)
 
 $(DEPS_PATH)/%.d:%.c
-	gcc -I$(HEAD_PATH) -MM $(filter %.c,$^) | sed 's,\(.*\)\.o[ :]*,$(BUILD_PATH)/\1.o $@:,g' > $@
+	$(CC) -I$(HEAD_PATH) -MM $(filter %.c,$^) | sed 's,\(.*\)\.o[ :]*,$(BUILD_PATH)/\1.o $@:,g' > $@
 
 -include $(DEPS)
 
@@ -53,7 +54,7 @@ $(KERNEL_ELF): $(OBJS)
 	$(LD) $(LDOPS) $@ $^
 
 $(BUILD_PATH)/%.o: %.c 
-	$(CC) $(COPS) -o $@ -c $(filter %.c,$^)
+	$(CC) $(COPS) -o  $@ -c $(filter %.c,$^) 
 
 $(BUILD_PATH)/%.o: %.$(SUFFIX) 
 	$(CC) $(ASMOPS) -o $@ -c $(filter %.$(SUFFIX),$^)

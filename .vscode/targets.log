@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Sep 30 16:54:01 2021
+# Make data base, printed on Wed Oct 13 17:45:23 2021
 
 # Variables
 
@@ -39,7 +39,7 @@ SHELL = /bin/sh
 # environment
 JRE_HOME = /usr/environment/jdk-11.0.12+7/jre
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_translationsConfigFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/tcf.json","_cacheRoot":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn","_resolvedLanguagePackCoreLocation":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/7f6ab5485bbc008386c4386d08766667e155244e","_corruptedFile":"/root/.vscode-server/data/clp/98b06e5fc1e607fc0dd054b0c5455cc9.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
 _ = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/node
 # environment
@@ -47,11 +47,11 @@ MAVEN_HOME = /usr/environment/apache-maven-3.6.3
 # makefile (from 'config.mk', line 1)
 MAKEFILE_LIST :=  makefile config.mk
 # makefile (from 'makefile', line 12)
-RUNNING_INSTURCTION = qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d
+RUNNING_INSTURCTION = qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d
 # makefile (from 'makefile', line 2)
 MKFILE_PATH_COMMON = $(PROJECT_DIR)/source/common.mk
 # makefile (from 'makefile', line 13)
-DEBUG = qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d -s -S
+DEBUG = qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d -s -S 
 # makefile (from 'makefile', line 1)
 DEPS_PATH = $(PROJECT_DIR)/link
 # 'override' directive
@@ -63,7 +63,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 58682 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 52880 104.244.92.245 22
 # environment
 PATH = /root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/root/.vscode-server/bin/7f6ab5485bbc008386c4386d08766667e155244e/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
@@ -87,7 +87,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-c086c4d3-ad07-4561-aec7-70f76f6da832.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-c3253672-d62b-42eb-9891-7955c5cca34b.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -123,7 +123,7 @@ JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 5)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 3
+XDG_SESSION_ID = 16
 # environment
 USER = root
 # makefile
@@ -147,7 +147,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 58682 22
+SSH_CLIENT = 71.187.230.215 52880 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -199,17 +199,10 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 
 # Files
 
-d: all
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'makefile', line 37):
-	$(DEBUG)
-
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-30 00:58:13.958227594
+#  Last modified 2021-10-09 14:05:32.664177194
 #  File has been updated.
 #  Successfully updated.
 
@@ -250,10 +243,17 @@ all:
 #  Modification time never checked.
 #  File has not been updated.
 
+debug: all
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  recipe to execute (from 'makefile', line 37):
+	$(DEBUG)
+
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-09-27 20:40:22.672617879
+#  Last modified 2021-10-09 01:31:51.023454572
 #  File has been updated.
 #  Successfully updated.
 
@@ -289,7 +289,6 @@ clean:
 	$(PROJECT_DIR)/build/amd64/kernel8.img \
 	$(PROJECT_DIR)/build/arm/kernel8.img \
 	$(PROJECT_DIR)/file/* 
- 
 	
 
 # files hash-table stats:
@@ -299,13 +298,14 @@ clean:
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
+ 
 
-# strcache buffers: 1 (0) / strings = 25 / storage = 188 B / avg = 7 B
-# current buf: size = 8162 B / used = 188 B / count = 25 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 25 / storage = 190 B / avg = 7 B
+# current buf: size = 8162 B / used = 190 B / count = 25 / avg = 7 B
 
 # strcache performance: lookups = 39 / hit rate = 35%
 # hash-table stats:
 # Load=25/8192=0%, Rehash=0, Collisions=1/39=3%
-# Finished Make data base on Thu Sep 30 16:54:01 2021
+# Finished Make data base on Wed Oct 13 17:45:23 2021
 
  

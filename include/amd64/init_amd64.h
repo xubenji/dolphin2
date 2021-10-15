@@ -1,1 +1,0 @@
-#define BASE 0xb8000

@@ -9,8 +9,8 @@ ifeq ($(ARCH),x86)
 	AARCH					= aarch/amd64
 	BUILD_PATH				= $(PROJECT_DIR)/build/amd64
 	SUFFIX					= asm
-	RUNNING_INSTURCTION     = qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d
-	DEBUG					= qemu-system-x86_64 -cpu Skylake-Server -m 1024 -hda $(BUILD_PATH)/boot.img -boot d -s -S
+	RUNNING_INSTURCTION     = qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d
+	DEBUG					= qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d -s -S 
 endif
 ifeq ($(ARCH),arm)
 	AARCH					= aarch/arm
@@ -33,22 +33,16 @@ all:
 run:all
 	$(RUNNING_INSTURCTION)
 
-d:all
+debug:all
 	$(DEBUG)
 
 clean:
 	rm -rf link/*.d \
-	$(PROJECT_DIR)/build/amd64/*.bin \
-	$(PROJECT_DIR)/build/arm/*.bin \
-	$(PROJECT_DIR)/build/amd64/*.elf \
-	$(PROJECT_DIR)/build/arm/*.elf \
-	$(PROJECT_DIR)/build/amd64/*.o \
-	$(PROJECT_DIR)/build/arm/*.o \
-	$(PROJECT_DIR)/build/amd64/boot/*.bin \
-	$(PROJECT_DIR)/build/arm/boot/*.bin \
-	$(PROJECT_DIR)/build/amd64/*.d \
-	$(PROJECT_DIR)/build/arm/*.d \
-	$(PROJECT_DIR)/build/amd64/kernel8.img \
-	$(PROJECT_DIR)/build/arm/kernel8.img \
+	$(PROJECT_DIR)/build/*/*.bin \
+	$(PROJECT_DIR)/build/*/*.elf \
+	$(PROJECT_DIR)/build/*/*.o \
+	$(PROJECT_DIR)/build/*/boot/*.bin \
+	$(PROJECT_DIR)/build/*/*.d \
+	$(PROJECT_DIR)/build/*/kernel8.img \
 	$(PROJECT_DIR)/file/* 
 	

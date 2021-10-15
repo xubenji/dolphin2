@@ -12,12 +12,10 @@ void output(char* str){
 }
 */
 
-#include "arm/lfb.h"
 #include "arm/uart.h"
-#include "arm/lfb.h"
 #include "arm/mbox.h"
 
-void init(){
+void init_all(){
    uart_init();
 
     mbox[0] = 8*4;                  // length of the message

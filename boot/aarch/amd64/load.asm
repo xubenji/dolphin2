@@ -103,6 +103,7 @@ PMEntry:
     mov dword[0x70000],0x71007
     mov dword[0x71000],10000111b
 
+
     lgdt [Gdt64Ptr]
 
     mov eax,cr4
@@ -130,16 +131,6 @@ PEnd:
 [BITS 64]
 LMEntry:
     mov rsp,0x7c00
-
-    lgdt [Gdt64PtrIn64Bit]
-    push 8
-    push KernelEntry
-    db 0x48
-    retf
-
-KernelEntry:
-    mov byte[0xb8000],'E'
-    mov byte[0xb8001],0xa
 
     cld
     mov rdi,0x200000
@@ -193,16 +184,3 @@ Gdt64Len: equ $-Gdt64
 
 Gdt64Ptr: dw Gdt64Len-1
           dd Gdt64
-
-
-
-Gdt64In64Bit:
-                dq 0
-                dq 0x0020980000000000
-
-Gdt64LenIn64Bit: equ $-Gdt64In64Bit
-
-
-Gdt64PtrIn64Bit: dw Gdt64LenIn64Bit-1
-                 dq Gdt64In64Bit
-

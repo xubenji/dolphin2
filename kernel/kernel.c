@@ -1,9 +1,15 @@
-#include "printk.h"
 #include "init.h"
 
-void kernel_init(void){
-    init();
-    //printk("heelop2");
-    while(1){}
-    //test_print();
+void kernel_init(void)
+{
+  //  char* p = (char*)0xb8000;
+
+    init_all();
+    printk("abc");
+
+   // p[0] = 'C';
+   // p[1] = 0xa;
+  // print_char('S');
+  // init_idt();
+  
 }
