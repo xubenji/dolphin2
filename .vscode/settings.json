@@ -1,6 +1,9 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
-        "gpio.h": "c"
-    }
+        "gpio.h": "c",
+        "stdarg.h": "c",
+        "stdint.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }

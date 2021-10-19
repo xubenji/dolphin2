@@ -1,4 +1,3 @@
-
 #include "amd64/print_amd64.h"
 
 DisPlay_Char chs;

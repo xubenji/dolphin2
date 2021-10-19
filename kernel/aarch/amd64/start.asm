@@ -46,6 +46,7 @@ SetTss:
     mov ax,0x20
     ltr ax
 
+
 InitPIT:
     mov al,(1<<2)|(3<<4)
     out 0x43,al
@@ -85,12 +86,12 @@ InitPIC:
     retf
 
 KernelEntry: 
-    xor ax,ax
-    mov ss,ax
-    
+#    xor ax,ax
+#    mov ss,ax
     mov rsp,0x200000
     call kernel_init
     sti
+
 End:
     hlt
     jmp End

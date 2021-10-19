@@ -1,17 +1,3 @@
-/*
-#include "arm/mini_uart.h"
-
-void output(char* str){
-    uart_init();
-
-    uart_send_string(str);
-
-    while (1) {
-		uart_send(uart_recv());
-    }
-}
-*/
-
 #include "arm/uart.h"
 #include "arm/mbox.h"
 
@@ -29,7 +15,4 @@ void init_all(){
 
     mbox[7] = MBOX_TAG_LAST; 
 
-   //uart_puts("hello");
-   //lfb_init();
-   //lfb_showpicture();
 }
