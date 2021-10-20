@@ -86,8 +86,11 @@ InitPIC:
     retf
 
 KernelEntry: 
+
+#    开关中断代码
 #    xor ax,ax
 #    mov ss,ax
+
     mov rsp,0x200000
     call kernel_init
     sti

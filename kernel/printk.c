@@ -34,7 +34,7 @@ void printk(const char* format, ...){
                     break;
 
                 case 's':
-                    string = va_arg(args, char*);
+                    string = va_arg(args, int8_t*);
                     buffer_size += read_string(buffer, buffer_size, string);
                     break;
 
@@ -52,14 +52,11 @@ int read_string(char *buffer, int position, const char *string)
 {
     int index = 0;
 
-    while (string[index] != '\0'){
-        index++;
+    for (index = 0; string[index] != '\0'; index++) {
+        buffer[position++] = string[index];
     }
-    for(int i = 0; i < index - 2; i++){
-        buffer[position++] = string[i];
-    }
-    
-    return index - 2;
+
+    return index;
 }
 
 int udecimal_to_string(char *buffer, int position, uint64_t digits)

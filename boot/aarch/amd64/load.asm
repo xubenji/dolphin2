@@ -49,7 +49,7 @@ GetMemInfo:
     mov edx,0x534d4150
     mov ecx,20
     int 0x15
-    jc GetMemInfo
+    jnc GetMemInfo
 
 GetMemDone:
 TestA20:

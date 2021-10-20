@@ -1,5 +1,5 @@
 #include "amd64/debug.h"
-#include "amd64/print_amd64.h"
+#include "amd64/put.h"
 #include "stdint.h"
 
 void error_check(uint8_t *file, uint64_t line){

@@ -8,7 +8,7 @@ void kernel_init(void)
   //  char* p = (char*)0xb8000;
 
     init_all();
-    char a[5]="32a55";
+    char a[7]="32a55AA";
     int b = 567;
     printk("abc%s11 %d",a,b);
     while (1)
