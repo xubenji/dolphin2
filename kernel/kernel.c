@@ -10,7 +10,9 @@ void kernel_init(void)
     init_all();
     char a[7]="32a55AA";
     int b = 567;
-    printk("abc%s11 %d",a,b);
+    int c = a;
+    int d = &b;
+    printk("abc%s11 %d  adress A:%x  address B:%x",a,b,a,&b);
     while (1)
     {
       /* code */
@@ -19,6 +21,6 @@ void kernel_init(void)
    // p[0] = 'C';
    // p[1] = 0xa;
   // print_char('S');
-  // init_idt();
+  // init_idt(); 524272 524268  2097105  2097100
   
 }

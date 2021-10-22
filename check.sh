@@ -1,0 +1,1 @@
+objdump -j .text -l -C -S ./file/kernel8.elf

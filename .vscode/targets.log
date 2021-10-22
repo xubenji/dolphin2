@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Oct 19 22:55:34 2021
+# Make data base, printed on Fri Oct 22 02:19:01 2021
 
 # Variables
 
@@ -63,7 +63,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 65199 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 55328 104.244.92.245 22
 # environment
 PATH = /root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/bin:/root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
@@ -87,7 +87,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-1b928766-10c3-4d21-815a-d90218d2831e.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-054a7e7c-a8a9-4e0a-8ae0-fe1c984fcb4c.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -123,7 +123,7 @@ JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 5)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 4
+XDG_SESSION_ID = 1
 # environment
 USER = root
 # makefile
@@ -136,8 +136,6 @@ CLASSPATH = .:.:.:.::/usr/environment/jdk-11.0.12+7/lib:/usr/environment/jdk-11.
 %D = $(patsubst %/,%,$(dir $%))
 # default
 MAKE_COMMAND := make
-# environment
-OLDPWD = /root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643
 # default
 .VARIABLES := 
 # automatic
@@ -149,7 +147,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 65199 22
+SSH_CLIENT = 71.187.230.215 55328 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -183,7 +181,7 @@ LANG = C
 # environment
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # variable set hash-table stats:
-# Load=86/1024=8%, Rehash=0, Collisions=10/139=7%
+# Load=85/1024=8%, Rehash=0, Collisions=10/138=7%
 
 # Pattern-specific Variable Values
 
@@ -191,9 +189,9 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 
 # Directories
 
-# . (device 2050, inode 224003): 16 files, no impossibilities.
+# . (device 2050, inode 224003): 17 files, no impossibilities.
 
-# 16 files, no impossibilities in 1 directories.
+# 17 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -204,7 +202,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-19 22:46:54.362348467
+#  Last modified 2021-10-21 16:55:35.304520193
 #  File has been updated.
 #  Successfully updated.
 
@@ -285,6 +283,7 @@ clean:
 	$(PROJECT_DIR)/build/*/*.d \
 	$(PROJECT_DIR)/build/*/kernel8.img \
 	$(PROJECT_DIR)/file/* 
+ 
 	
 
 # files hash-table stats:
@@ -295,13 +294,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 24 / storage = 181 B / avg = 7 B
-# current buf: size = 8162 B / used = 181 B / count = 24 / avg = 7 B
- 
+# strcache buffers: 1 (0) / strings = 25 / storage = 190 B / avg = 7 B
+# current buf: size = 8162 B / used = 190 B / count = 25 / avg = 7 B
 
-# strcache performance: lookups = 38 / hit rate = 36%
+# strcache performance: lookups = 39 / hit rate = 35%
 # hash-table stats:
-# Load=24/8192=0%, Rehash=0, Collisions=1/38=3%
-# Finished Make data base on Tue Oct 19 22:55:34 2021
+# Load=25/8192=0%, Rehash=0, Collisions=1/39=3%
+# Finished Make data base on Fri Oct 22 02:19:01 2021
 
  
