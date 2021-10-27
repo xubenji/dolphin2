@@ -12,19 +12,19 @@ ifeq ($(ARCH),x86)
 NASM 		= nasm
 ASM_FLAGS   = -f elf64 -F dwarf
 CC 			= gcc 
-COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -g -O0
+COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -w -g -O2
 ASMOPS		= -I$(HEAD_PATH)
 LD 			= ld 
 #时刻要注意init.o是不是第一个被链接
 LDOPS 		= -nostdlib -T $(PROJECT_DIR)/link/lds/link_x86.lds -o
 KERNEL_ELF  = kernel8.elf
 OBJCOPY 	= objcopy -O binary
-DISASSEMBLY = -j .text -l -C -S -d printk.o $(PROJECT_DIR)/build/amd64/$(KERNEL_ELF) 
+DISASSEMBLY = -j .text -l -C -S -d -mi386:x86-64:intel $(DEBUG_FILE) $(PROJECT_DIR)/build/amd64/$(KERNEL_ELF) 
 endif
 
 ifeq ($(ARCH),arm)
-CC			= aarch64-elf-gcc -c
-COPS 		= -Wall -O0 -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc
+CC			= aarch64-elf-gcc
+COPS 		= -Wall -O0 -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
 #-mgeneral-regs-only
 ASMOPS		= -I$(HEAD_PATH)
 LD			= aarch64-elf-ld

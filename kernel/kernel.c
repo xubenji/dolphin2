@@ -9,10 +9,12 @@ void kernel_init(void)
 
     init_all();
     char a[7]="32a55AA";
-    int b = 567;
-    int c = a;
-    int d = &b;
-    printk("abc%s11 %d  adress A:%x  address B:%x",a,b,a,&b);
+    //int b = 567;
+    //int c = a;
+    //int d = &b;
+    //printk("abc%s11 %d",a,b);
+    printk("abc%s11 ",a);
+
     while (1)
     {
       /* code */
