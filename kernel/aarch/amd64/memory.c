@@ -1,6 +1,6 @@
 #include "amd64/memory.h"
 #include "printk.h"
-#include "amd64/debug.h"
+#include "debug.h"
 
 static struct FreeMemRegion FreeMemRegion[50];
 

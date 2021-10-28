@@ -12,7 +12,7 @@ ifeq ($(ARCH),x86)
 NASM 		= nasm
 ASM_FLAGS   = -f elf64 -F dwarf
 CC 			= gcc 
-COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -w -g -O2
+COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -w -g -O0
 ASMOPS		= -I$(HEAD_PATH)
 LD 			= ld 
 #时刻要注意init.o是不是第一个被链接

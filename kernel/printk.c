@@ -1,10 +1,13 @@
 #include "printk.h"
-//#include "types.h"
 #include "stdint.h"
 #include "stdarg.h"
 
 void printk(const char* format, ...){
     char buffer[1024];
+    for (uint32_t i = 0; i < 1024; i++){
+        buffer[i] = 0;
+    }
+    
     int buffer_size=0;
     int64_t integer=0;
     char * string=0;
@@ -45,7 +48,6 @@ void printk(const char* format, ...){
         }
     }
     puts(buffer);
-    //puts(str);
 }
 
 int read_string(char *buffer, int position, const char *string)

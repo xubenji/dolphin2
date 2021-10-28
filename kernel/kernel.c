@@ -1,7 +1,12 @@
+
+
+
 #include "init.h"
 //#include "types.h"
 #include "stdint.h"
 #include "stdarg.h"
+#include "debug.h"
+
 
 void kernel_init(void)
 {
@@ -14,6 +19,8 @@ void kernel_init(void)
     //int d = &b;
     //printk("abc%s11 %d",a,b);
     printk("abc%s11 ",a);
+
+    ASSERT(0);
 
     while (1)
     {
