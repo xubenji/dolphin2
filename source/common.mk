@@ -12,7 +12,7 @@ ifeq ($(ARCH),x86)
 NASM 		= nasm
 ASM_FLAGS   = -f elf64 -F dwarf
 CC 			= gcc 
-COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -w -g -O0
+COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -w -g $(OPTIMIZATION)
 ASMOPS		= -I$(HEAD_PATH)
 LD 			= ld 
 #时刻要注意init.o是不是第一个被链接
@@ -24,7 +24,7 @@ endif
 
 ifeq ($(ARCH),arm)
 CC			= aarch64-elf-gcc
-COPS 		= -Wall -O0 -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
+COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
 #-mgeneral-regs-only
 ASMOPS		= -I$(HEAD_PATH)
 LD			= aarch64-elf-ld

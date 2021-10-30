@@ -49,7 +49,7 @@
     "externalConsole": false,
     "MIMode": "gdb",
     //"targetArchitecture": "x86",
-   // "preLaunchTask": "make debug",
+    "preLaunchTask": "build",
     "setupCommands":
     [
     {
