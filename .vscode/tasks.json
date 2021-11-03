@@ -35,7 +35,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "gnome-terminal -e 'make debug'",
+            "command": "sudo gnome-terminal -e 'make debug'",
             //"args": ["-g", "${workspaceFolder}/src/${fileBasename}", "-std=c++11", "-o", "${workspaceFolder}/build/${fileBasenameNoExtension}"]
         },
          ]

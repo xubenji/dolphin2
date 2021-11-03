@@ -1,5 +1,7 @@
 section .data
 
+VIRTUAL_BASE_ADDR equ 0xffff800000000000
+
 Gdt64:
     dq 0
     dq 0x0020980000000000
@@ -21,7 +23,7 @@ Gdt64Ptr: dw Gdt64Len-1
 
 Tss:
     dd 0
-    dq 0x190000
+    dq 0x190000+VIRTUAL_BASE_ADDR
     times 88 db 0
     dd TssLen
 
@@ -32,17 +34,19 @@ extern kernel_init
 global start
 
 start:
-    lgdt [Gdt64Ptr]
+    mov rax,Gdt64Ptr
+    lgdt [rax]
 
 SetTss:
     mov rax,Tss
-    mov [TssDesc+2],ax
+    mov rdi,TssDesc
+    mov [rdi+2],ax
     shr rax,16
-    mov [TssDesc+4],al
+    mov [rdi+4],al
     shr rax,8
-    mov [TssDesc+7],al
+    mov [rdi+7],al
     shr rax,8
-    mov [TssDesc+8],eax
+    mov [rdi+8],eax
     mov ax,0x20
     ltr ax
 
@@ -80,8 +84,9 @@ InitPIC:
     mov al,11111111b
     out 0xa1,al
 
+    mov rax,KernelEntry
     push 8
-    push KernelEntry
+    push rax
     db 0x48
     retf
 
@@ -91,7 +96,7 @@ KernelEntry:
 #    xor ax,ax
 #    mov ss,ax
 
-    mov rsp,0x200000
+    mov rsp,VIRTUAL_BASE_ADDR+0x200000
     call kernel_init
     sti
 

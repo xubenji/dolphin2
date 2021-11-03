@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-10-29 21:06:10
+ * @LastEditTime: 2021-11-02 22:06:20
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /dolphin2/kernel/kernel.c
+ */
 
 
 
@@ -20,7 +28,7 @@ void kernel_init(void)
     //printk("abc%s11 %d",a,b);
     printk("abc%s11 ",a);
 
-    ASSERT(0);
+    //ASSERT(0);
 
     while (1)
     {
@@ -29,7 +37,8 @@ void kernel_init(void)
     
    // p[0] = 'C';
    // p[1] = 0xa;
-  // print_char('S');
-  // init_idt(); 524272 524268  2097105  2097100
+   // print_char('S');
+   // init_idt(); 524272 524268  2097105  2097100
   
 }
+    

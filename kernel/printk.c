@@ -89,6 +89,8 @@ int decimal_to_string(char *buffer, int position, int64_t digits)
         size = 1;
     }
 
+
+
     size += udecimal_to_string(buffer, position, (uint64_t)digits);
     return size;
 }

@@ -101,10 +101,17 @@ PMEntry:
     xor eax,eax
     mov ecx,0x10000/4
     rep stosd
-    
-    mov dword[0x70000],0x71007
+
+#                       0 1 1 = 3
+#                       U W P 
+#   We want the memory to be readable, writable and only accessed by the kernel. 
+    mov dword[0x70000],0x71003
     mov dword[0x71000],10000111b
 
+    mov eax,(0xffff800000000000>>39)
+    and eax,0x1ff
+    mov dword[0x70000+eax*8],0x72003
+    mov dword[0x72000],10000011b
 
     lgdt [Gdt64Ptr]
 
@@ -140,7 +147,8 @@ LMEntry:
     mov rcx,51200/8
     rep movsq
 
-    jmp 0x200000
+    mov rax,0xffff800000200000
+    jmp rax
     
 LEnd:
     hlt

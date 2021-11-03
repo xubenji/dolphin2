@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+EB = 1024 * 1024 * 1024 * 1024 * 1024 * 1024
+PB = 1024 * 1024 * 1024 * 1024 * 1024
+TB = 1024 * 1024 * 1024 * 1024
 GB = 1073741824         #(1024X1024X1024)
 MB = 1048576            #(1024X1024)
 KB = 1024               #(1024)
@@ -13,12 +16,56 @@ print("Please enter a hexnumber. We will convert it to comprehensible computer m
 def main():
     hexnumber=input('Please input:')
     if hexnumber == 'q':
-        return
+        exit()
     if hexnumber == 'Q':
-        return
+        exit()
+    if hexnumber == '':
+        main()
     decimal=int(hexnumber,16)
     #hexnumber=int(hexnumber)
-    if decimal >= GB:
+    if decimal >= EB:
+        eb = decimal//EB
+        TMP = decimal%EB
+        pb = TMP//PB
+        TMP = TMP%PB
+        tb = TMP//TB
+        TMP = TMP%TB
+        gb = TMP//GB
+        TMP = TMP%GB
+        mb =  TMP//MB  
+        TMP = TMP%MB
+        kb = TMP//KB
+        TMP = TMP%KB
+        print("内存地址是:")
+        print(f"The memory address is:\n",eb,"EB ",pb,"PB ",tb,"TB ",gb,"GB ",mb,"MB ",kb,"KB ",TMP,"Byte\n")
+        main()
+    if decimal >= PB:
+        pb = decimal//PB
+        TMP = decimal%PB
+        tb = TMP//TB
+        TMP = TMP%TB
+        gb = TMP//GB
+        TMP = TMP%GB
+        mb =  TMP//MB  
+        TMP = TMP%MB
+        kb = TMP//KB
+        TMP = TMP%KB
+        print("内存地址是:")
+        print(f"The memory address is:\n",pb,"PB ",tb,"TB ",gb,"GB ",mb,"MB ",kb,"KB ",TMP,"Byte\n")
+        main()
+    elif decimal >= TB:
+        tb = decimal//TB
+        TMP = decimal%TB
+        gb = TMP//GB
+        TMP = TMP%GB
+        mb =  TMP//MB  
+        TMP = TMP%MB
+        kb = TMP//KB
+        TMP = TMP%KB
+        print("内存地址是:")
+        print(f"The memory address is:\n",tb,"TB ",gb,"GB ",mb,"MB ",kb,"KB ",TMP,"Byte\n")
+        main()
+    elif decimal >= GB:
         gb = decimal//GB
         TMP = decimal%GB
         mb =  TMP//MB  
@@ -41,6 +88,11 @@ def main():
         TMP = decimal%KB
         print("内存地址是:")
         print(f"The memory address is:\n",kb,"KB ",TMP,"Byte\n")
+        main()
+    else :
+        TMP = decimal%KB
+        print("内存地址是:")
+        print(f"The memory address is:\n",TMP,"Byte\n")
         main()
     return
 main()
