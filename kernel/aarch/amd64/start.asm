@@ -34,6 +34,8 @@ extern kernel_init
 global start
 
 start:
+b1:
+    jmp b1
     mov rax,Gdt64Ptr
     lgdt [rax]
 

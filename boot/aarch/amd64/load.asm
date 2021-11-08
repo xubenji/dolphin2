@@ -1,6 +1,9 @@
 [BITS 16]
 [ORG 0x7e00]
 
+address1 equ 0x7fffffffff
+VIRTUAL_BASE_ADDR equ 0xffff800000000000
+
 start:
     mov [DriveId],dl
 
@@ -105,13 +108,52 @@ PMEntry:
 #                       0 1 1 = 3
 #                       U W P 
 #   We want the memory to be readable, writable and only accessed by the kernel. 
-    mov dword[0x70000],0x71003
-    mov dword[0x71000],10000111b
+
+
+    ;  mov dword[0x70000],0x71007
+    ;  mov dword[0x71000],10000111b
+
+    ;  mov eax,(0xffff800000000000>>39)
+    ;  and eax,0x1ff
+
+    ;  mov dword[0x70000+eax*8],0x72003
+    ;  mov dword[0x72000],10000011b
+
+    mov dword[0x70000],0x71007
+    mov dword[0x71000],0x72007
+
+    mov esi,0x72000
+    mov eax,10000111b
+    mov ecx,512
+
+
+.loopone:
+    mov [esi],eax
+    add eax,2*1024*1024
+    add esi,8
+    loop .loopone
 
     mov eax,(0xffff800000000000>>39)
     and eax,0x1ff
-    mov dword[0x70000+eax*8],0x72003
-    mov dword[0x72000],10000011b
+    mov dword[0x70000+eax*8],0x73003
+
+    mov eax,(0xffff800000000000>>30)
+    and eax,0x1ff
+    mov dword[0x73000+eax*8],0x74003
+     ;mov dword[0x73000],10000111b
+
+     mov esi,0x74000
+     mov eax,10000011b
+     mov ecx,512
+
+.loop1:
+    mov [esi],eax
+    add eax, 2*1024*1024
+    mov esi,8
+    loop .loop1
+
+
+
 
     lgdt [Gdt64Ptr]
 
@@ -147,7 +189,7 @@ LMEntry:
     mov rcx,51200/8
     rep movsq
 
-    mov rax,0xffff800000200000
+    mov rax,0x200000+0xffff800000000000
     jmp rax
     
 LEnd:
