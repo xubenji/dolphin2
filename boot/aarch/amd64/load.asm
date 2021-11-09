@@ -127,32 +127,31 @@ PMEntry:
     mov ecx,512
 
 
-.loopone:
+.loop1:
     mov [esi],eax
     add eax,2*1024*1024
     add esi,8
-    loop .loopone
+    loop .loop1
 
+;-----------------------------------setting first 1G paging, each page is 2m, loop 512 times--------------------
     mov eax,(0xffff800000000000>>39)
     and eax,0x1ff
+
     mov dword[0x70000+eax*8],0x73003
 
     mov eax,(0xffff800000000000>>30)
     and eax,0x1ff
     mov dword[0x73000+eax*8],0x74003
-     ;mov dword[0x73000],10000111b
 
-     mov esi,0x74000
-     mov eax,10000011b
-     mov ecx,512
-
-.loop1:
+    mov esi,0x74000
+    mov eax,10000011b
+    mov ecx,512
+.loop2:
     mov [esi],eax
     add eax, 2*1024*1024
-    mov esi,8
-    loop .loop1
-
-
+    add esi,8
+    loop .loop2
+;---------------------------------------------------------------------------------------------------------------
 
 
     lgdt [Gdt64Ptr]
@@ -189,7 +188,7 @@ LMEntry:
     mov rcx,51200/8
     rep movsq
 
-    mov rax,0x200000+0xffff800000000000
+    mov rax,0x200000+VIRTUAL_BASE_ADDR
     jmp rax
     
 LEnd:

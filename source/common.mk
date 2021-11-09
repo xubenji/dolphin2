@@ -24,10 +24,13 @@ endif
 
 ifeq ($(ARCH),arm)
 CC			= aarch64-elf-gcc
-COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
+#CC			= aarch64-linux-gnu-gcc
+#COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
+COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -c -w
 #-mgeneral-regs-only
 ASMOPS		= -I$(HEAD_PATH)
 LD			= aarch64-elf-ld
+#LD			= aarch64-linux-gnu-ld
 LDOPS 		= -nostdlib -nostartfiles -T $(PROJECT_DIR)/link/lds/link_arm.lds -o
 KERNEL_ELF  = kernel8.elf
 OBJCOPY 	= aarch64-elf-objcopy -O binary
