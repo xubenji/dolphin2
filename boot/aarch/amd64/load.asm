@@ -133,7 +133,7 @@ PMEntry:
     add esi,8
     loop .loop1
 
-;-----------------------------------setting first 1G paging, each page is 2m, loop 512 times--------------------
+;----------------------------------setting first 1G paging, each page is 2m, loop 512 times--------------------
     mov eax,(0xffff800000000000>>39)
     and eax,0x1ff
 
@@ -145,12 +145,14 @@ PMEntry:
 
     mov esi,0x74000
     mov eax,10000011b
-    mov ecx,512
+    mov ecx,2   ;512 is 1gb, 2 refers 4mb, so 0~4mb is occupied by kernel.
+    mov dword[0x90000],ecx
 .loop2:
     mov [esi],eax
     add eax, 2*1024*1024
     add esi,8
     loop .loop2
+
 ;---------------------------------------------------------------------------------------------------------------
 
 

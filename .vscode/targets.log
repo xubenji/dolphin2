@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Nov  8 13:24:55 2021
+# Make data base, printed on Sun Nov 14 19:06:59 2021
 
 # Variables
 
@@ -41,7 +41,7 @@ JRE_HOME = /usr/environment/jdk-11.0.12+7/jre
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /root/.vscode-server/bin/b3318bc0524af3d74034b8bb8a64df0ccf35549a/node
+_ = /root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/node
 # makefile (from 'config.mk', line 5)
 OPTIMIZATION = -O0
 # environment
@@ -67,9 +67,9 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 155.246.214.143 56503 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 57037 104.244.92.245 22
 # environment
-PATH = /root/.vscode-server/bin/b3318bc0524af3d74034b8bb8a64df0ccf35549a/bin:/root/.vscode-server/bin/b3318bc0524af3d74034b8bb8a64df0ccf35549a/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
+PATH = /root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/bin:/root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
 XDG_RUNTIME_DIR = /run/user/0
 # makefile (from 'makefile', line 4)
@@ -91,7 +91,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-7a0db345-344e-48bf-8d51-ed4b6c187b42.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-f4205b20-4100-48d3-aba3-e56310feb8fd.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'config.mk', line 4)
@@ -129,7 +129,7 @@ JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 7)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 153
+XDG_SESSION_ID = 18
 # environment
 USER = root
 # makefile
@@ -153,7 +153,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 155.246.214.143 56503 22
+SSH_CLIENT = 71.187.230.215 57037 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -161,7 +161,7 @@ HEAD_PATH = $(PROJECT_DIR)/include
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /root/.vscode-server/bin/b3318bc0524af3d74034b8bb8a64df0ccf35549a/bin/helpers/browser.sh
+BROWSER = /root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/bin/helpers/browser.sh
 # default
 MAKEFILES := 
 # automatic
@@ -177,7 +177,7 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/b3318bc0524af3d74034b8bb8a64df0ccf35549a/remote/node_modules
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/6cba118ac49a1b88332f312a8f67186f7f3c1643/remote/node_modules
 # default
 .RECIPEPREFIX := 
 # default
@@ -208,7 +208,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-10-29 21:13:51.927674193
+#  Last modified 2021-11-09 20:03:57.319163736
 #  File has been updated.
 #  Successfully updated.
 
@@ -306,6 +306,6 @@ clean:
 # strcache performance: lookups = 39 / hit rate = 35%
 # hash-table stats:
 # Load=25/8192=0%, Rehash=0, Collisions=1/39=3%
-# Finished Make data base on Mon Nov  8 13:24:55 2021
+# Finished Make data base on Sun Nov 14 19:06:59 2021
 
  

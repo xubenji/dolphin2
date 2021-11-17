@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-10-29 21:06:10
- * @LastEditTime: 2021-11-02 22:06:20
- * @LastEditors: your name
+ * @LastEditTime: 2021-11-13 01:10:14
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /dolphin2/kernel/kernel.c
  */
@@ -27,7 +27,10 @@ void kernel_init(void)
     //int d = &b;
     //printk("abc%s11 %d",a,b);
     printk("abc%s11 ",a);
-
+    char * p = "A??c";
+    //int cc = 5;
+    int cc[3] = {1,2,3};
+    printk("test: %s %x %x", p, cc, &cc);
     //ASSERT(0);
 
     while (1)

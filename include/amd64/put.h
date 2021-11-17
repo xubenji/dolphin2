@@ -1,6 +1,7 @@
 #include "stdint.h"
 
-#define CHAR_DISPLAY_ADDERSS 0xb8000
+#define VIRTUAL_BASE_ADDR 0xffff800000000000
+#define CHAR_DISPLAY_ADDERSS 0xb8000+VIRTUAL_BASE_ADDR
 #define LINE_MAX_CHAR 80
 
 void put_int64(int64_t num_hex);
