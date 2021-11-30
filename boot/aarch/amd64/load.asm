@@ -190,12 +190,12 @@ LMEntry:
     mov rsp,0x7c00
 
     cld
-    mov rdi,0x200000
+    mov rdi,0x400000
     mov rsi,0x10000
     mov rcx,51200/8
     rep movsq
 
-    mov rax,0xffff800000200000
+    mov rax,0xffff800000400000
     jmp rax
     
 LEnd:
