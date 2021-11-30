@@ -1,8 +1,10 @@
 [BITS 16]
 [ORG 0x7e00]
 
-address1 equ 0x7fffffffff
 VIRTUAL_BASE_ADDR equ 0xffff800000000000
+PAGE_DIR_INIT   equ 0x70000 
+PAGE_DIR_FIRST  equ 0x73000
+PAGE_DIR_SECOND equ 0x74000
 
 start:
     mov [DriveId],dl
@@ -105,9 +107,9 @@ PMEntry:
     mov ecx,0x10000/4
     rep stosd
 
-#                       0 1 1 = 3
-#                       U W P 
-#   We want the memory to be readable, writable and only accessed by the kernel. 
+;                       0 1 1 = 3
+;                       U W P 
+;   We want the memory to be readable, writable and only accessed by the kernel. 
 
 
     ;  mov dword[0x70000],0x71007
@@ -126,7 +128,6 @@ PMEntry:
     mov eax,10000111b
     mov ecx,512
 
-
 .loop1:
     mov [esi],eax
     add eax,2*1024*1024
@@ -136,25 +137,29 @@ PMEntry:
 ;----------------------------------setting first 1G paging, each page is 2m, loop 512 times--------------------
     mov eax,(0xffff800000000000>>39)
     and eax,0x1ff
-
-    mov dword[0x70000+eax*8],0x73003
+;PAGE_DIR_INIT=0x70000
+;PAGE_DIR_FIRST=0x73000
+;PAGE_DIR_SECOND=0x74000
+    mov dword[PAGE_DIR_INIT+eax*8],PAGE_DIR_FIRST+3 
 
     mov eax,(0xffff800000000000>>30)
     and eax,0x1ff
-    mov dword[0x73000+eax*8],0x74003
+    mov dword[PAGE_DIR_FIRST+eax*8],PAGE_DIR_SECOND+3
 
-    mov esi,0x74000
+    mov esi,PAGE_DIR_SECOND 
     mov eax,10000011b
-    mov ecx,2   ;512 is 1gb, 2 refers 4mb, so 0~4mb is occupied by kernel.
+    mov ecx,10   ;512 is 1gb, 10 refers 20mb, so 0~6mb is occupied by kernel.
     mov dword[0x90000],ecx
 .loop2:
     mov [esi],eax
     add eax, 2*1024*1024
     add esi,8
     loop .loop2
-
 ;---------------------------------------------------------------------------------------------------------------
 
+    mov dword[0x9008],PAGE_DIR_INIT
+    mov dword[0x900a],PAGE_DIR_FIRST
+    mov dword[0x9018],PAGE_DIR_SECOND
 
     lgdt [Gdt64Ptr]
 
@@ -190,13 +195,12 @@ LMEntry:
     mov rcx,51200/8
     rep movsq
 
-    mov rax,0x200000+VIRTUAL_BASE_ADDR
+    mov rax,0xffff800000200000
     jmp rax
     
 LEnd:
     hlt
     jmp LEnd
-    
     
 
 DriveId:    db 0
