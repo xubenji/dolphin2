@@ -134,6 +134,17 @@ PMEntry:
     add esi,8
     loop .loop1
 
+;     mov dword[0x71008],0x76007
+
+;     mov esi,0x76000
+;     mov ecx,512
+
+; .loop2:
+;     mov [esi],eax
+;     add eax,2*1024*1024
+;     add esi,8
+;     loop .loop2
+
 ;----------------------------------setting first 1G paging, each page is 2m, loop 512 times--------------------
     mov eax,(0xffff800000000000>>39)
     and eax,0x1ff
@@ -148,18 +159,20 @@ PMEntry:
 
     mov esi,PAGE_DIR_SECOND 
     mov eax,10000011b
-    mov ecx,10   ;512 is 1gb, 10 refers 20mb, so 0~6mb is occupied by kernel.
+    mov ecx,3   ;512 is 1gb, 3 refers 6mb, so 0~6mb is occupied by kernel.
     mov dword[0x90000],ecx
-.loop2:
+.loop3:
     mov [esi],eax
     add eax, 2*1024*1024
     add esi,8
-    loop .loop2
+    loop .loop3
 ;---------------------------------------------------------------------------------------------------------------
+    mov eax,0x70000
+    mov dword[0x90008],eax
+    mov dword[0x9000a],0x73000
+    mov dword[0x90018],0x74000
+    mov dword[0x90020],0x71000
 
-    mov dword[0x9008],PAGE_DIR_INIT
-    mov dword[0x900a],PAGE_DIR_FIRST
-    mov dword[0x9018],PAGE_DIR_SECOND
 
     lgdt [Gdt64Ptr]
 

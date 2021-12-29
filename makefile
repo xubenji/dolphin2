@@ -9,8 +9,8 @@ ifeq ($(ARCH),x86)
 	AARCH					= aarch/amd64
 	BUILD_PATH				= $(PROJECT_DIR)/build/amd64
 	SUFFIX					= asm
-	RUNNING_INSTURCTION     = qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d
-	DEBUG					= qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d -s -S 
+	RUNNING_INSTURCTION     = qemu-system-x86_64 -cpu Skylake-Server -m $(VIRTUAL_MEMORY) -hda $(BUILD_PATH)/boot.img -boot d
+	DEBUG					= qemu-system-x86_64 -cpu Skylake-Server -m $(VIRTUAL_MEMORY) -hda $(BUILD_PATH)/boot.img -boot d -s -S 
 endif
 ifeq ($(ARCH),arm)
 	AARCH					= aarch/arm

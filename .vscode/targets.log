@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Dec  1 14:12:45 2021
+# Make data base, printed on Wed Dec 29 04:26:16 2021
 
 # Variables
 
@@ -41,7 +41,7 @@ JRE_HOME = /usr/environment/jdk-11.0.12+7/jre
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /root/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/node
+_ = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/node
 # makefile (from 'config.mk', line 5)
 OPTIMIZATION = -O0
 # environment
@@ -49,15 +49,17 @@ MAVEN_HOME = /usr/environment/apache-maven-3.6.3
 # makefile (from 'config.mk', line 1)
 MAKEFILE_LIST :=  makefile config.mk
 # makefile (from 'makefile', line 12)
-RUNNING_INSTURCTION = qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d
+RUNNING_INSTURCTION = qemu-system-x86_64 -cpu Skylake-Server -m $(VIRTUAL_MEMORY) -hda $(BUILD_PATH)/boot.img -boot d
 # makefile (from 'makefile', line 2)
 MKFILE_PATH_COMMON = $(PROJECT_DIR)/source/common.mk
 # makefile (from 'makefile', line 13)
-DEBUG = qemu-system-x86_64 -cpu Skylake-Server -m 512 -hda $(BUILD_PATH)/boot.img -boot d -s -S 
+DEBUG = qemu-system-x86_64 -cpu Skylake-Server -m $(VIRTUAL_MEMORY) -hda $(BUILD_PATH)/boot.img -boot d -s -S 
 # makefile (from 'makefile', line 1)
 DEPS_PATH = $(PROJECT_DIR)/link
 # 'override' directive
 GNUMAKEFLAGS := 
+# makefile (from 'config.mk', line 6)
+VIRTUAL_MEMORY = 1200
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
 # environment
@@ -67,9 +69,9 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 155.246.137.136 62687 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 49399 104.244.92.245 22
 # environment
-PATH = /root/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/bin:/root/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
+PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
 XDG_RUNTIME_DIR = /run/user/0
 # makefile (from 'makefile', line 4)
@@ -91,11 +93,11 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-0425a644-1f88-4825-b64e-6645d33406ac.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-b9b5d4f2-dd16-4bfd-b438-8e6b1b4fd8fe.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'config.mk', line 4)
-DEBUG_FILE = put.o
+DEBUG_FILE = memory.o
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -126,10 +128,10 @@ MAKECMDGOALS := all
 SHLVL = 3
 # environment
 JAVA_HOME = /usr/environment/jdk-11.0.12+7
-# makefile (from 'config.mk', line 7)
+# makefile (from 'config.mk', line 8)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 3
+XDG_SESSION_ID = 1
 # environment
 USER = root
 # makefile
@@ -153,7 +155,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 155.246.137.136 62687 22
+SSH_CLIENT = 71.187.230.215 49399 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -161,7 +163,7 @@ HEAD_PATH = $(PROJECT_DIR)/include
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /root/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/bin/helpers/browser.sh
+BROWSER = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin/helpers/browser.sh
 # default
 MAKEFILES := 
 # automatic
@@ -177,7 +179,7 @@ SUFFIXES :=
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/remote/node_modules
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/remote/node_modules
 # default
 .RECIPEPREFIX := 
 # default
@@ -187,7 +189,7 @@ LANG = C
 # environment
 VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # variable set hash-table stats:
-# Load=88/1024=9%, Rehash=0, Collisions=11/141=8%
+# Load=89/1024=9%, Rehash=0, Collisions=11/142=8%
 
 # Pattern-specific Variable Values
 
@@ -208,7 +210,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-11-09 20:03:57.319163736
+#  Last modified 2021-12-29 03:30:43.579643378
 #  File has been updated.
 #  Successfully updated.
 
@@ -259,7 +261,7 @@ debug: all
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2021-11-04 03:55:24.916441966
+#  Last modified 2021-12-28 07:27:49.82795915
 #  File has been updated.
 #  Successfully updated.
 
@@ -292,6 +294,7 @@ clean:
 	
 
 # files hash-table stats:
+ 
 # Load=8/1024=1%, Rehash=0, Collisions=0/23=0%
 # VPATH Search Paths
 
@@ -305,6 +308,6 @@ clean:
 # strcache performance: lookups = 39 / hit rate = 35%
 # hash-table stats:
 # Load=25/8192=0%, Rehash=0, Collisions=1/39=3%
-# Finished Make data base on Wed Dec  1 14:12:45 2021
+# Finished Make data base on Wed Dec 29 04:26:16 2021
 
  

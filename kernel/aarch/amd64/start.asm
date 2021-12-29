@@ -92,9 +92,9 @@ InitPIC:
 
 KernelEntry: 
 
-#    开关中断代码
-#    xor ax,ax
-#    mov ss,ax
+;    开关中断代码
+;    xor ax,ax
+;    mov ss,ax
 
     mov rsp,VIRTUAL_BASE_ADDR+0x200000
     call kernel_init

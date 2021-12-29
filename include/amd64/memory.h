@@ -17,7 +17,8 @@ struct FreeMemRegion{
 
 void init_memory(void);
 uint64_t link_page(uint64_t address, uint64_t size);
-void init_page(uint64_t startMemory, uint64_t pages);
+void init_pages(uint64_t total_mem);
 uint64_t link_page_dirs(uint64_t pageDirAddress, uint64_t offset, uint64_t startMemory);
+uint64_t map_all_pages(uint64_t freePages);
 
 #endif
