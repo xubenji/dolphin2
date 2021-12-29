@@ -61,66 +61,6 @@ void init_memory(void)
     init_pages(totalMemory);
 }
 
-/**
- * @function: map_all_physical_pages
- * @param [uint64_t] freePages: Usable phyical pages | 可以使用的物理页数量
- * @return [uint64_t]
- * @description: Mapping all usable physical pages, this is physical address,
- *              so that the kernel can access all phyical address.
- * 描述: 将所有可以使用的物理页映射，注意这里是映射的物理地址。
- *      这样操作完成以后内核可以访问所有的物理地址。
- */
-uint64_t map_all_physical_pages(uint64_t freePages)
-{
-
-    /**
-     *  取出已经使用了的页目录表地址，这里的值可以在load.asm中修改
-     */
-    // uint64_t *PAGE_DIR_INIT;       // 0x70000
-    // uint64_t *PAGE_DIR_FIRST_PHY;  // 0x71000
-    // uint64_t *PAGE_DIR_FIRST_VIR;  // 0x73000
-    // uint64_t *PAGE_DIR_SECOND_VIR; // 0x74000
-
-    // PAGE_DIR_INIT = 0x90008;       // 0x70000
-    // PAGE_DIR_FIRST_PHY = 0x90020;  // 0x71000
-    // PAGE_DIR_FIRST_VIR = 0x9000a;  // 0x73000
-    // PAGE_DIR_SECOND_VIR = 0x90018; // 0x74000
-
-    // uint64_t secondDirPage0x750000 = 0x75000;
-
-    for (uint64_t i = 0; i < freePages / 512; i++)
-    {
-        uint64_t *pageDirAddress;
-        pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
-        uint64_t *FirstDir0x71000;
-        FirstDir0x71000 = 0x71000;
-        FirstDir0x71000[i + 1] = pageDirAddress;
-        FirstDir0x71000[i + 1] += 0x27;
-
-        for (uint64_t j = 0; j < 512; j++)
-        {
-            pageDirAddress[j] = 0x40000000 + 2 * 1024 * 1024 * j;
-            pageDirAddress[j] = pageDirAddress[j] + 0xe7;
-            int jj = pageDirAddress[j];
-            int jjaddress = &pageDirAddress[j];
-        }
-    }
-}
-
-uint64_t link_page_dirs(uint64_t pageDirAddress, uint64_t offset, uint64_t pageAddress)
-{
-    struct page_dir *p = pageDirAddress;
-    p->next = pageDirAddress + offset;
-    p->phead = pageAddress;
-    return pageDirAddress + offset;
-}
-
-uint64_t link_page(uint64_t address, uint64_t offset)
-{
-    struct page *p = address;
-    p->next = address + offset;
-    return address + offset;
-}
 
 /**
  * @function: init_pages
@@ -169,3 +109,50 @@ void init_pages(uint64_t totalMemory)
     }
 }
 
+
+/**
+ * @function: map_all_physical_pages
+ * @param [uint64_t] freePages: Usable phyical pages | 可以使用的物理页数量
+ * @return [uint64_t]
+ * @description: Mapping all usable physical pages, this is physical address,
+ *              so that the kernel can access all phyical address.
+ * 描述: 将所有可以使用的物理页映射，注意这里是映射的物理地址。
+ *      这样操作完成以后内核可以访问所有的物理地址。
+ */
+uint64_t map_all_physical_pages(uint64_t freePages)
+{
+    for (uint64_t i = 0; i < freePages / 512; i++)
+    {
+        uint64_t *pageDirAddress;
+        pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
+        uint64_t *FirstDir0x71000;
+        FirstDir0x71000 = 0x71000;
+        FirstDir0x71000[i + 1] = pageDirAddress;
+        FirstDir0x71000[i + 1] += 0x27;
+
+        for (uint64_t j = 0; j < 512; j++)
+        {
+            pageDirAddress[j] = 0x40000000 + 2 * 1024 * 1024 * j;
+            pageDirAddress[j] = pageDirAddress[j] + 0xe7;
+            int jj = pageDirAddress[j];
+            int jjaddress = &pageDirAddress[j];
+        }
+    }
+}
+
+
+uint64_t link_page_dirs(uint64_t pageDirAddress, uint64_t offset, uint64_t pageAddress)
+{
+    struct page_dir *p = pageDirAddress;
+    p->next = pageDirAddress + offset;
+    p->phead = pageAddress;
+    return pageDirAddress + offset;
+}
+
+
+uint64_t link_page(uint64_t address, uint64_t offset)
+{
+    struct page *p = address;
+    p->next = address + offset;
+    return address + offset;
+}
