@@ -2,7 +2,7 @@
  * Name: memory.c
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2021-10-29 21:06:10
- * LastEditTime: 2021-12-28 23:56:47
+ * LastEditTime: 2021-12-29 23:55:28
  * LastEditors: Benji Xu
  * FilePath: /dolphin2/kernel/aarch/amd64/memory.c
  * Description: memory manage subsystem in x86_x64, we use the 2m page.
@@ -12,23 +12,11 @@
 #include "printk.h"
 #include "debug.h"
 #include "stddef.h"
+#include "amd64/mapping.h"
 
 uint64_t pageSize = 0x200000;
 
-struct page
-{
-    struct page *next;
-};
-
-struct page_dir
-{
-    struct page_dir *next;
-    uint64_t *phead;
-};
-
-struct page *pageHead, *pageTail;
-
-static struct FreeMemRegion FreeMemRegion[50];
+static struct free_mem_region FreeMemRegion[50];
 
 /**
  * @function: init_memory
@@ -59,8 +47,12 @@ void init_memory(void)
     printk("Total memory is %uMB\n", totalMemory / 1024 / 1024);
 
     init_pages(totalMemory);
-}
 
+    init_malloc(0,0,0,KERNEL);
+    malloc_page(10);
+    
+    find_physical_address();
+}
 
 /**
  * @function: init_pages
@@ -70,25 +62,25 @@ void init_memory(void)
  */
 void init_pages(uint64_t totalMemory)
 {
-/* 收集内存电脑内存信息，包括了可以使用的内存大小。在load.asm中，kernel已经使用了6mb的内存，所以ecx的大小是3。
- * collect the memory information, including the usable memory size. In the load.asm, kernel used 6mb memory, so the ecx is 3.
-/*-----------------------------------------------------------------------*/
+    /* 收集内存电脑内存信息，包括了可以使用的内存大小。在load.asm中，kernel已经使用了6mb的内存，所以ecx的大小是3。
+     * collect the memory information, including the usable memory size. In the load.asm, kernel used 6mb memory, so the ecx is 3.
+    /*-----------------------------------------------------------------------*/
     uint16_t *ecx;
     ecx = 0x90000;
     uint64_t starMemory = *ecx * 1024 * 1024 * 2;
     uint64_t pages = (totalMemory / 1024 / 1024 / 2) - *ecx;
     ASSERT(pages > 2, "page_num(): memory is too small (memory < 4MB)");
 
-/*
- * 映射机器的所有可以利用的物理页，
-/*-----------------------------------------------------------------------*/
+    /*
+     * 映射机器的所有可以利用的物理页，
+    /*-----------------------------------------------------------------------*/
     map_all_physical_pages(pages);
 
-/* 
- * 将所有的可以利用的物理页用单链表连接起来
-/*-----------------------------------------------------------------------*/
+    /*
+     * 将所有的可以利用的物理页用单链表连接起来
+    /*-----------------------------------------------------------------------*/
     uint64_t address = starMemory;
-    pageHead->next = starMemory;
+    pageHead = starMemory;
     for (uint32_t i = 0; i < pages; i++)
     {
         address = link_page(address, pageSize);
@@ -96,19 +88,7 @@ void init_pages(uint64_t totalMemory)
     pageTail = address;
     pageTail->next = NULL;
 
-/* 
- * 将所有的最后一级的页目录表用单链表连接起来，并且让页目录表指向第一个页的地址。
-/*-----------------------------------------------------------------------*/
-    uint64_t pageDirAccout = pages / 512;
-    address = starMemory;
-    struct page_dir *headDir = 2 * 1024 * 1024;
-    for (uint64_t i = 0; i <= pageDirAccout; i++)
-    {
-        address = address + i * 512 * pageSize;
-        link_page_dirs(2 * 1024 * 1024, 0x08, address);
-    }
 }
-
 
 /**
  * @function: map_all_physical_pages
@@ -121,32 +101,22 @@ void init_pages(uint64_t totalMemory)
  */
 uint64_t map_all_physical_pages(uint64_t freePages)
 {
-    for (uint64_t i = 0; i < freePages / 512; i++)
+    uint64_t *pageDirAddress = 0x75000;
+    for (uint64_t i = 0; i <= freePages / 512; i++)
     {
-        uint64_t *pageDirAddress;
         pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
         uint64_t *FirstDir0x71000;
         FirstDir0x71000 = 0x71000;
         FirstDir0x71000[i + 1] = pageDirAddress;
-        FirstDir0x71000[i + 1] += 0x27;
-
+        FirstDir0x71000[i + 1] += 0x7;
         for (uint64_t j = 0; j < 512; j++)
         {
             pageDirAddress[j] = 0x40000000 + 2 * 1024 * 1024 * j;
-            pageDirAddress[j] = pageDirAddress[j] + 0xe7;
-            int jj = pageDirAddress[j];
-            int jjaddress = &pageDirAddress[j];
+            pageDirAddress[j] = pageDirAddress[j] + 0x83;
         }
     }
-}
-
-
-uint64_t link_page_dirs(uint64_t pageDirAddress, uint64_t offset, uint64_t pageAddress)
-{
-    struct page_dir *p = pageDirAddress;
-    p->next = pageDirAddress + offset;
-    p->phead = pageAddress;
-    return pageDirAddress + offset;
+    head = 1024 * 1024 * 2 + 0x2000;
+    head->address = pageDirAddress;
 }
 
 

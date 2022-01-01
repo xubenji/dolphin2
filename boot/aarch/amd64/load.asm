@@ -151,13 +151,13 @@ PMEntry:
 ;PAGE_DIR_INIT=0x70000
 ;PAGE_DIR_FIRST=0x73000
 ;PAGE_DIR_SECOND=0x74000
-    mov dword[PAGE_DIR_INIT+eax*8],PAGE_DIR_FIRST+3 
+    mov dword[0x70000+eax*8],0x73000+3 
 
     mov eax,(0xffff800000000000>>30)
     and eax,0x1ff
-    mov dword[PAGE_DIR_FIRST+eax*8],PAGE_DIR_SECOND+3
+    mov dword[0x73000+eax*8],0x74000+3
 
-    mov esi,PAGE_DIR_SECOND 
+    mov esi,0x74000 
     mov eax,10000011b
     mov ecx,3   ;512 is 1gb, 3 refers 6mb, so 0~6mb is occupied by kernel.
     mov dword[0x90000],ecx

@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Dec 29 04:26:16 2021
+# Make data base, printed on Sat Jan  1 07:27:15 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ DEPS_PATH = $(PROJECT_DIR)/link
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'config.mk', line 6)
-VIRTUAL_MEMORY = 1200
+VIRTUAL_MEMORY = 512
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
 # environment
@@ -69,7 +69,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 49399 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 51965 104.244.92.245 22
 # environment
 PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
@@ -93,7 +93,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-b9b5d4f2-dd16-4bfd-b438-8e6b1b4fd8fe.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-a95ebe6f-6eaa-41e4-8a7e-c25e6067c28c.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'config.mk', line 4)
@@ -155,7 +155,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 49399 22
+SSH_CLIENT = 71.187.230.215 51965 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -197,9 +197,9 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 
 # Directories
 
-# . (device 2050, inode 224003): 17 files, no impossibilities.
+# . (device 2050, inode 224003): 18 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 18 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -210,7 +210,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2021-12-29 03:30:43.579643378
+#  Last modified 2021-12-30 06:52:42.812419317
 #  File has been updated.
 #  Successfully updated.
 
@@ -294,7 +294,6 @@ clean:
 	
 
 # files hash-table stats:
- 
 # Load=8/1024=1%, Rehash=0, Collisions=0/23=0%
 # VPATH Search Paths
 
@@ -302,12 +301,12 @@ clean:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 25 / storage = 190 B / avg = 7 B
-# current buf: size = 8162 B / used = 190 B / count = 25 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 26 / storage = 196 B / avg = 7 B
+# current buf: size = 8162 B / used = 196 B / count = 26 / avg = 7 B
 
-# strcache performance: lookups = 39 / hit rate = 35%
+# strcache performance: lookups = 40 / hit rate = 35%
 # hash-table stats:
-# Load=25/8192=0%, Rehash=0, Collisions=1/39=3%
-# Finished Make data base on Wed Dec 29 04:26:16 2021
+# Load=26/8192=0%, Rehash=0, Collisions=1/40=2%
+# Finished Make data base on Sat Jan  1 07:27:15 2022
 
  
