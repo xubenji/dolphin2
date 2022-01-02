@@ -50,8 +50,7 @@ void init_memory(void)
 
     init_malloc(0,0,0,KERNEL);
     malloc_page(10);
-    
-    find_physical_address();
+    free_page(3);
 }
 
 /**
@@ -62,8 +61,10 @@ void init_memory(void)
  */
 void init_pages(uint64_t totalMemory)
 {
-    /* 收集内存电脑内存信息，包括了可以使用的内存大小。在load.asm中，kernel已经使用了6mb的内存，所以ecx的大小是3。
-     * collect the memory information, including the usable memory size. In the load.asm, kernel used 6mb memory, so the ecx is 3.
+    /* 收集内存电脑内存信息，包括了可以使用的内存大小。
+     * 在load.asm中，kernel已经使用了6mb的内存，所以ecx的大小是3。
+     * collect the memory information, including the usable memory size. 
+     * In the load.asm, kernel used 6mb memory, so the ecx is 3.
     /*-----------------------------------------------------------------------*/
     uint16_t *ecx;
     ecx = 0x90000;
@@ -71,14 +72,13 @@ void init_pages(uint64_t totalMemory)
     uint64_t pages = (totalMemory / 1024 / 1024 / 2) - *ecx;
     ASSERT(pages > 2, "page_num(): memory is too small (memory < 4MB)");
 
-    /*
-     * 映射机器的所有可以利用的物理页，
-    /*-----------------------------------------------------------------------*/
+    /* 映射机器的所有可以利用的物理页，
+     *-----------------------------------------------------------------------*/
     map_all_physical_pages(pages);
 
-    /*
-     * 将所有的可以利用的物理页用单链表连接起来
-    /*-----------------------------------------------------------------------*/
+    
+    /* 将所有的可以利用的物理页用单链表连接起来
+     *-----------------------------------------------------------------------*/
     uint64_t address = starMemory;
     pageHead = starMemory;
     for (uint32_t i = 0; i < pages; i++)

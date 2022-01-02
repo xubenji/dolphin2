@@ -34,7 +34,7 @@ struct page_dir_manage
 
 struct page_infor
 {
-    uint64_t virtualAdress; //必须是2mb对齐
+    uint64_t virtualAddress; //必须是2mb对齐
     struct page *pPhysicalAdrress;
     uint64_t dirAddress;
 };
@@ -43,6 +43,7 @@ struct page_dir_manage *head;
 
 void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum procedure_type program);
 void *malloc_page(uint64_t pageAmount);
+void *free_page(uint64_t pageAccount);
 uint64_t find_physical_address();
 uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t Address, enum attributes attris);
 

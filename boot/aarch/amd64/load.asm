@@ -148,9 +148,6 @@ PMEntry:
 ;----------------------------------setting first 1G paging, each page is 2m, loop 512 times--------------------
     mov eax,(0xffff800000000000>>39)
     and eax,0x1ff
-;PAGE_DIR_INIT=0x70000
-;PAGE_DIR_FIRST=0x73000
-;PAGE_DIR_SECOND=0x74000
     mov dword[0x70000+eax*8],0x73000+3 
 
     mov eax,(0xffff800000000000>>30)

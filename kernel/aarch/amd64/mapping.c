@@ -1,8 +1,8 @@
-/* 
+/*
  * Name: mapping.c
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2021-12-30 01:02:11
- * LastEditTime: 2022-01-01 08:37:43
+ * LastEditTime: 2022-01-01 23:36:05
  * LastEditors: Benji Xu
  * FilePath: /dolphin2/kernel/aarch/amd64/mapping.c
  * Description: this .c file is going to implement the malloc
@@ -22,7 +22,8 @@ struct page_dir_manage firstDirInfor;
 struct page_dir_manage secondDirInfor;
 uint64_t *ecx = 0x90000;
 
-/** 
+
+/**
  * function: init_malloc
  * @param [uint64_t] cr3: the value of cr3
  * @param [uint64_t] firstDir: first-directory' value
@@ -30,10 +31,10 @@ uint64_t *ecx = 0x90000;
  * @param [enum procedure_type] program: the process's type. normal process or kernel process.
  * @return [void]
  * description:
- * Init the cr3's value, first-page directory address, second-page directory address, and others information. 
- * In the 64-bits system, if we set up the page to 2mb, we need 3 level page directory list. 
- * We have to implement the process, so we need a different page directory because the different process has their own page directory. 
- * If we don't need to implement the process, we don't need to arrange each page directory for each process. 
+ * Init the cr3's value, first-page directory address, second-page directory address, and others information.
+ * In the 64-bits system, if we set up the page to 2mb, we need 3 level page directory list.
+ * We have to implement the process, so we need a different page directory because the different process has their own page directory.
+ * If we don't need to implement the process, we don't need to arrange each page directory for each process.
  * We can use the kernel's page directory address. The cr3's value for kernel is 0x70000.
  * 初始化cr3寄存器的值，第一阶页目录表的地址，第二阶页目录表的地址和其他信息，在64位下，2mb页需要三阶页目录表。
  * 我们需要实现进程这个概念，所以我们需要不同的页目录表和页表，因为每一个进程都有他独自的页目录表和页表
@@ -63,7 +64,7 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
 
         pageInfor.dirAddress = 0x74000;
         pageInfor.pPhysicalAdrress = pageHead;
-        pageInfor.virtualAdress = *ecx * 1024 * 1024 * 2 + BASE_VIRTUAL_ADDRESS;
+        pageInfor.virtualAddress = *ecx * 1024 * 1024 * 2 + BASE_VIRTUAL_ADDRESS;
 
         printk("init malloc\n");
     }
@@ -73,7 +74,7 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
 }
 
 
-/** 
+/**
  * function: malloc_page
  * @param [uint64_t] pageAmount: The amount of page that you need to malloc.
  * @return [void]
@@ -95,12 +96,48 @@ void *malloc_page(uint64_t pageAmount)
             if (firstDirInfor.usedAmount == 0)
             {
                 printk("run out of the memory!!!");
+                return NULL;
             }
         }
     }
+    pageInfor.virtualAddress += pageAmount * 2 * 1024 * 1024;
+    // pageInfor.virtualAddress += 0x40000000;
     /* test code */
     uint64_t *test = 0xffff8000006ffff0;
     *test = 12;
+}
+
+
+/**
+ * function: free_page
+ * @param [uint64_t] pageAccount : The amount of pages that you want to release.
+ * @return [void]
+ * description: release the page.
+ * 释放页。
+ */
+void *free_page(uint64_t pageAmount)
+{
+    uint64_t *cr3 = cr3Infor.address;
+    uint32_t index = pageInfor.virtualAddress >> 39;
+    index = index & 0x1ff;
+    uint64_t *firstDirArray = (cr3[index] >> 12) << 12;
+    uint64_t *secondDirArray;
+    for (uint32_t i = 0; i < pageAmount; i++)
+    {
+        index = pageInfor.virtualAddress >> 30;
+        index = index & 0x1ff;
+        uint64_t *secondDirArray = (firstDirArray[index] >> 12) << 12;
+        index = ((pageInfor.virtualAddress << 34) >> 34) / 0x200000;
+        pageTail->next = secondDirArray[index - 1];
+        secondDirArray[index - 1] = 0;
+        if (index - 1 == 0)
+        {
+            secondDirInfor.next -= 0x1000;
+        }
+        pageTail = pageTail->next;
+        pageTail->next = NULL;
+        pageInfor.virtualAddress -= 0x200000; // 2MB
+    }
 }
 
 
