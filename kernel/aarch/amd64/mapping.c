@@ -2,7 +2,7 @@
  * Name: mapping.c
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2021-12-30 01:02:11
- * LastEditTime: 2022-01-01 23:36:05
+ * LastEditTime: 2022-01-02 03:39:32
  * LastEditors: Benji Xu
  * FilePath: /dolphin2/kernel/aarch/amd64/mapping.c
  * Description: this .c file is going to implement the malloc
@@ -11,6 +11,7 @@
 #include "printk.h"
 #include "debug.h"
 #include "stddef.h"
+#include "debug.h"
 #include "amd64/memory.h"
 #include "amd64/mapping.h"
 
@@ -21,7 +22,6 @@ struct page_dir_manage cr3Infor;
 struct page_dir_manage firstDirInfor;
 struct page_dir_manage secondDirInfor;
 uint64_t *ecx = 0x90000;
-
 
 /**
  * function: init_malloc
@@ -60,7 +60,7 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
         secondDirInfor.address = 0x74000;
         secondDirInfor.usedAmount = *ecx;
         secondDirInfor.attri = SECOND_DIR;
-        secondDirInfor.next = 0x76000;
+        secondDirInfor.next = pageDirAddress + 0x1000;
 
         pageInfor.dirAddress = 0x74000;
         pageInfor.pPhysicalAdrress = pageHead;
@@ -73,7 +73,6 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
     }
 }
 
-
 /**
  * function: malloc_page
  * @param [uint64_t] pageAmount: The amount of page that you need to malloc.
@@ -83,10 +82,17 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
  */
 void *malloc_page(uint64_t pageAmount)
 {
+
     find_physical_address();
     for (uint32_t i = 0; i < pageAmount; i++)
     {
         secondDirInfor.usedAmount = mapping(secondDirInfor.address, secondDirInfor.usedAmount, pageInfor.pPhysicalAdrress, SECOND_DIR);
+        struct page *p = pageInfor.pPhysicalAdrress;
+        if (p->next == NULL)
+        {
+            printk("p_address: %x %d", p, i);
+            ASSERT(1 < 0, "malloc_page(): run out the physical memory");
+        }
         pageInfor.pPhysicalAdrress = pageInfor.pPhysicalAdrress->next;
         if (secondDirInfor.usedAmount == 0)
         {
@@ -95,7 +101,7 @@ void *malloc_page(uint64_t pageAmount)
             firstDirInfor.usedAmount = mapping(firstDirInfor.address, firstDirInfor.usedAmount, secondDirInfor.address, FRIST_DIR);
             if (firstDirInfor.usedAmount == 0)
             {
-                printk("run out of the memory!!!");
+                printk("run out of the virtual memory!!!");
                 return NULL;
             }
         }
@@ -106,7 +112,6 @@ void *malloc_page(uint64_t pageAmount)
     uint64_t *test = 0xffff8000006ffff0;
     *test = 12;
 }
-
 
 /**
  * function: free_page
@@ -140,13 +145,11 @@ void *free_page(uint64_t pageAmount)
     }
 }
 
-
 uint64_t find_physical_address()
 {
     pageInfor.pPhysicalAdrress = pageHead;
     printk("find: %x\n", pageInfor.pPhysicalAdrress);
 }
-
 
 uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t Address, enum attributes attris)
 {
@@ -160,7 +163,7 @@ uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t Address, enum att
     {
         dirArray[index] += 0x03;
     }
-    if (index >= 512)
+    if (index >= 511)
     {
         return 0;
     }

@@ -6,6 +6,8 @@
 
 uint64_t usedDirectoryManageAddresss; //已经使用了的页目录表地址，我们这里是0x74000 + 映射物理地址所占用的空间, 代表的是已经使用的页目录表地址，一个页目录表是8字节。
 struct page *pageHead, *pageTail;
+uint64_t totalMemory; //电脑的全部可以使用的物理内存大小
+uint64_t *pageDirAddress;
 
 struct E820
 {

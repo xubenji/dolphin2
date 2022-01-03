@@ -1,5 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/root/benjixu/dolphin2'
+ 
 for dir in /root/benjixu/dolphin2/boot/ /root/benjixu/dolphin2/kernel/drives/usb/ /root/benjixu/dolphin2/kernel/ /root/benjixu/dolphin2/build/	;	\
 do	\
 	make -C $dir;	\

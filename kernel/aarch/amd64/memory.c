@@ -27,7 +27,7 @@ static struct free_mem_region FreeMemRegion[50];
 void init_memory(void)
 {
     int32_t count = *(int32_t *)0x9000;
-    uint64_t totalMemory = 0;
+    totalMemory = 0;
     struct E820 *mem_map = (struct E820 *)0x9008;
     int free_region_count = 0;
 
@@ -48,8 +48,8 @@ void init_memory(void)
 
     init_pages(totalMemory);
 
-    init_malloc(0,0,0,KERNEL);
-    malloc_page(10);
+    init_malloc(0, 0, 0, KERNEL);
+    malloc_page(513);
     free_page(3);
 }
 
@@ -63,7 +63,7 @@ void init_pages(uint64_t totalMemory)
 {
     /* 收集内存电脑内存信息，包括了可以使用的内存大小。
      * 在load.asm中，kernel已经使用了6mb的内存，所以ecx的大小是3。
-     * collect the memory information, including the usable memory size. 
+     * collect the memory information, including the usable memory size.
      * In the load.asm, kernel used 6mb memory, so the ecx is 3.
     /*-----------------------------------------------------------------------*/
     uint16_t *ecx;
@@ -76,7 +76,6 @@ void init_pages(uint64_t totalMemory)
      *-----------------------------------------------------------------------*/
     map_all_physical_pages(pages);
 
-    
     /* 将所有的可以利用的物理页用单链表连接起来
      *-----------------------------------------------------------------------*/
     uint64_t address = starMemory;
@@ -87,7 +86,6 @@ void init_pages(uint64_t totalMemory)
     }
     pageTail = address;
     pageTail->next = NULL;
-
 }
 
 /**
@@ -101,24 +99,36 @@ void init_pages(uint64_t totalMemory)
  */
 uint64_t map_all_physical_pages(uint64_t freePages)
 {
-    uint64_t *pageDirAddress = 0x75000;
-    for (uint64_t i = 0; i <= freePages / 512; i++)
+    if (freePages < 508)
     {
-        pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
-        uint64_t *FirstDir0x71000;
-        FirstDir0x71000 = 0x71000;
-        FirstDir0x71000[i + 1] = pageDirAddress;
-        FirstDir0x71000[i + 1] += 0x7;
-        for (uint64_t j = 0; j < 512; j++)
-        {
-            pageDirAddress[j] = 0x40000000 + 2 * 1024 * 1024 * j;
-            pageDirAddress[j] = pageDirAddress[j] + 0x83;
-        }
+        return NULL;
     }
-    head = 1024 * 1024 * 2 + 0x2000;
-    head->address = pageDirAddress;
+    else
+    {
+        uint32_t pages = (freePages - 508);
+        pageDirAddress = 0x75000;
+        for (uint64_t i = 0; i <= (freePages - 512) / 512; i++)
+        {
+            pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
+            uint64_t *FirstDir0x71000;
+            FirstDir0x71000 = 0x71000;
+            FirstDir0x71000[i + 1] = pageDirAddress;
+            FirstDir0x71000[i + 1] += 0x7;
+            for (uint64_t j = 0; j < 512; j++)
+            {
+                if (j >= pages)
+                {
+                    break;
+                }
+                pageDirAddress[j] = 0x40000000 * (i + 1) + 2 * 1024 * 1024 * j;
+                pageDirAddress[j] = pageDirAddress[j] + 0x83;
+            }
+            pages -= 512;
+        }
+        head = 1024 * 1024 * 2 + 0x2000;
+        head->address = pageDirAddress;
+    }
 }
-
 
 uint64_t link_page(uint64_t address, uint64_t offset)
 {
