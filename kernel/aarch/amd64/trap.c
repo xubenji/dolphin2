@@ -1,4 +1,5 @@
 #include "amd64/trap.h"
+#include "printk.h"
 
 static struct IdtPtr idt_pointer;
 static struct IdtEntry vectors[256];
@@ -47,6 +48,7 @@ void handler(struct TrapFrame *tf)
     switch (tf->trapno) {
         case 32:
             eoi();
+            printk("timer");
             __asm__ __volatile__("cli");
             break;
             

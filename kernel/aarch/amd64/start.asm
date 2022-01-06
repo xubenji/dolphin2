@@ -96,10 +96,10 @@ KernelEntry:
     xor ax,ax
     mov ss,ax
 
-    mov rsp,VIRTUAL_BASE_ADDR+0x200000
+    mov rsp,VIRTUAL_BASE_ADDR+0x400000
     
     call kernel_init
-    sti
+    
     
 
 End:
