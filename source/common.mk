@@ -10,7 +10,7 @@ OBJS 		= $(wildcard $(BUILD_PATH)/*.o)
 
 ifeq ($(ARCH),x86)
 NASM 		= nasm
-ASM_FLAGS   = -f elf64 -F dwarf
+ASM_FLAGS   = -f elf64 -F dwarf #dwarf是开启汇编可调试的参数
 CC 			= gcc 
 COPS		= -I$(HEAD_PATH) -std=c99 -mcmodel=large -ffreestanding -fno-stack-protector -mno-red-zone -w -g $(OPTIMIZATION)
 ASMOPS		= -I$(HEAD_PATH)

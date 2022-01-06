@@ -47,6 +47,7 @@ void handler(struct TrapFrame *tf)
     switch (tf->trapno) {
         case 32:
             eoi();
+            __asm__ __volatile__("cli");
             break;
             
         case 39:
