@@ -19,12 +19,18 @@ void kernel_init(void)
 {
   //  char* p = (char*)0xb8000;
 
-    __asm__ __volatile__("sti");
+    __asm__ __volatile__("cli");
     init_all();
-    for (int i = 0; i < 100000000; i++)
+    __asm__ __volatile__("sti");
+    while (1)
     {
-      /* code */
+        for (int i = 0; i < 10000000; i++)
+        {
+            /* code */
+        }
+      printk(" 0??0 ");
     }
+    
     //__asm__ __volatile__("cli");
     
     // char a[7]="32a55AA";

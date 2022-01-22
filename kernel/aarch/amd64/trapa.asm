@@ -24,6 +24,8 @@ global vector39
 global eoi
 global read_isr
 global load_idt
+global switch_to
+global set_rsp
 
 Trap:
     push rax
@@ -178,4 +180,11 @@ load_idt:
     lidt [rdi]
     ret
 
+switch_to:
+    mov rax, 0x10
+    push rdi
+    ret
 
+set_rsp:
+    mov rsp,rdi
+    jmp TrapReturn

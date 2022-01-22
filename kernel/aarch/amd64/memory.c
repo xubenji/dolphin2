@@ -22,7 +22,7 @@ static struct free_mem_region FreeMemRegion[50];
  * @function: init_memory
  * @param [null]
  * @return [null]
- * @description: Init the memory, collecting the memory information and put it into the screen | 收集电脑内存信息，并且将信息打印到屏幕上
+ * description: Init the memory, collecting the memory information and put it into the screen | 收集电脑内存信息，并且将信息打印到屏幕上
  */
 void init_memory(void)
 {

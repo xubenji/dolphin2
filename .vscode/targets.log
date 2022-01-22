@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jan  6 03:26:07 2022
+# Make data base, printed on Fri Jan 21 23:08:49 2022
 
 # Variables
 
@@ -59,7 +59,7 @@ DEPS_PATH = $(PROJECT_DIR)/link
 # 'override' directive
 GNUMAKEFLAGS := 
 # makefile (from 'config.mk', line 6)
-VIRTUAL_MEMORY = 1128
+VIRTUAL_MEMORY = 512
 # environment
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/0/bus
 # environment
@@ -69,7 +69,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 53083 104.244.92.245 22
+SSH_CONNECTION = 71.187.230.215 60642 104.244.92.245 22
 # environment
 PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
@@ -93,11 +93,11 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-a758ed37-6a11-4f93-8b40-431e1322d17f.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-695e59f5-60e3-478c-bc3a-c62a8743c81e.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'config.mk', line 4)
-DEBUG_FILE = memory.o
+DEBUG_FILE = trap.o
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
 # environment
@@ -131,7 +131,7 @@ JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 8)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 16
+XDG_SESSION_ID = 3
 # environment
 USER = root
 # makefile
@@ -155,7 +155,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 53083 22
+SSH_CLIENT = 71.187.230.215 60642 22
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -210,7 +210,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-03 09:28:12.43901915
+#  Last modified 2022-01-19 00:18:04.420543331
 #  File has been updated.
 #  Successfully updated.
 
@@ -278,7 +278,6 @@ run: all
 #  recipe to execute (from 'makefile', line 34):
 	$(RUNNING_INSTURCTION)
 
- 
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -300,6 +299,7 @@ clean:
 
 # No 'vpath' search paths.
 
+ 
 # No general ('VPATH' variable) search path.
 
 # strcache buffers: 1 (0) / strings = 26 / storage = 196 B / avg = 7 B
@@ -308,6 +308,6 @@ clean:
 # strcache performance: lookups = 40 / hit rate = 35%
 # hash-table stats:
 # Load=26/8192=0%, Rehash=0, Collisions=1/40=2%
-# Finished Make data base on Thu Jan  6 03:26:07 2022
+# Finished Make data base on Fri Jan 21 23:08:49 2022
 
  
