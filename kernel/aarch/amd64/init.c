@@ -4,7 +4,7 @@
 #include "printk.h"
 #include "amd64/trap.h"
 #include "amd64/init.h"
-#include "amd64/thread.h"
+#include "task.h"
 
 //初始化所有服务
 void init_all()

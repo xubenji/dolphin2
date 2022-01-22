@@ -1,34 +1,34 @@
-/*
- * @Author: your name
- * @Date: 2021-10-29 21:06:10
- * @LastEditTime: 2021-11-13 01:10:14
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: /dolphin2/kernel/kernel.c
+/** 
+ * Name: 
+ * Author: Benji Xu <benjixu2020@gmail.com>
+ * Date: 2021-11-04 03:56:41
+ * LastEditTime: 2022-01-22 05:39:33
+ * LastEditors: Benji Xu
+ * FilePath: /dolphin2/kernel/kernel.c
+ * Description: 
+ * 描述: 无论是x86还是arm cpu执行完引导区的代码以后就开始执行这里的代码。
  */
-
-
-
 #include "init.h"
 #include "stdint.h"
 #include "stdarg.h"
 #include "debug.h"
+#include "interruption.h"
 
 
 void kernel_init(void)
 {
   //  char* p = (char*)0xb8000;
 
-    __asm__ __volatile__("cli");
+    disable_interruption();
     init_all();
-    __asm__ __volatile__("sti");
+    enable_interruption();
     while (1)
     {
-        for (int i = 0; i < 10000000; i++)
+        for (int i = 0; i < 5000000; i++)
         {
             /* code */
         }
-      printk(" 0??0 ");
+      printk(" T000 ");
     }
     
     //__asm__ __volatile__("cli");

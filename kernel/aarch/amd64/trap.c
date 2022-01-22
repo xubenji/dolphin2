@@ -2,7 +2,8 @@
 #include "printk.h"
 #include "debug.h"
 #include "amd64/init.h"
-#include "amd64/thread.h"
+#include "task.h"
+#include "amd64/register.h"
 
 static struct IdtPtr idt_pointer;
 static struct IdtEntry vectors[256];
