@@ -8,7 +8,7 @@
  * Description: task scheduling fit into the x86 and arm. 
  * 描述: 任务调度代码，适用于x86和arm
  */
-#include "stdlib.h"
+#include "stdint.h"
 #include "printk.h"
 #include "task.h"
 

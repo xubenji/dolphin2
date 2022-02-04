@@ -12,6 +12,5 @@ void init_all()
     init_thread();
     init_print();
     init_idt();
-
     // init_memory();
 }

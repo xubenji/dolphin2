@@ -19,9 +19,9 @@ void kernel_init(void)
 {
   //  char* p = (char*)0xb8000;
 
-    disable_interruption();
+    //disable_interruption();
     init_all();
-    enable_interruption();
+    //enable_interruption();
     while (1)
     {
         for (int i = 0; i < 5000000; i++)

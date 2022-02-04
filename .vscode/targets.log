@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jan 22 05:13:12 2022
+# Make data base, printed on Fri Feb  4 17:31:18 2022
 
 # Variables
 
@@ -69,7 +69,7 @@ LESSOPEN = | /usr/bin/lesspipe %s
 # environment
 VSCODE_CWD = /root
 # environment
-SSH_CONNECTION = 71.187.230.215 61596 104.244.92.245 22
+SSH_CONNECTION = 68.197.157.226 52894 104.244.92.245 488
 # environment
 PATH = /root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/root/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/environment/jdk-11.0.12+7:/usr/local/cross-compiler/bin:/snap/bin:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/:/usr/environment/jdk-11.0.12+7/bin:/usr/environment/jdk-11.0.12+7/jre/bin:/usr/environment/apache-maven-3.6.3:/usr/environment/apache-maven-3.6.3/bin/
 # environment
@@ -93,7 +93,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /root/benjixu/dolphin2
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-df134789-08fd-4fdb-a03a-123b342b57eb.sock
+VSCODE_IPC_HOOK_CLI = /run/user/0/vscode-ipc-5056a81c-16bc-47ac-81ea-37fb821e211b.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # makefile (from 'config.mk', line 4)
@@ -131,7 +131,7 @@ JAVA_HOME = /usr/environment/jdk-11.0.12+7
 # makefile (from 'config.mk', line 8)
 BUILD_DIR = $(PROJECT_DIR)/boot/ $(PROJECT_DIR)/kernel/drives/usb/ $(PROJECT_DIR)/kernel/ $(PROJECT_DIR)/build/	
 # environment
-XDG_SESSION_ID = 1
+XDG_SESSION_ID = 3
 # environment
 USER = root
 # makefile
@@ -155,7 +155,7 @@ MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
 # environment
-SSH_CLIENT = 71.187.230.215 61596 22
+SSH_CLIENT = 68.197.157.226 52894 488
 # environment
 MAIL = /var/mail/root
 # makefile (from 'makefile', line 5)
@@ -210,7 +210,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # Not a target:
 config.mk:
 #  Implicit rule search has been done.
-#  Last modified 2022-01-19 00:18:04.420543331
+#  Last modified 2022-02-04 16:51:43.091048601
 #  File has been updated.
 #  Successfully updated.
 
@@ -278,6 +278,7 @@ run: all
 #  recipe to execute (from 'makefile', line 34):
 	$(RUNNING_INSTURCTION)
 
+ 
 clean:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -307,6 +308,6 @@ clean:
 # strcache performance: lookups = 40 / hit rate = 35%
 # hash-table stats:
 # Load=26/8192=0%, Rehash=0, Collisions=1/40=2%
-# Finished Make data base on Sat Jan 22 05:13:12 2022
+# Finished Make data base on Fri Feb  4 17:31:18 2022
 
  
