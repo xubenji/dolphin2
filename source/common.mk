@@ -24,18 +24,20 @@ OBJDUMP 	= x86_64-linux-gnu-objdump
 endif
 
 ifeq ($(ARCH),arm)
-#CC			= aarch64-elf-gcc
-CC			= aarch64-linux-gnu-gcc
+#编译安装的支持aarch64的gcc开启带调试选项，apt-get安装的默认不带调试功能，所以arm汇编无法调试
+#aarch64-elf-gcc是编译安装的，aarch-linux-gnu-gcc是apt-get安装的
+CC			= /usr/local/cross-compiler/bin/aarch64-elf-gcc
+#CC			= aarch64-linux-gnu-gcc
 #COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
 COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -c -w
 #-mgeneral-regs-only
-ASMOPS		= -I$(HEAD_PATH)
-#LD			= aarch64-elf-ld
-LD			= aarch64-linux-gnu-ld
+ASMOPS		= -I$(HEAD_PATH) -g
+LD			= /usr/local/cross-compiler/bin/aarch64-elf-ld
+#LD			= aarch64-linux-gnu-ld
 LDOPS 		= -nostdlib -nostartfiles -T $(PROJECT_DIR)/link/lds/link_arm.lds -o
 KERNEL_ELF  = kernel8.elf
-#OBJCOPY 	= aarch64-elf-objcopy -O binary
-OBJCOPY 	= aarch64-linux-gnu-objcopy -O binary
+OBJCOPY 	= /usr/local/cross-compiler/bin/aarch64-elf-objcopy -O binary
+#OBJCOPY 	= aarch64-linux-gnu-objcopy -O binary
 endif
 
 export CC
