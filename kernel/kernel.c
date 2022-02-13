@@ -13,22 +13,31 @@
 #include "stdarg.h"
 #include "debug.h"
 #include "interruption.h"
+#include "printk.h"
 
 
 void kernel_init(void)
 {
   //  char* p = (char*)0xb8000;
 
-    //disable_interruption();
+    // disable_interruption();
     init_all();
-    //enable_interruption();
+    // enable_interruption();
+    printk("hello world\n");
+
+    int a = 100;
+    a =200;
+    //ASSERT(3,2);
+    ASSERT(0,1);
+
+     printk("!!!!!!!!!!!!\n");    
     while (1)
     {
-        for (int i = 0; i < 5000000; i++)
+        for (int i = 0; i < 10000000; i++)
         {
             /* code */
         }
-      printk(" T000 ");
+      //printk(" T000 ");
     }
     
     //__asm__ __volatile__("cli");

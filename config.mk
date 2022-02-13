@@ -1,5 +1,5 @@
 #The computer architecture. 
-export ARCH 	  		 = x86
+export ARCH 	  		 = arm
 export PROJECT_DIR		 = $(shell pwd)
 export DEBUG_FILE		 = trap.o
 export OPTIMIZATION		 = -O0

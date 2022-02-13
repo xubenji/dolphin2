@@ -1,5 +1,4 @@
 #include "debug.h"
-#include "amd64/put.h"
 #include "stdint.h"
 #include "printk.h"
 

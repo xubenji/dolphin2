@@ -4,9 +4,9 @@ ENTRY(start)
 SECTIONS
 {
     . = 0x400000;
-#貌似是要使用绝对路径不知道为啥
+
     .text.entry : {
-        /root/benjixu/dolphin2/build/amd64/start.o(.text)
+        /home/parallels/Desktop/dolphin2/build/amd64/start.o(.text)
     }
 
     .text : {

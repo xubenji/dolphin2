@@ -1,35 +1,19 @@
-/*
- * Copyright (C) 2018 bzt (bztsrc@github)
- *
- * Permission is hereby granted, free of charge, to any person
- * obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without
- * restriction, including without limitation the rights to use, copy,
- * modify, merge, publish, distribute, sublicense, and/or sell copies
- * of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
- * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
- * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
- * DEALINGS IN THE SOFTWARE.
- *
- */
+#ifndef _UART_H
+#define _UART_H
 
-#ifndef	_UART_H
-#define	_UART_H
+#define IO_BASE_ADDR    0x3f200000
 
-void uart_init();
-void uart_send(unsigned int c);
-char uart_getc();
-void uart_puts(char *s);
-void uart_hex(unsigned int d);
+#define UART0_DR        IO_BASE_ADDR + 0x1000
+#define UART0_FR        IO_BASE_ADDR + 0x1018
+#define UART0_CR        IO_BASE_ADDR + 0x1030
+#define UART0_LCRH      IO_BASE_ADDR + 0x102c
+#define UART0_FBRD      IO_BASE_ADDR + 0x1028
+#define UART0_IBRD      IO_BASE_ADDR + 0x1024
+#define UART0_IMSC      IO_BASE_ADDR + 0x1038
+
+unsigned char read_char(void);
+void write_char(unsigned char c);
+void write_string(const char *string);
+void init_uart(void);
 
 #endif
