@@ -29,7 +29,7 @@ Tss:
 
 TssLen: equ $-Tss
 
-section .text
+section .text.boot
 extern kernel_init
 global start
 
@@ -100,8 +100,7 @@ KernelEntry:
     
     call kernel_init
     
-    
-
+section .text
 End:
     hlt
     jmp End

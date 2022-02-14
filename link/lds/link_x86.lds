@@ -5,11 +5,8 @@ SECTIONS
 {
     . = 0x400000;
 
-    .text.entry : {
-        /home/parallels/Desktop/dolphin2/build/amd64/start.o(.text)
-    }
-
     .text : {
+        KEEP(*(.text.boot)) *(.text .text.* .gnu.linkonce.t*)
        *(.text)
     }
 

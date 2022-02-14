@@ -9,8 +9,10 @@
 //初始化所有服务
 void init_all()
 {
-    init_thread();
+    disable_interruption();
     init_print();
     init_idt();
+    init_thread();
     // init_memory();
+    enable_interruption();
 }
