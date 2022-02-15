@@ -38,6 +38,9 @@ el1_entry:
     mov x1, #0
     bl memset
     
+    ldr x0, =vector_table
+    msr vbar_el1, x0
+
     bl kernel_init
     b end
     
