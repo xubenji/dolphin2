@@ -4,7 +4,7 @@
  * Date: 2021-12-30 01:02:11
  * LastEditTime: 2022-01-02 03:39:32
  * LastEditors: Benji Xu
- * FilePath: /dolphin2/kernel/aarch/amd64/mapping.c
+ * FilePath: /dolphin2/kernel/arch/amd64/mapping.c
  * Description: this .c file is going to implement the malloc
  * 描述: 这个点C文件是为了实现malloc
  */

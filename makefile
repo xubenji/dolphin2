@@ -5,15 +5,15 @@ export MKFILEFLAGS 				 += --no-print-directory
 export HEAD_PATH 		      	 = $(PROJECT_DIR)/include
 include config.mk
 
-ifeq ($(ARCH),x86)
-	AARCH					= aarch/amd64
+ifeq ($(target),x86)
+	AARCH					= arch/amd64
 	BUILD_PATH				= $(PROJECT_DIR)/build/amd64
 	SUFFIX					= asm
 	RUNNING_INSTURCTION     = qemu-system-x86_64 -cpu Skylake-Server -m $(VIRTUAL_MEMORY) -hda $(BUILD_PATH)/boot.img -boot d
 	DEBUG					= qemu-system-x86_64 -cpu Skylake-Server -m $(VIRTUAL_MEMORY) -hda $(BUILD_PATH)/boot.img -boot d -s -S 
 endif
-ifeq ($(ARCH),arm)
-	AARCH					= aarch/arm
+ifeq ($(target),arm)
+	AARCH					= arch/arm
 	BUILD_PATH				= $(PROJECT_DIR)/build/arm
 	SUFFIX					= S
 	RUNNING_INSTURCTION		= qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial stdio 

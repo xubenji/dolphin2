@@ -149,7 +149,7 @@ MAKE_COMMAND := make
 # automatic
 *F = $(notdir $*)
 # makefile (from 'config.mk', line 2)
-ARCH = x86
+target = x86
 # makefile
 MAKEFLAGS = pqrR
 # environment
@@ -169,7 +169,7 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # makefile (from 'makefile', line 9)
-AARCH = aarch/amd64
+AARCH = arch/amd64
 # environment
 LC_ALL = C
 # automatic

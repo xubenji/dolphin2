@@ -1,8 +1,8 @@
 
-ifeq ($(ARCH),x86)
+ifeq ($(target),x86)
 	DIR = amd64
 endif
-ifeq ($(ARCH),arm)
+ifeq ($(target),arm)
 	DIR = arm
 endif
 

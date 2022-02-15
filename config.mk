@@ -1,5 +1,5 @@
 #The computer architecture. 
-export ARCH 	  		 = arm
+export target 	  		 = arm
 export PROJECT_DIR		 = $(shell pwd)
 export DEBUG_FILE		 = printk.o
 export OPTIMIZATION		 = -O0

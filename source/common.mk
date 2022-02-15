@@ -8,7 +8,7 @@ OBJ		   += $(addprefix $(BUILD_PATH)/,$(SRCSASM:.$(SUFFIX)=.o))
 DEPS 		= $(addprefix $(DEPS_PATH)/,$(SRCS:.c=.d))
 OBJS 		= $(wildcard $(BUILD_PATH)/*.o)
 
-ifeq ($(ARCH),x86)
+ifeq ($(target),x86)
 NASM 		= nasm
 ASM_FLAGS   = -f elf64 -F dwarf #dwarf是开启汇编可调试的参数
 CC 			= x86_64-linux-gnu-gcc 
@@ -23,7 +23,7 @@ DISASSEMBLY = -j .text -l -C -S -d -mi386:x86-64:intel $(DEBUG_FILE) $(PROJECT_D
 OBJDUMP 	= x86_64-linux-gnu-objdump
 endif
 
-ifeq ($(ARCH),arm)
+ifeq ($(target),arm)
 #编译安装的支持aarch64的gcc开启带调试选项，apt-get安装的默认不带调试功能，所以arm汇编无法调试
 #aarch64-elf-gcc是编译安装的，aarch-linux-gnu-gcc是apt-get安装的
 #CC			= /usr/local/cross-compiler/bin/aarch64-elf-gcc
