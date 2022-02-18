@@ -1,7 +1,14 @@
 #include "stdint.h"
 #include "arm/register.h"
 
-void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1)
+void set_task_register(int pid, uint64_t functionAddress)
+{
+    registerList[pid].elr_el1 = functionAddress;
+    // registerList[pid].spsr_el1 =
+    registerList[pid].sp = 0x80000 - (pid * 0x1000);
+}
+
+void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1, uint64_t sp)
 {
     curTask->x0 = tf->x0;
     curTask->x1 = tf->x1;
@@ -34,7 +41,7 @@ void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t 
     curTask->x28 = tf->x28;
     curTask->x29 = tf->x29;
     curTask->x30 = tf->x30;
-    curTask->sp = tf->sp;
+    curTask->sp = sp;
     curTask->spsr_el1 = spsr_el1;
-    curTask->elr_el1  = elr_el1;
+    curTask->elr_el1 = elr_el1;
 }

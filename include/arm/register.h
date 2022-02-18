@@ -39,6 +39,8 @@ struct trap_frame {
     uint64_t elr_el1;
 };
 
-void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1);
+struct trap_frame registerList[64];
+
+void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1, uint64_t sp);
 
 #endif

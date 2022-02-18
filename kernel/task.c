@@ -6,7 +6,10 @@
  * LastEditors: Benji Xu
  * FilePath: /dolphin2/kernel/task.c
  * Description: task scheduling fit into the x86 and arm. 
- * 描述: 任务调度代码，适用于x86和arm
+ * I suggest you pay more attention on set_task_register(), 
+ * because only this function call the code having to do with the cpu arch.
+ * 描述: 任务调度代码，适用于x86和arm。你只需要注意set_task_register。
+ * 因为只有这个函数调用了和处理器架构相关的代码。
  */
 #include "stdint.h"
 #include "printk.h"
@@ -18,10 +21,12 @@ void test_print1()
 {
     while (1)
     {
-        for (int i = 0; i < 5000000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             /* code */
         }
+        
+        
         printk(" 1aa1 ");
     }
 }
@@ -30,7 +35,7 @@ void test_print2()
 {
     while (1)
     {
-        for (int i = 0; i < 5000000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             /* code */
         }
@@ -42,7 +47,7 @@ void test_print3()
 {
     while (1)
     {
-        for (int i = 0; i < 30000000; i++)
+        for (int i = 0; i < 10000; i++)
         {
             /* code */
         }
