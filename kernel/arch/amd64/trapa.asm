@@ -1,4 +1,3 @@
-
 section .text
 extern handler
 global vector0

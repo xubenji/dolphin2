@@ -50,7 +50,7 @@ void handler(struct TrapFrame *tf)
 {
     unsigned char isr_value;
 
-    switch (tf->trapno)
+    switch (tf->trapno)ƒ
     {
     case 32:
         eoi();

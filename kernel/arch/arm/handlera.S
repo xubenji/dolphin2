@@ -5,6 +5,9 @@
 .global read_timer_status
 .global set_timer_interval
 .global enable_irq
+.global set_elr_el
+.global disable_timer
+.global irq_return
 
 .balign 0x800
 vector_table:
@@ -138,8 +141,12 @@ irq_handler:
     mov x0, #2
     mrs x1, esr_el1
     mrs x2, elr_el1
+    mov x3, sp
+    mov x4, spsr_el1
     bl handler
 
+irq_return:
+    mov sp, x0
     ldp x0, x1, [sp]
     ldp x2, x3, [sp, #(16 * 1)]
     ldp x4, x5, [sp, #(16 * 2)]
@@ -156,8 +163,10 @@ irq_handler:
 	ldp	x26, x27, [sp, #(16 * 13)]
 	ldp	x28, x29, [sp, #(16 * 14)]
     ldr x30, [sp, #(16 * 15)]
+    
+    mov sp, #0x1000
 
-    add sp, sp, #(32 * 8)
+    ;add sp, sp, #(32 * 8)
     eret
 
 error:
@@ -231,3 +240,14 @@ read_timer_status:
 enable_irq:
     msr daifclr, #2
     ret
+
+set_elr_el:
+    msr elr_el1, x0
+
+set_spsr_el:
+    msr spsr_el1, x0
+
+disable_timer:
+    mov x0, #0
+    msr CNTP_CTL_EL0, x0
+    bl irq_return

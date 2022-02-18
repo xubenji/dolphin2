@@ -2,7 +2,7 @@
 
 DisPlay_Char chs;
 
-/* 一个接一个现实字符 */
+/* 一个接一个显示字符 */
 void print_char(uint8_t ch)
 {
 	chs.vram[chs.cursor_pos * 2] = ch;
