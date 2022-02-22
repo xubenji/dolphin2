@@ -6,6 +6,9 @@
     "stdint.h": "c",
     "printk.h": "c"
   },
+  "clang.cflags": [
+    "-I/home/parallels/Desktop/dolphin2/include"
+  ],
   "C_Cpp.dimInactiveRegions": false,
   "C_Cpp.errorSquiggles": "Disabled",
   "C_Cpp_Runner.cCompilerPath": "/usr/bin/gcc",
