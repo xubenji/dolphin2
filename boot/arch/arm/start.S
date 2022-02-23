@@ -32,15 +32,23 @@ kernel_entry:
 el1_entry:
     mov sp, #0x80000
 
+    bl setup_vm
+    bl enable_mmu
+
     ldr x0, =bss_start
     ldr x1, =bss_end
     sub x2, x1, x0
     mov x1, #0
     bl memset
-    
+
     ldr x0, =vector_table
     msr vbar_el1, x0
+    
+    mov x0, #0xffff000000000000
+    add sp, sp, x0
 
-    bl kernel_init
+    ldr x0, =kernel_init
+    blr x0
+
     b end
     
