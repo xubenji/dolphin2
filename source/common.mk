@@ -37,7 +37,7 @@ LDOPS 		= -nostdlib -nostartfiles -T $(PROJECT_DIR)/link/lds/link_arm.lds -o
 KERNEL_ELF  = kernel8.elf
 OBJCOPY 	= /usr/local/cross-compiler/bin/aarch64-elf-objcopy -O binary
 DISASSEMBLY = -j .text -l -C -S -d $(DEBUG_FILE) $(PROJECT_DIR)/build/arm/$(KERNEL_ELF) 
-#OBJDUMP		= /usr/local/cross-compiler/bin/aarch64-elf-objdump
+OBJDUMP		= /usr/local/cross-compiler/bin/aarch64-elf-objdump
 
 OBJCOPY 	= aarch64-linux-gnu-objcopy -O binary
 endif
