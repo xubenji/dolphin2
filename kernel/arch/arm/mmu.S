@@ -42,7 +42,7 @@ setup_kvm:
     orr x1, x1, #3
     str x1, [x0]
 
-    mov x2, #0x34000000
+    mov x2, #0x400000
     adr x1, pmd_ttbr1
     mov x0, #(1 << 10 | 1 << 2 | 1 << 0)
 
@@ -102,6 +102,14 @@ setup_uvm:
     adr x1, pmd_ttbr0
     mov x0, #(1 << 10 | 1 << 2 | 1 << 0)
     str x0, [x1]
+
+    mov x2, #0x40000000
+
+loop4:
+    str x0, [x1], #8
+    add x0, x0, #PAGE_SIZE
+    cmp x0, x2
+    blo loop4
 
     ret
 

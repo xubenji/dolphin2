@@ -14,7 +14,7 @@
 #include "stddef.h"
 #include "amd64/mapping.h"
 
-uint64_t pageSize = 0x200000;
+uint64_t pageSize = 0x200000; //2mb
 
 static struct free_mem_region FreeMemRegion[50];
 

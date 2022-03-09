@@ -30,6 +30,7 @@ ifeq ($(target),arm)
 CC			= aarch64-linux-gnu-gcc
 #COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -nostdinc -c
 COPS 		= -Wall $(OPTIMIZATION) -nostdlib -nostartfiles -ffreestanding -I$(HEAD_PATH) -g -fno-stack-protector -c -w -mgeneral-regs-only -std=c99
+COPS 	   += -DMEM=$(VIRTUAL_MEMORY)
 ASMOPS		= -I$(HEAD_PATH) -g
 #LD			= /usr/local/cross-compiler/bin/aarch64-elf-ld
 LD			= aarch64-linux-gnu-ld

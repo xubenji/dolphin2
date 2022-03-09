@@ -82,7 +82,6 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
  */
 void *malloc_page(uint64_t pageAmount)
 {
-
     find_physical_address();
     for (uint32_t i = 0; i < pageAmount; i++)
     {
@@ -108,6 +107,7 @@ void *malloc_page(uint64_t pageAmount)
     }
     pageInfor.virtualAddress += pageAmount * 2 * 1024 * 1024;
     // pageInfor.virtualAddress += 0x40000000;
+
     /* test code */
     uint64_t *test = 0xffff8000006ffff0;
     *test = 12;
@@ -151,10 +151,10 @@ uint64_t find_physical_address()
     printk("find: %x\n", pageInfor.pPhysicalAdrress);
 }
 
-uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t Address, enum attributes attris)
+uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum attributes attris)
 {
     uint64_t *dirArray = dirAddress;
-    dirArray[index] = Address;
+    dirArray[index] = address;
     if (attris == SECOND_DIR)
     {
         dirArray[index] += 0x83;

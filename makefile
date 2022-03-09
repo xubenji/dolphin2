@@ -16,8 +16,8 @@ ifeq ($(target),arm)
 	AARCH					= arch/arm
 	BUILD_PATH				= $(PROJECT_DIR)/build/arm
 	SUFFIX					= S
-	RUNNING_INSTURCTION		= qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial stdio 
-	DEBUG					= qemu-system-aarch64 -M raspi3 -kernel $(BUILD_PATH)/kernel8.img -serial stdio -s -S 
+	RUNNING_INSTURCTION		= qemu-system-aarch64 -M raspi3 -m $(VIRTUAL_MEMORY) -kernel $(BUILD_PATH)/kernel8.img -serial stdio 
+	DEBUG					= qemu-system-aarch64 -M raspi3 -m $(VIRTUAL_MEMORY) -kernel $(BUILD_PATH)/kernel8.img -serial stdio -s -S 
 endif
 
 export AARCH
