@@ -38,12 +38,12 @@ setup_kvm:
     str x1, [x0]
 
     adr x0, pud_ttbr1
-    adr x1, pmd_ttbr1
+    mov x1, #0x200000
     orr x1, x1, #3
     str x1, [x0]
 
     mov x2, #0x400000
-    adr x1, pmd_ttbr1
+    mov x1, #0x200000
     mov x0, #(1 << 10 | 1 << 2 | 1 << 0)
 
 loop1:
@@ -55,7 +55,7 @@ loop1:
     mov x2, #0x40000000
     mov x0, #0x3f000000
 
-    adr x3, pmd_ttbr1
+    mov x3, #0x200000
     lsr x1, x0, #(21 - 3)
     add x1, x1, x3
 

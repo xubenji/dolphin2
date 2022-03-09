@@ -39,20 +39,18 @@ void init_memory()
     }
     pageTail = address;
     pageTail->next = NULL;
-
+    
     init_malloc(0, 0, 0, KERNEL);
-    malloc_page(500);
-}
+    malloc_page(4);
+    
+    free_page(2);
+    malloc_page(10);
 
-static void free_region(uint64_t v, uint64_t e)
-{
-    for (uint64_t start = PA_UP(v); start + PAGE_SIZE <= e; start += PAGE_SIZE)
-    {
-        if (start + PAGE_SIZE <= MEMORY_END)
-        {
-            kfree(start);
-        }
-    }
+    /* test code */
+    uint64_t *test = 0x800000 + KERNEL_BASE;
+    uint64_t *test2 = 0x600000 + KERNEL_BASE;
+    *test = 12;
+    *test2 = 13;
 }
 
 uint64_t link_page(uint64_t address, uint64_t offset)

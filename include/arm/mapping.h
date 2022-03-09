@@ -41,5 +41,6 @@ struct page_infor
 
 uint64_t find_physical_address();
 uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum attributes attris);
+void free_page(uint64_t pageAmount);
 
 #endif

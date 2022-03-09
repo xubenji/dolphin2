@@ -73,7 +73,7 @@ def mbtohex():
 def main():
     hexnumber = ''
     print("")
-    print("请输入一个16进制的数字，我们将其转化为一个可读的内存大小，输入s反之，输入q退出:")
+    print("请输入一个16进制的数字，我们将其转化为一个可读的内存大小，输入s反之，输入h为接收十进制，输入q退出:")
     print("Please enter a hexnumber. We will convert it to comprehensible computer memory size，converse is entering 's'. enter 'q' exit:")
     hexnumber=input('Please input:')
     if hexnumber == 'q':
@@ -82,6 +82,10 @@ def main():
         exit()
     if hexnumber == '':
         main()
+    if hexnumber == 'h':
+        Dec = input("请输入十进制数字:")
+        Dec = int(Dec)
+        hexnumber = hex(Dec)
     if hexnumber == 's':
         hexnumber = ''
         mbtohex()

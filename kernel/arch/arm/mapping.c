@@ -43,7 +43,7 @@ void init_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, e
 
 void malloc_page(uint64_t pageAmount)
 {
-    find_physical_address();
+    
     for (uint32_t i = 0; i < pageAmount; i++)
     {
         dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageInfor.pPhysicalAdrress, DIR2);
@@ -70,8 +70,7 @@ void malloc_page(uint64_t pageAmount)
     // pageInfor.virtualAddress += 0x40000000;
 
     /* test code */
-    uint64_t *test = 0x1500000 + KERNEL_BASE;
-    *test = 12;
+
 }
 
 uint64_t find_physical_address()
@@ -100,4 +99,37 @@ uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum att
     {
         return index + 1;
     }
+}
+
+/**
+ * function: free_page
+ * @param [uint64_t] pageAccount : The amount of pages that you want to release.
+ * @return [void]
+ * description: release the page.
+ * 释放页。
+ */
+void free_page(uint64_t pageAmount)
+{
+    uint64_t *cr3 = dir0.address;
+    uint32_t index = pageInfor.virtualAddress >> 39;
+    index = index & 0x1ff;
+    uint64_t *firstDirArray = (cr3[index] >> 12) << 12;
+    uint64_t *secondDirArray;
+    for (uint32_t i = 0; i < pageAmount; i++)
+    {
+        index = pageInfor.virtualAddress >> 30;
+        index = index & 0x1ff;
+        uint64_t *secondDirArray = (firstDirArray[index] >> 12) << 12;
+        index = ((pageInfor.virtualAddress << 34) >> 34) / 0x200000;
+        pageTail->next = secondDirArray[index - 1];
+        secondDirArray[index - 1] = 0;
+        if (index - 1 == 0)
+        {
+            dir2.next -= 0x1000;
+        }
+        pageTail = pageTail->next;
+        pageTail->next = NULL;
+        pageInfor.virtualAddress -= 0x200000; // 2MB
+    }
+    dir2.usedAmount -= pageAmount;
 }
