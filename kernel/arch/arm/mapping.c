@@ -41,13 +41,63 @@ void init_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, e
     }
 }
 
-void malloc_page()
+void malloc_page(uint64_t pageAmount)
 {
+    find_physical_address();
+    for (uint32_t i = 0; i < pageAmount; i++)
+    {
+        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageInfor.pPhysicalAdrress, DIR2);
+        struct page *p = pageInfor.pPhysicalAdrress;
+        if (p->next == NULL)
+        {
+            printk("p_address: %x %d", p, i);
+            ASSERT(1 < 0, "malloc_page(): run out the physical memory");
+        }
+        pageInfor.pPhysicalAdrress = pageInfor.pPhysicalAdrress->next;
+        if (dir2.usedAmount == 0)
+        {
+            dir2.address = dir2.next;
+            dir2.next += 0x1000;
+            dir1.usedAmount = mapping(dir1.address, dir1.usedAmount, dir1.address, DIR1);
+            if (dir1.usedAmount == 0)
+            {
+                printk("run out of the virtual memory!!!");
+                return NULL;
+            }
+        }
+    }
+    pageInfor.virtualAddress += pageAmount * 2 * 1024 * 1024;
+    // pageInfor.virtualAddress += 0x40000000;
 
+    /* test code */
+    uint64_t *test = 0x1500000 + KERNEL_BASE;
+    *test = 12;
 }
 
 uint64_t find_physical_address()
 {
     pageInfor.pPhysicalAdrress = pageHead;
     printk("find: %x\n", pageInfor.pPhysicalAdrress);
+}
+
+uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum attributes attris)
+{
+    uint64_t *dirArray = dirAddress;
+    dirArray[index] = address;
+    if (attris == DIR2)
+    {
+        dirArray[index] += 0x405;
+    }
+    else if (attris == DIR1)
+    {
+        dirArray[index] += 0x0;
+    }
+    if (index >= 511)
+    {
+        return 0;
+    }
+    else
+    {
+        return index + 1;
+    }
 }

@@ -11,6 +11,7 @@
  */
 
 #include "arm/memory.h"
+#include "arm/mapping.h"
 #include "printk.h"
 #include "debug.h"
 #include "stddef.h"
@@ -38,6 +39,9 @@ void init_memory()
     }
     pageTail = address;
     pageTail->next = NULL;
+
+    init_malloc(0, 0, 0, KERNEL);
+    malloc_page(500);
 }
 
 static void free_region(uint64_t v, uint64_t e)
@@ -49,17 +53,6 @@ static void free_region(uint64_t v, uint64_t e)
             kfree(start);
         }
     }
-}
-
-void kfree(uint64_t v)
-{
-    // ASSERT(v % PAGE_SIZE == 0);
-    // ASSERT(v >= (uint64_t)&end);
-    // ASSERT(v + PAGE_SIZE <= MEMORY_END);
-
-    struct page *page_address = (struct page *)v;
-    page_address->next = freeMemory.next;
-    freeMemory.next = page_address;
 }
 
 uint64_t link_page(uint64_t address, uint64_t offset)
