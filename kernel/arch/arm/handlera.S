@@ -9,6 +9,8 @@
 .global disable_timer
 .global irq_return
 .global set_spsr_el
+.global switch_el
+.global load_ttbr0
 
 .balign 0x800
 vector_table:
@@ -144,6 +146,8 @@ irq_handler:
     mrs x2, elr_el1
     mov x3, sp
     mrs x4, spsr_el1
+    mrs x5, ttbr0_el1
+    mrs x6, ttbr1_el1
     bl handler
 
 irq_return:
@@ -163,9 +167,9 @@ irq_return:
 	ldp	x28, x29, [x0, #(16 * 14)]
     ldr x30, [x0, #(8 * 31)]
     mov sp, x30
-    ldr x1, [x0, #(8*1)]
+    ldr x1, [x0, #(8 * 1)]
     mov x30, #1
-    msr CNTP_CTL_EL0, x30
+    msr CNTP_CTL_EL0, x30  //enable timer
     ldr x30, [x0, #(8 * 30)]
     
     ldr x0, [x0]    
@@ -174,6 +178,7 @@ irq_return:
 
 error:
     sub sp, sp, #(32 * 8)
+    mrs x0, esr_el1
     stp x0, x1, [sp]
     stp x2, x3, [sp, #(16 * 1)]
     stp x4, x5, [sp, #(16 * 2)]
@@ -256,3 +261,19 @@ disable_timer:
     mov x0, #0
     msr CNTP_CTL_EL0, x0
     ret
+
+switch_el:
+    mov x1, #0
+    msr spsr_el1, x1
+    msr elr_el1, x0
+    ldr x0, =69632
+    msr sp_el0, x0
+    eret
+
+load_ttbr0:
+    tlbi vmalle1is
+    dsb ish
+    isb
+    ret
+
+

@@ -100,7 +100,7 @@ setup_uvm:
     str x1, [x0]
 
     adr x1, pmd_ttbr0
-    mov x0, #(1 << 10 | 1 << 2 | 1 << 0)
+    mov x0, #(1 << 10 | 1 << 2 | 1 << 0 )
     str x0, [x1]
 
     mov x2, #0x40000000

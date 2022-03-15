@@ -4,6 +4,12 @@
 #include "printk.h"
 #include "stdint.h"
 #include "task.h"
+#include "arm/handler.h"
+
+int test11()
+{
+    return 0;
+}
 
 void init_all()
 {
@@ -11,16 +17,34 @@ void init_all()
     printk("test!!!!!");
 
     printk("We current at level: %d\n", (uint64_t)get_el());
-    uint64_t * p = 0x600000;
-    *p = 250;
+
     init_memory();
-    printk("teste2\n");
+
+    uint64_t *page = 0x88000;
+    *page = *page | 1 << 6;
+
+    page = 0x87000;
+    *page = ((*page >> 10) << 10) + 0x447;
+
+    page = 0x86000;
+    *page = ((*page >> 10) << 10) + 0x447;
+
+    load_ttbr0();
+
+    uint64_t *t = &test11;
+    switch_el(t - KERNEL_BASE);
+
+    uint64_t *p = 0x80000;
+    *p = 250;
+    printk("We current at level: %d\n", (uint64_t)get_el());
+
+    printk("teste2 %d\n", *p);
     while (1)
     {
         /* code */
     }
-    
-    init_thread();
+
+    init_task();
     init_timer();
     enable_irq();
     while (1)

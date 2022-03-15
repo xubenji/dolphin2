@@ -1,7 +1,7 @@
 #The computer architecture. 
 export target 	  		 = arm
 export PROJECT_DIR		 = $(shell pwd)
-export DEBUG_FILE		 = printk.o
+export DEBUG_FILE		 = init.o
 export OPTIMIZATION		 = -O0
 export VIRTUAL_MEMORY	 = 1024
 

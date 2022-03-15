@@ -1,12 +1,12 @@
-/** 
+/**
  * Name: task.c
  * Author: Benji Xu <benjixu2020@gmail.com>
  * Date: 2022-01-20 12:21:48
- * LastEditTime: 2022-01-22 06:10:46
+ * LastEditTime: 2022-03-11 23:55:12
  * LastEditors: Benji Xu
  * FilePath: /dolphin2/kernel/task.c
- * Description: task scheduling fit into the x86 and arm. 
- * I suggest you pay more attention on set_task_register(), 
+ * Description: task scheduling fit into the x86 and arm.
+ * I suggest you pay more attention on set_task_register(),
  * because only this function call the code having to do with the cpu arch.
  * 描述: 任务调度代码，适用于x86和arm。你只需要注意set_task_register。
  * 因为只有这个函数调用了和处理器架构相关的代码。
@@ -14,6 +14,7 @@
 #include "stdint.h"
 #include "printk.h"
 #include "task.h"
+#include "arm/memory.h"
 
 int tasksNum = 0;
 
@@ -25,8 +26,7 @@ void test_print1()
         {
             /* code */
         }
-        
-        
+
         printk(" 1aa1 ");
     }
 }
@@ -55,13 +55,13 @@ void test_print3()
     }
 }
 
-/** 
- * @function: init_thread
+/**
+ * @function: init_task
  * @param [void]
  * @return [void]
- * description: 初始化线程所需要的环境，其实就是把kernel进程初始化为0号进程，并且把kernel线程设置为正在运行
+ * description: 初始化进程所需要的环境，其实就是把kernel进程初始化为0号进程，并且把kernel进程设置为正在运行
  */
-void init_thread(void)
+void init_task(void)
 {
 
     char name[64] = "000000000";
@@ -70,7 +70,7 @@ void init_thread(void)
         tasks[0].name[i] = name[i];
     }
     tasks[0].status = TASK_RUNNING;
-    tasks[0].type = THREAD;
+    tasks[0].type = KERNEL;
     tasks[0].pid = 0;
     set_task_register(0, 0);
     p = &tasks[0];
@@ -80,12 +80,15 @@ void init_thread(void)
     tasksNum = 1;
 
     //测试代码
-    create_thread("111111", THREAD, &test_print1);
-    create_thread("2222222", THREAD, &test_print2);
-    create_thread("33333333333", THREAD, &test_print3);
+    uint64_t print1 = &test_print1;
+    uint64_t print2 = &test_print2;
+    uint64_t print3 = &test_print3;
+    create_task("111111", KERNEL, print1 - KERNEL_BASE);
+    create_task("2222222", KERNEL, print2 - KERNEL_BASE);
+    create_task("33333333333", KERNEL, print3 - KERNEL_BASE);
 }
 
-void create_thread(char *name, enum task_type type, uint64_t functionAddress)
+void create_task(char *name, enum task_type type, uint64_t functionAddress)
 {
     for (int i = 0; i < tasksNum; i++)
     {
@@ -96,12 +99,12 @@ void create_thread(char *name, enum task_type type, uint64_t functionAddress)
             return;
         }
     }
-    tasksNum ++;
+    tasksNum++;
     link_task(&tasks[tasksNum - 1]);
     set_task_status(name, &tasks[tasksNum - 1], functionAddress, type);
 }
 
-/** 
+/**
  * @function: set_task_status
  * @param [char] *name: the name of the task
  * @param [task_list] *p: the pointer of to set task
@@ -121,7 +124,7 @@ void set_task_status(char *name, struct task_list *p, uint64_t functionAddress, 
     set_task_register(p->pid, functionAddress);
 }
 
-/** 
+/**
  * @function: link_list
  * @param [task_list] *tempTask: to set task's pointer
  * @return [void]
@@ -135,4 +138,3 @@ uint64_t link_task(struct task_list *tempTask)
     p->next = tHead;
     tHead->before = p;
 }
-

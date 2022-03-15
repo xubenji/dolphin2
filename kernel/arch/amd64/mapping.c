@@ -18,9 +18,9 @@
 #define BASE_VIRTUAL_ADDRESS 0xffff800000000000
 
 struct page_infor pageInfor = {0, 0, 0};
-struct page_dir_manage cr3Infor;
-struct page_dir_manage firstDirInfor;
-struct page_dir_manage secondDirInfor;
+struct page_dir_manage dir0;
+struct page_dir_manage dir1;
+struct page_dir_manage dir2;
 uint64_t *ecx = 0x90000;
 
 /**
@@ -44,23 +44,23 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum proce
 {
     if (program == KERNEL)
     {
-        cr3Infor.dirState = IN_USE;
-        cr3Infor.address = 0x70000;
-        cr3Infor.usedAmount = 1;
-        cr3Infor.attri = CR3;
-        cr3Infor.next = 0;
+        dir0.dirState = IN_USE;
+        dir0.address = 0x70000;
+        dir0.usedAmount = 1;
+        dir0.attri = CR3;
+        dir0.next = 0;
 
-        firstDirInfor.dirState = IN_USE;
-        firstDirInfor.address = 0x73000;
-        firstDirInfor.usedAmount = 1;
-        firstDirInfor.attri = FRIST_DIR;
-        firstDirInfor.next = 0;
+        dir1.dirState = IN_USE;
+        dir1.address = 0x73000;
+        dir1.usedAmount = 1;
+        dir1.attri = FRIST_DIR;
+        dir1.next = 0;
 
-        secondDirInfor.dirState = IN_USE;
-        secondDirInfor.address = 0x74000;
-        secondDirInfor.usedAmount = *ecx;
-        secondDirInfor.attri = SECOND_DIR;
-        secondDirInfor.next = pageDirAddress + 0x1000;
+        dir2.dirState = IN_USE;
+        dir2.address = 0x74000;
+        dir2.usedAmount = *ecx;
+        dir2.attri = SECOND_DIR;
+        dir2.next = pageDirAddress + 0x1000;
 
         pageInfor.dirAddress = 0x74000;
         pageInfor.pPhysicalAdrress = pageHead;
@@ -85,7 +85,7 @@ void *malloc_page(uint64_t pageAmount)
     find_physical_address();
     for (uint32_t i = 0; i < pageAmount; i++)
     {
-        secondDirInfor.usedAmount = mapping(secondDirInfor.address, secondDirInfor.usedAmount, pageInfor.pPhysicalAdrress, SECOND_DIR);
+        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageInfor.pPhysicalAdrress, SECOND_DIR);
         struct page *p = pageInfor.pPhysicalAdrress;
         if (p->next == NULL)
         {
@@ -93,12 +93,12 @@ void *malloc_page(uint64_t pageAmount)
             ASSERT(1 < 0, "malloc_page(): run out the physical memory");
         }
         pageInfor.pPhysicalAdrress = pageInfor.pPhysicalAdrress->next;
-        if (secondDirInfor.usedAmount == 0)
+        if (dir2.usedAmount == 0)
         {
-            secondDirInfor.address = secondDirInfor.next;
-            secondDirInfor.next += 0x1000;
-            firstDirInfor.usedAmount = mapping(firstDirInfor.address, firstDirInfor.usedAmount, secondDirInfor.address, FRIST_DIR);
-            if (firstDirInfor.usedAmount == 0)
+            dir2.address = dir2.next;
+            dir2.next += 0x1000;
+            dir1.usedAmount = mapping(dir1.address, dir1.usedAmount, dir2.address, FRIST_DIR);
+            if (dir1.usedAmount == 0)
             {
                 printk("run out of the virtual memory!!!");
                 return NULL;
@@ -122,7 +122,7 @@ void *malloc_page(uint64_t pageAmount)
  */
 void *free_page(uint64_t pageAmount)
 {
-    uint64_t *cr3 = cr3Infor.address;
+    uint64_t *cr3 = dir0.address;
     uint32_t index = pageInfor.virtualAddress >> 39;
     index = index & 0x1ff;
     uint64_t *firstDirArray = (cr3[index] >> 12) << 12;
@@ -137,7 +137,7 @@ void *free_page(uint64_t pageAmount)
         secondDirArray[index - 1] = 0;
         if (index - 1 == 0)
         {
-            secondDirInfor.next -= 0x1000;
+            dir2.next -= 0x1000;
         }
         pageTail = pageTail->next;
         pageTail->next = NULL;

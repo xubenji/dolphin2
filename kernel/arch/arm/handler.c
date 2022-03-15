@@ -18,33 +18,6 @@ void set_spsr_el(uint64_t spsr_el);
 static uint32_t timer_interval = 0;
 static uint64_t ticks = 0;
 
-
-
-// void test_print1()
-// {
-//     int a = 100;
-//     a = 200;
-
-//     while (1)
-//     {
-//         printk("111111111111111111\n");
-//     }
-// }
-
-// void test_print2()
-// {
-//     int a = 100;
-//     a = 200;
-
-//     while (1)
-//     {
-//         printk("222222222222222222\n");
-//     }
-// }
-
-struct trap_frame r1 = {0};
-struct trap_frame r2 = {0};
-
 void init_timer(void)
 {
     timer_interval = read_timer_freq() / 100;
@@ -56,7 +29,7 @@ void init_timer(void)
     // r2.elr_el1 = &test_print2;
 }
 
-static void timer_interrupt_handler(uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr)
+static void timer_interrupt_handler(uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr, uint64_t ttbr0_el1, uint64_t ttbr1_el1)
 {
     uint32_t status = read_timer_status();
     disable_timer();
@@ -69,7 +42,7 @@ static void timer_interrupt_handler(uint64_t esr, uint64_t elr, uint64_t sp, uin
 
         p->status = TASK_WAITTING;
         save_registers(&registerList[p->pid], sp, elr, spsr, sp + (32 * 8));
-
+        //switch_el();
         p = p->next;
         set_timer_interval(timer_interval);
         set_elr_el(registerList[p->pid].elr_el1);
@@ -77,37 +50,10 @@ static void timer_interrupt_handler(uint64_t esr, uint64_t elr, uint64_t sp, uin
         p->status = TASK_RUNNING;
         irq_return(&registerList[p->pid]);
 
-        // ticks++;
-        // if (ticks % 2 == 0)
-        // {
-
-        //     save_registers(&r1, sp, elr, spsr, sp + (32 * 8));
-
-        //     printk("r1 timer %d \r\n", ticks);
-        //     set_timer_interval(timer_interval);
-        //     set_elr_el(r2.elr_el1);
-        //     // set_spsr_el(r2.spsr_el1);
-        //     printk("r2 address:%x\n", &r2);
-        //     irq_return(&r2, r2.sp);
-        // }
-        // else
-        // {
-        //     if (ticks > 1)
-        //     {
-        //         save_registers(&r2, sp, elr, spsr, sp + (32 * 8));
-        //         set_spsr_el(r1.spsr_el1);
-        //     }
-        //     printk("r2 timer %d \r\n", ticks);
-        //     set_timer_interval(timer_interval);
-        //     set_elr_el(r1.elr_el1);
-
-        //     printk("r1 address:%x\n", &r1);
-        //     irq_return(&r1, r1.sp);
-        // }
     }
 }
 
-void handler(uint64_t numid, uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr)
+void handler(uint64_t numid, uint64_t esr, uint64_t elr, uint64_t sp, uint64_t spsr, uint64_t ttbr0_el1, uint64_t ttbr1_el1)
 {
     uint32_t irq;
 
@@ -123,7 +69,7 @@ void handler(uint64_t numid, uint64_t esr, uint64_t elr, uint64_t sp, uint64_t s
         irq = in_word(CNTP_STATUS_EL0);
         if (irq & (1 << 1))
         {
-            timer_interrupt_handler(esr, elr, sp, spsr);
+            timer_interrupt_handler(esr, elr, sp, spsr, ttbr0_el1, ttbr1_el1);
         }
         else
         {

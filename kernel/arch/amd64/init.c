@@ -12,7 +12,7 @@ void init_all()
     disable_interruption();
     init_print();
     init_idt();
-    init_thread();
+    init_task();
     // init_memory();
     enable_interruption();
 }

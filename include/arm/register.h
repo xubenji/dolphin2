@@ -1,8 +1,10 @@
 #ifndef _REGISTER_H
 #define _REGISTER_H
 #include "stdint.h"
+#include "task.h"
 
-struct trap_frame {
+struct trap_frame
+{
     uint64_t x0;
     uint64_t x1;
     uint64_t x2;
@@ -39,7 +41,9 @@ struct trap_frame {
     uint64_t elr_el1;
 };
 
-struct trap_frame registerList[64];
+
+struct trap_frame registerList[tasksNumber];
+
 
 void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1, uint64_t sp);
 

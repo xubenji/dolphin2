@@ -1,10 +1,11 @@
 #ifndef _THREAD_H_
 #define _THREAD_H_
 #include "stdint.h"
+#define tasksNumber 64
 
 enum task_type
 {
-    THREAD,
+    KERNEL,
     PROCESS,
 };
 
@@ -30,13 +31,13 @@ struct task_list
     struct task_list *next;
 };
 
-static struct task_list tasks[64];
+static struct task_list tasks[tasksNumber];
 
 struct task_list *p;
 struct task_list *tHead;
 
-void init_thread(void);
-void create_thread(char *name, enum task_type type, uint64_t functionAddress);
+void init_task(void);
+void create_task(char *name, enum task_type type, uint64_t functionAddress);
 void set_task_status(char *name, struct task_list *p, uint64_t functionAddress, enum task_type type);
 uint64_t link_task(struct task_list *temp);
 
