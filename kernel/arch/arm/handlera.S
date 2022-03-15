@@ -263,7 +263,7 @@ disable_timer:
     ret
 
 switch_el:
-    mov x1, #0
+    mov x1, #960
     msr spsr_el1, x1
     msr elr_el1, x0
     ldr x0, =69632

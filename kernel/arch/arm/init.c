@@ -8,6 +8,7 @@
 
 int test11()
 {
+    uint64_t x = 0x8888888;
     return 0;
 }
 
@@ -32,7 +33,9 @@ void init_all()
     load_ttbr0();
 
     uint64_t *t = &test11;
-    switch_el(t - KERNEL_BASE);
+    uint64_t tt = t;
+    tt = (tt << 16) >> 16;
+    switch_el(tt);
 
     uint64_t *p = 0x80000;
     *p = 250;
