@@ -24,13 +24,13 @@ void init_all()
     uint64_t *page = 0x88000;
     *page = *page | 1 << 6;
 
-    page = 0x87000;
-    *page = ((*page >> 10) << 10) + 0x447;
+    // page = 0x87000;
+    // *page = ((*page >> 10) << 10) + 0x447;
 
-    page = 0x86000;
-    *page = ((*page >> 10) << 10) + 0x447;
+    // page = 0x86000;
+    // *page = ((*page >> 10) << 10) + 0x447;
 
-    load_ttbr0();
+   // load_ttbr0();
 
     uint64_t *t = &test11;
     uint64_t tt = t;

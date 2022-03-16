@@ -5,8 +5,8 @@
 
 enum task_type
 {
-    KERNEL,
-    PROCESS,
+    KERNEL = 0,
+    PROCESS = 1,
 };
 
 //我们设置了六种状态，初始值为TASK_WAIITING = 0
