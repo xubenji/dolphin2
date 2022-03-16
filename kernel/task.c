@@ -15,7 +15,7 @@
 #include "printk.h"
 #include "task.h"
 #include "arm/memory.h"
-
+//用于测试
 int tasksNum = 0;
 
 void test_print1()
