@@ -16,6 +16,7 @@
 #include "task.h"
 #include "arm/memory.h"
 //用于测试
+//用于测试2
 int tasksNum = 0;
 
 void test_print1()
