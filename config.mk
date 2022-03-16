@@ -1,5 +1,5 @@
 #The computer architecture. 
-export target 	  		 = arm
+export target 	  		 = x86
 export PROJECT_DIR		 = $(shell pwd)
 export DEBUG_FILE		 = init.o
 export OPTIMIZATION		 = -O0

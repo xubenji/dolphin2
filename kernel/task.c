@@ -82,10 +82,10 @@ void init_task(void)
     //测试代码
     uint64_t print1 = &test_print1;
     uint64_t print2 = &test_print2;
-    uint64_t print3 = &test_print3;
-    create_task("111111", KERNEL, print1 - KERNEL_BASE);
-    create_task("2222222", KERNEL, print2 - KERNEL_BASE);
-    create_task("33333333333", KERNEL, print3 - KERNEL_BASE);
+    uint64_t print3 = &test_print3 - KERNEL_BASE;
+    create_task("111111", KERNEL, &test_print1);
+    create_task("2222222", KERNEL, &test_print2);
+    create_task("33333333333", KERNEL, &test_print3);
 }
 
 void create_task(char *name, enum task_type type, uint64_t functionAddress)
