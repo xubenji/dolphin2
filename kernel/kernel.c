@@ -25,12 +25,7 @@ void kernel_init(void)
 
     printk("hello world\n");
 
-    int a = 100;
-    a =200;
-    //ASSERT(3,2);
-  
 
-     printk("!!!!!!!!!!!!\n");    
     while (1)
     {
         for (int i = 0; i < 100; i++)

@@ -29,16 +29,21 @@ struct task_list
     enum task_status status;
     struct task_list *before;
     struct task_list *next;
+    uint64_t dir0;
+    uint64_t dir1;
+    uint64_t dir2;
 };
 
-static struct task_list tasks[tasksNumber];
-
+struct task_list tasks[tasksNumber];
 struct task_list *p;
 struct task_list *tHead;
 
 void init_task(void);
-void create_task(char *name, enum task_type type, uint64_t functionAddress);
+void create_task(char *name, enum task_type type, uint64_t functionAddress, int pid);
 void set_task_status(char *name, struct task_list *p, uint64_t functionAddress, enum task_type type);
 uint64_t link_task(struct task_list *temp);
+void set_task_memory();
+void set_page_dir_address_for_task();
+void set_task_virtual_address(uint64_t dir0, uint64_t dir1, uint64_t dir2, int pages);
 
 #endif

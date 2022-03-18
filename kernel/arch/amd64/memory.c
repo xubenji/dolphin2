@@ -65,7 +65,7 @@ void init_memory(void)
  * @function: init_pages
  * @param [uint64_t] totalMemory: the total memory size in bytes. | 以字节来表示的内存大小
  * @return [null]
- * @description: Init the pages, using single link list to manage the free pages. | 初始化页，使用单链表来管理可以使用的页
+ * description: Init the pages, using single link list to manage the free pages. | 初始化页，使用单链表来管理可以使用的页
  */
 void init_pages(uint64_t totalMemory)
 {
@@ -185,7 +185,6 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_
         dir2.next = pageDirAddress + 0x1000;
 
         pageInfor.dirAddress = 0x74000;
-        pageInfor.pPhysicalAdrress = pageHead;
         pageInfor.virtualAddress = *ecx * 1024 * 1024 * 2 + BASE_VIRTUAL_ADDRESS;
 
         printk("init malloc\n");
@@ -207,14 +206,14 @@ void *malloc_page(uint64_t pageAmount)
     find_physical_address();
     for (uint32_t i = 0; i < pageAmount; i++)
     {
-        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageInfor.pPhysicalAdrress, SECOND_DIR);
-        struct page *p = pageInfor.pPhysicalAdrress;
+        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageHead, SECOND_DIR);
+        struct page *p = pageHead;
         if (p->next == NULL)
         {
             printk("p_address: %x %d", p, i);
             ASSERT(1 < 0, "malloc_page(): run out the physical memory");
         }
-        pageInfor.pPhysicalAdrress = pageInfor.pPhysicalAdrress->next;
+        pageHead = pageHead->next;
         if (dir2.usedAmount == 0)
         {
             dir2.address = dir2.next;
@@ -260,18 +259,19 @@ void *free_page(uint64_t pageAmount)
         if (index - 1 == 0)
         {
             dir2.next -= 0x1000;
+            dir2.usedAmount = 512;
         }
         pageTail = pageTail->next;
         pageTail->next = NULL;
         pageInfor.virtualAddress -= 0x200000; // 2MB
+        dir2.usedAmount -= 1;
     }
-    dir2.usedAmount -= pageAmount;
 }
 
 uint64_t find_physical_address()
 {
-    pageInfor.pPhysicalAdrress = pageHead;
-    printk("find: %x\n", pageInfor.pPhysicalAdrress);
+    pageHead = pageHead;
+    printk("find: %x\n", pageHead);
 }
 
 uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum attributes attris)

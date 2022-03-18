@@ -15,8 +15,7 @@
 #include "printk.h"
 #include "task.h"
 #include "arm/memory.h"
-//用于测试
-//用于测试2
+
 int tasksNum = 0;
 
 void test_print1()
@@ -81,28 +80,53 @@ void init_task(void)
     tasksNum = 1;
 
     //测试代码
-    uint64_t print1 = &test_print1;
-    uint64_t print2 = &test_print2;
-    uint64_t print3 = &test_print3 - KERNEL_BASE;
-    create_task("111111", KERNEL, &test_print1);
-    create_task("2222222", KERNEL, &test_print2);
-    create_task("33333333333", KERNEL, &test_print3);
+    // uint64_t print1 = &test_print1;
+    // uint64_t print2 = &test_print2;
+    // uint64_t print3 = &test_print3 - KERNEL_BASE;
+    // create_task("111111", KERNEL, &test_print1);
+    // create_task("2222222", KERNEL, &test_print2);
+    // create_task("33333333333", KERNEL, &test_print3);
 }
 
-void create_task(char *name, enum task_type type, uint64_t functionAddress)
+/**
+ * function: create_task
+ * @param [char] *name 进程的名字 ｜ name of the thread
+ * @param [enum task_type] type 任务的类型 ｜ the type of task(KERNEL or nomral PROCESS?)
+ * @param [uint64_t] functionAddress 进程运行的起始地址 ｜ the entry address of the process
+ * @param [int] pid:检查要创建的线程是否属于某一个进程，如果不输入任意一个进程pid为-1 ｜ To check if the thread to create belongs one process. if not, it equal -1
+ * @return [void]
+ * description: 这是创建任务的函数，不管是线程还是进程我们统一称为任务，操作系统只调度任务，而不会调度进程。也有可能多个任务共享同一个虚拟地址空间，也有可能多个任务并不共享虚拟地址空间。
+ */
+void create_task(char *name, enum task_type type, uint64_t functionAddress, int pid)
 {
-    for (int i = 0; i < tasksNum; i++)
+    if (pid == -1)
     {
-        if (tasks[i].status == TASK_DIED)
+        for (int i = 0; i < tasksNum; i++)
         {
-            p = &tasks[i];
-            set_task_status(name, p, functionAddress, type);
-            return;
+            if (tasks[i].status == TASK_DIED)
+            {
+                p = &tasks[i];
+                set_task_status(name, p, functionAddress, type);
+                return;
+            }
         }
+        tasksNum++;
+        link_task(&tasks[tasksNum - 1]);
+        set_task_status(name, &tasks[tasksNum - 1], functionAddress, type);
+
+        set_task_memory();
+
+        malloc_page(1);
+        uint64_t dir0 = processAddr.lastPhyAddress + 0x1f0000;
+        uint64_t dir1 = dir0 + 0x1000;
+        uint64_t dir2 = processAddr.lastPhyAddress;
+        set_page_dir_address_for_task();
+        int pages = 1;
+        set_task_virtual_address(dir0, dir1, dir2, pages);
     }
-    tasksNum++;
-    link_task(&tasks[tasksNum - 1]);
-    set_task_status(name, &tasks[tasksNum - 1], functionAddress, type);
+    else
+    {
+    }
 }
 
 /**
@@ -138,4 +162,16 @@ uint64_t link_task(struct task_list *tempTask)
     p = p->next;
     p->next = tHead;
     tHead->before = p;
+}
+
+void set_task_memory()
+{
+    
+}
+
+void set_task_virtual_address(uint64_t dir0, uint64_t dir1, uint64_t dir2, int pages)
+{
+    p->dir0 = dir0;
+    p->dir1 = dir1;
+    p->dir2 = dir2;
 }

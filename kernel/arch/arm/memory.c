@@ -24,7 +24,6 @@ extern char end;
 
 void init_memory()
 {
-
     printk("physical mem:%d\n", SIZE_MEM);
 
     uint64_t startMemory = 0x400000;
@@ -39,18 +38,6 @@ void init_memory()
     }
     pageTail = address;
     pageTail->next = NULL;
-    
-    init_malloc(0, 0, 0, KERNEL);
-    malloc_page(4);
-    
-    free_page(2);
-    malloc_page(10);
-
-    /* test code */
-    uint64_t *test = 0x800000 + KERNEL_BASE;
-    uint64_t *test2 = 0x600000 + KERNEL_BASE;
-    *test = 12;
-    *test2 = 13;
 }
 
 uint64_t link_page(uint64_t address, uint64_t offset)
@@ -60,13 +47,12 @@ uint64_t link_page(uint64_t address, uint64_t offset)
     return address + offset;
 }
 
-
 struct page_infor pageInfor = {0, 0, 0};
 struct page_dir_manage dir0;
 struct page_dir_manage dir1;
 struct page_dir_manage dir2;
 
-void init_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, enum task_type program)
+void set_process_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, enum task_type program)
 {
     if (program == KERNEL)
     {
@@ -89,27 +75,27 @@ void init_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, e
         dir2.next = 0x200000 + 0x1000;
 
         pageInfor.dirAddress = 0x200000;
-        pageInfor.pPhysicalAdrress = pageHead;
+        pageHead = pageHead;
         pageInfor.virtualAddress = 2 * 1024 * 1024 * 2 + KERNEL_BASE;
     }
     else
     {
+        
     }
 }
 
 void malloc_page(uint64_t pageAmount)
 {
-    
     for (uint32_t i = 0; i < pageAmount; i++)
     {
-        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageInfor.pPhysicalAdrress, DIR2);
-        struct page *p = pageInfor.pPhysicalAdrress;
-        if (p->next == NULL)
+        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageHead, DIR2);
+        if (pageHead->next == NULL)
         {
             printk("p_address: %x %d", p, i);
             ASSERT(1 < 0, "malloc_page(): run out the physical memory");
         }
-        pageInfor.pPhysicalAdrress = pageInfor.pPhysicalAdrress->next;
+        processAddr.lastPhyAddress = pageHead;
+        pageHead = pageHead->next;
         if (dir2.usedAmount == 0)
         {
             dir2.address = dir2.next;
@@ -123,16 +109,7 @@ void malloc_page(uint64_t pageAmount)
         }
     }
     pageInfor.virtualAddress += pageAmount * 2 * 1024 * 1024;
-    // pageInfor.virtualAddress += 0x40000000;
-
-    /* test code */
-
-}
-
-uint64_t find_physical_address()
-{
-    pageInfor.pPhysicalAdrress = pageHead;
-    printk("find: %x\n", pageInfor.pPhysicalAdrress);
+    processAddr.lastVirAddress = pageInfor.virtualAddress - pageSize;
 }
 
 uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum attributes attris)
@@ -182,10 +159,11 @@ void free_page(uint64_t pageAmount)
         if (index - 1 == 0)
         {
             dir2.next -= 0x1000;
+            dir2.usedAmount = 512;
         }
         pageTail = pageTail->next;
         pageTail->next = NULL;
         pageInfor.virtualAddress -= 0x200000; // 2MB
+        dir2.usedAmount -= 1;
     }
-    dir2.usedAmount -= pageAmount;
 }

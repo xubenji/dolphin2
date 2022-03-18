@@ -5,12 +5,12 @@
       "name": "GDB debug",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/amd64/kernel8.elf",
+      "program": "${workspaceFolder}/build/arm/kernel8.elf",
       "args": [],
       "stopAtEntry": true,
-      "cwd": "${workspaceFolder}/kernel/arch/amd64",
+      "cwd": "${workspaceFolder}/kernel/arch/arm",
       "includePath": [
-        "${workspaceFolder}/kernel/arch/amd64"
+        "${workspaceFolder}/kernel/arch/arm"
       ],
       "environment": [],
       "externalConsole": false,
@@ -33,9 +33,9 @@
         ""
       ],
       "stopAtEntry": false,
-      "cwd": "/home/parallels/Desktop/dolphin2/kernel/arch/amd64",
+      "cwd": "/home/parallels/Desktop/dolphin2/kernel/arch/arm",
       "environment": [],
-      "program": "/home/parallels/Desktop/dolphin2/kernel/arch/amd64/build/Debug/outDebug",
+      "program": "/home/parallels/Desktop/dolphin2/kernel/arch/arm/build/Debug/outDebug",
       "internalConsoleOptions": "openOnSessionStart",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
