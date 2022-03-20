@@ -42,7 +42,7 @@ void init_task(void);
 void create_task(char *name, enum task_type type, uint64_t functionAddress, int pid);
 void set_task_status(char *name, struct task_list *p, uint64_t functionAddress, enum task_type type);
 uint64_t link_task(struct task_list *temp);
-void set_task_memory();
+void set_task_page();
 void set_page_dir_address_for_task();
 void set_task_virtual_address(uint64_t dir0, uint64_t dir1, uint64_t dir2, int pages);
 

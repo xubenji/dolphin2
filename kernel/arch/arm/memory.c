@@ -80,7 +80,23 @@ void set_process_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t direct
     }
     else
     {
-        
+        dir0.dirState = IN_USE;
+        dir0.address = ttbr1_el1;
+        dir0.usedAmount = 0;
+        dir0.attri = DIR0;
+        dir0.next = 0;
+
+        dir1.address = IN_USE;
+        dir1.address = directory1;
+        dir1.usedAmount = 0;
+        dir1.attri = DIR1;
+        dir1.next = 0;
+
+        dir2.dirState = IN_USE;
+        dir2.address = directory2;
+        dir2.usedAmount = 0;
+        dir2.attri = DIR2;
+        dir2.next = 0;
     }
 }
 

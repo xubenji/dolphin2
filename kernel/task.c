@@ -114,15 +114,7 @@ void create_task(char *name, enum task_type type, uint64_t functionAddress, int 
         link_task(&tasks[tasksNum - 1]);
         set_task_status(name, &tasks[tasksNum - 1], functionAddress, type);
 
-        set_task_memory();
-
-        malloc_page(1);
-        uint64_t dir0 = processAddr.lastPhyAddress + 0x1f0000;
-        uint64_t dir1 = dir0 + 0x1000;
-        uint64_t dir2 = processAddr.lastPhyAddress;
-        set_page_dir_address_for_task();
-        int pages = 1;
-        set_task_virtual_address(dir0, dir1, dir2, pages);
+        set_task_page();
     }
     else
     {
@@ -164,14 +156,21 @@ uint64_t link_task(struct task_list *tempTask)
     tHead->before = p;
 }
 
-void set_task_memory()
+void set_task_page()
 {
-    
+    malloc_page(1);
+    uint64_t dir0Addr = processAddr.lastPhyAddress + 0x1f0000;
+    uint64_t dir1Addr = dir0Addr + 0x1000;
+    uint64_t dir2Addr = processAddr.lastPhyAddress;
+    // set_page_dir_address_for_task();
+    int pages = 1;
+    set_task_virtual_address(dir0Addr, dir1Addr, dir2Addr, pages);
 }
 
-void set_task_virtual_address(uint64_t dir0, uint64_t dir1, uint64_t dir2, int pages)
+void set_task_virtual_address(uint64_t dir0Addr, uint64_t dir1Addr, uint64_t dir2Addr, int pages)
 {
-    p->dir0 = dir0;
-    p->dir1 = dir1;
-    p->dir2 = dir2;
+    p->dir0 = dir0Addr;
+    p->dir1 = dir1Addr;
+    p->dir2 = dir2Addr;
+    set_process_malloc(p->dir0, p->dir1, p->dir2, PROCESS);
 }
