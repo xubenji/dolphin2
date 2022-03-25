@@ -6,7 +6,7 @@
 //64为任务总数，registerList表示任务数组
 struct TrapFrame registerList[64];
 
-void set_task_register(int pid, uint64_t functionAddress);
+void set_task_register(int pid, uint64_t functionAddress, uint64_t spsr_el1);
 void save_registers(struct TrapFrame *curThread, struct TrapFrame *tf);
 
 #endif

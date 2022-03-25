@@ -1,11 +1,21 @@
 #include "stdint.h"
+#include "task.h"
 #include "arm/register.h"
 
-void set_task_register(int pid, uint64_t functionAddress)
+void set_task_register(int pid, uint64_t functionAddress, enum task_type type)
 {
     registerList[pid].elr_el1 = functionAddress;
-    // registerList[pid].spsr_el1 =
-    registerList[pid].sp = 0x80000 - (pid * 0x1000);
+    if (type == KERNEL)
+    {
+        registerList[pid].sp = 0x80000 - (pid * 0x1000);
+        registerList[pid].spsr_el1 = 0;
+    }
+    else
+    {
+        //后期可能需要修改的地方
+        registerList[pid].sp = 0x200000 - 0x100;
+        registerList[pid].spsr_el1 = 960;
+    }
 }
 
 void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1, uint64_t sp)

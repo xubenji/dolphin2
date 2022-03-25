@@ -97,6 +97,8 @@ void set_process_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t direct
         dir2.usedAmount = 0;
         dir2.attri = DIR2;
         dir2.next = 0;
+
+        pageInfor.virtualAddress = 0;
     }
 }
 

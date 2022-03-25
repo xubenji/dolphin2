@@ -43,18 +43,6 @@ void test_print2()
     }
 }
 
-void test_print3()
-{
-    while (1)
-    {
-        for (int i = 0; i < 10000; i++)
-        {
-            /* code */
-        }
-        printk(" 3cc3 ");
-    }
-}
-
 /**
  * @function: init_task
  * @param [void]
@@ -72,7 +60,10 @@ void init_task(void)
     tasks[0].status = TASK_RUNNING;
     tasks[0].type = KERNEL;
     tasks[0].pid = 0;
-    set_task_register(0, 0);
+
+    //找到当前处理器的状态，在arm下是寻找spsr_el1的值
+    uint64_t status = find_cpu_status();
+    set_task_register(0, 0, status);
     p = &tasks[0];
     tHead = p;
     tHead->before = p;
@@ -81,7 +72,7 @@ void init_task(void)
 
     //测试代码
     // uint64_t print1 = &test_print1;
-    // uint64_t print2 = &test_print2;
+    //
     // uint64_t print3 = &test_print3 - KERNEL_BASE;
     // create_task("111111", KERNEL, &test_print1);
     // create_task("2222222", KERNEL, &test_print2);
@@ -138,7 +129,9 @@ void set_task_status(char *name, struct task_list *p, uint64_t functionAddress, 
     }
     p->status = TASK_WAITTING;
     p->pid = p->before->pid + 1;
-    set_task_register(p->pid, functionAddress);
+    p->type = type;
+
+    set_task_register(p->pid, functionAddress, type);
 }
 
 /**
@@ -172,5 +165,12 @@ void set_task_virtual_address(uint64_t dir0Addr, uint64_t dir1Addr, uint64_t dir
     p->dir0 = dir0Addr;
     p->dir1 = dir1Addr;
     p->dir2 = dir2Addr;
+
+    uint64_t *array = dir0Addr;
+    array[0] = dir1Addr + 0x03;
+    array = dir1Addr;
+    array[0] = dir2Addr + 0x03;
     set_process_malloc(p->dir0, p->dir1, p->dir2, PROCESS);
+
+    malloc_page(3);
 }

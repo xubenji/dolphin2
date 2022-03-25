@@ -7,10 +7,16 @@
 .global enable_irq
 .global set_elr_el
 .global disable_timer
+.global disable_timer2
 .global irq_return
 .global set_spsr_el
 .global switch_el
-.global load_ttbr0
+.global set_cpu_status
+.global set_ttbr0
+.global find_cpu_status
+.global set_sp_el0
+.global set_sp_el1
+
 
 .balign 0x800
 vector_table:
@@ -166,6 +172,7 @@ irq_return:
 	ldp	x26, x27, [x0, #(16 * 13)]
 	ldp	x28, x29, [x0, #(16 * 14)]
     ldr x30, [x0, #(8 * 31)]
+    msr sp_el0, x30
     mov sp, x30
     ldr x1, [x0, #(8 * 1)]
     mov x30, #1
@@ -265,15 +272,27 @@ disable_timer:
 switch_el:
     mov x1, #960
     msr spsr_el1, x1
-    msr elr_el1, x0
-    ldr x0, =69632
-    msr sp_el0, x0
-    eret
+    ret
 
-load_ttbr0:
+set_cpu_status:
     tlbi vmalle1is
     dsb ish
     isb
     ret
 
+set_ttbr0:
+    msr ttbr0_el1, x0
+    ret
+
+find_cpu_status:
+    mrs x0, spsr_el1
+    ret
+
+set_sp_el1:
+    mov sp, x0
+    ret
+
+set_sp_el0:
+    msr sp_el0, x0
+    ret
 

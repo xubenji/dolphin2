@@ -44,7 +44,7 @@ struct trap_frame
 
 struct trap_frame registerList[tasksNumber];
 
-
+void set_task_register(int pid, uint64_t functionAddress, enum task_type type);
 void save_registers(struct trap_frame *curTask, struct trap_frame *tf, uint64_t elr_el1, uint64_t spsr_el1, uint64_t sp);
 
 #endif
