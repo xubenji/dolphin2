@@ -57,7 +57,7 @@ lower_el_aarch64_sync:
 
 .balign 0x80
 lower_el_aarch64_irq:
-    b error
+    b irq_handler
 
 .balign 0x80
 lower_el_aarch64_fiq:
@@ -267,11 +267,6 @@ set_spsr_el:
 disable_timer:
     mov x0, #0
     msr CNTP_CTL_EL0, x0
-    ret
-
-switch_el:
-    mov x1, #960
-    msr spsr_el1, x1
     ret
 
 set_cpu_status:

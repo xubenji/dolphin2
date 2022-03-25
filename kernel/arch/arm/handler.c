@@ -34,51 +34,45 @@ static void timer_interrupt_handler(uint64_t esr, uint64_t elr, uint64_t sp, uin
     //disable_timer();
     if (status & (1 << 2))
     {
-         ticks++;
-        if (ticks % 100 == 0) {
-            printk("timer %d \r\n", ticks);
+        while (p->status != TASK_RUNNING)
+        {
+            p = p->next;
+        }
+        enum task_type currentTaskType = p->type;
+        p->status = TASK_WAITTING;
+        save_registers(&registerList[p->pid], sp, elr, spsr, sp + (32 * 8));
+        if (currentTaskType == KERNEL)
+        {
+            p->dir0 = ttbr1_el1;
+        }
+        else
+        {
+            p->dir0 = ttbr0_el1;
         }
 
+        p = p->next;
+
+        enum task_type nextTaskType = p->type;
+
+        if (nextTaskType == KERNEL)
+        {
+            set_sp_el1(registerList[p->pid].sp);
+        }
+        else
+        {
+            set_sp_el0(registerList[p->pid].sp);
+            set_ttbr0(p->dir0);
+        }
         set_timer_interval(timer_interval);
-        // while (p->status != TASK_RUNNING)
-        // {
-        //     p = p->next;
-        // }
-        // enum task_type currentTaskType = p->type;
-        // p->status = TASK_WAITTING;
-        // save_registers(&registerList[p->pid], sp, elr, spsr, sp + (32 * 8));
-        // if (currentTaskType == KERNEL)
-        // {
-        //     p->dir0 = ttbr1_el1;
-        // }
-        // else
-        // {
-        //     p->dir0 = ttbr0_el1;
-        // }
+        set_elr_el(registerList[p->pid].elr_el1);
 
-        // p = p->next;
+        //set_cpu_status();
 
-        // enum task_type nextTaskType = p->type;
+        set_spsr_el(registerList[p->pid].spsr_el1);
+    
 
-        // if (nextTaskType == KERNEL)
-        // {
-        //     set_sp_el1(registerList[p->pid].sp);
-        // }
-        // else
-        // {
-        //     set_sp_el0(registerList[p->pid].sp);
-        //     set_ttbr0(p->dir0);
-        // }
-        // set_timer_interval(timer_interval);
-        // set_elr_el(registerList[p->pid].elr_el1);
-
-        // //set_cpu_status();
-
-        // set_spsr_el(registerList[p->pid].spsr_el1);
-        
-
-        // p->status = TASK_RUNNING;
-        // irq_return(&registerList[p->pid]);
+        p->status = TASK_RUNNING;
+        irq_return(&registerList[p->pid]);
     }
 }
 

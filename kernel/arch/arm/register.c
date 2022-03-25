@@ -13,8 +13,8 @@ void set_task_register(int pid, uint64_t functionAddress, enum task_type type)
     else
     {
         //后期可能需要修改的地方
-        registerList[pid].sp = 0x200000 - 0x100;
-        registerList[pid].spsr_el1 = 960;
+        registerList[pid].sp = 0x10000;
+        registerList[pid].spsr_el1 = 0;
     }
 }
 
