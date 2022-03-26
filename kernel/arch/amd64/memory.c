@@ -13,6 +13,7 @@
 #include "debug.h"
 #include "stddef.h"
 #include "task.h"
+#include "malloc.h"
 
 #define BASE_VIRTUAL_ADDRESS 0xffff800000000000
 
@@ -56,7 +57,7 @@ void init_memory(void)
 
     init_pages(totalMemory);
 
-    init_malloc(0, 0, 0, KERNEL);
+    set_process_malloc(0, 0, 0, KERNEL);
     malloc_page(513);
     free_page(3);
 }
@@ -138,18 +139,11 @@ uint64_t map_all_physical_pages(uint64_t freePages)
     }
 }
 
-uint64_t link_page(uint64_t address, uint64_t offset)
-{
-    struct page *p = address;
-    p->next = address + offset;
-    return address + offset;
-}
-
 /**
  * function: init_malloc
  * @param [uint64_t] cr3: the value of cr3
  * @param [uint64_t] firstDir: first-directory' value
- * @param [uint64_t] secondDir: second_directory's value
+ * @param [uint64_t] secondDir: DIR1ectory's value
  * @param [enum procedure_type] program: the process's type. normal process or kernel process.
  * @return [void]
  * description:
@@ -162,26 +156,26 @@ uint64_t link_page(uint64_t address, uint64_t offset)
  * 我们需要实现进程这个概念，所以我们需要不同的页目录表和页表，因为每一个进程都有他独自的页目录表和页表
  * 如果我们不需要实现进程，我们可以直接使用内核的页表，内核的cr3保存的地址是在0x70000
  */
-void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program)
+void set_process_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program)
 {
     if (program == KERNEL)
     {
         dir0.dirState = IN_USE;
         dir0.address = 0x70000;
         dir0.usedAmount = 1;
-        dir0.attri = CR3;
+        dir0.attri = DIR0;
         dir0.next = 0;
 
         dir1.dirState = IN_USE;
         dir1.address = 0x73000;
         dir1.usedAmount = 1;
-        dir1.attri = FRIST_DIR;
+        dir1.attri = DIR1;
         dir1.next = 0;
 
         dir2.dirState = IN_USE;
         dir2.address = 0x74000;
         dir2.usedAmount = *ecx;
-        dir2.attri = SECOND_DIR;
+        dir2.attri = DIR1;
         dir2.next = pageDirAddress + 0x1000;
 
         pageInfor.dirAddress = 0x74000;
@@ -194,104 +188,17 @@ void init_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_
     }
 }
 
-/**
- * function: malloc_page
- * @param [uint64_t] pageAmount: The amount of page that you need to malloc.
- * @return [void]
- * description: Input the amount of page that you need to malloc, then the function will complete it.
- * 输入需要映射的page的数量，程序会完成这个操作。
- */
-void *malloc_page(uint64_t pageAmount)
-{
-    find_physical_address();
-    for (uint32_t i = 0; i < pageAmount; i++)
+int get_page_attri(enum attributes attris)
+{   
+    switch (attris)
     {
-        dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageHead, SECOND_DIR);
-        struct page *p = pageHead;
-        if (p->next == NULL)
-        {
-            printk("p_address: %x %d", p, i);
-            ASSERT(1 < 0, "malloc_page(): run out the physical memory");
-        }
-        pageHead = pageHead->next;
-        if (dir2.usedAmount == 0)
-        {
-            dir2.address = dir2.next;
-            dir2.next += 0x1000;
-            dir1.usedAmount = mapping(dir1.address, dir1.usedAmount, dir2.address, FRIST_DIR);
-            if (dir1.usedAmount == 0)
-            {
-                printk("run out of the virtual memory!!!");
-                return NULL;
-            }
-        }
-    }
-    pageInfor.virtualAddress += pageAmount * 2 * 1024 * 1024;
-    // pageInfor.virtualAddress += 0x40000000;
-
-    /* test code */
-    uint64_t *test = 0xffff8000006ffff0;
-    *test = 12;
-}
-
-/**
- * function: free_page
- * @param [uint64_t] pageAccount : The amount of pages that you want to release.
- * @return [void]
- * description: release the page.
- * 释放页。
- */
-void *free_page(uint64_t pageAmount)
-{
-    uint64_t *cr3 = dir0.address;
-    uint32_t index = pageInfor.virtualAddress >> 39;
-    index = index & 0x1ff;
-    uint64_t *firstDirArray = (cr3[index] >> 12) << 12;
-    uint64_t *secondDirArray;
-    for (uint32_t i = 0; i < pageAmount; i++)
-    {
-        index = pageInfor.virtualAddress >> 30;
-        index = index & 0x1ff;
-        uint64_t *secondDirArray = (firstDirArray[index] >> 12) << 12;
-        index = ((pageInfor.virtualAddress << 34) >> 34) / 0x200000;
-        pageTail->next = secondDirArray[index - 1];
-        secondDirArray[index - 1] = 0;
-        if (index - 1 == 0)
-        {
-            dir2.next -= 0x1000;
-            dir2.usedAmount = 512;
-        }
-        pageTail = pageTail->next;
-        pageTail->next = NULL;
-        pageInfor.virtualAddress -= 0x200000; // 2MB
-        dir2.usedAmount -= 1;
-    }
-}
-
-uint64_t find_physical_address()
-{
-    pageHead = pageHead;
-    printk("find: %x\n", pageHead);
-}
-
-uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum attributes attris)
-{
-    uint64_t *dirArray = dirAddress;
-    dirArray[index] = address;
-    if (attris == SECOND_DIR)
-    {
-        dirArray[index] += 0x83;
-    }
-    else if (attris == FRIST_DIR)
-    {
-        dirArray[index] += 0x03;
-    }
-    if (index >= 511)
-    {
+    case DIR2:
+        return 0x83;
+        break;
+    case DIR1:
+        return 0x03;
+    default:
         return 0;
-    }
-    else
-    {
-        return index + 1;
+        break;
     }
 }

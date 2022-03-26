@@ -15,6 +15,7 @@
 #include "printk.h"
 #include "task.h"
 #include "arm/memory.h"
+#include "malloc.h"
 
 int tasksNum = 0;
 
@@ -62,8 +63,8 @@ void init_task(void)
     tasks[0].pid = 0;
 
     //找到当前处理器的状态，在arm下是寻找spsr_el1的值
-    uint64_t status = find_cpu_status();
-    set_task_register(0, 0, status);
+    //uint64_t status = find_cpu_status();
+    set_task_register(0, 0, KERNEL);
     p = &tasks[0];
     tHead = p;
     tHead->before = p;
@@ -170,7 +171,7 @@ void set_task_virtual_address(uint64_t dir0Addr, uint64_t dir1Addr, uint64_t dir
     array[0] = dir1Addr + 0x03;
     array = dir1Addr;
     array[0] = dir2Addr + 0x03;
-    set_process_malloc(p->dir0, p->dir1, p->dir2, PROCESS);
+    set_task_malloc(p->dir0, p->dir1, p->dir2);
 
     malloc_page(3);
 }

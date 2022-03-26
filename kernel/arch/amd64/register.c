@@ -1,13 +1,22 @@
 #include "amd64/register.h"
+#include "task.h"
 #include "stdint.h"
 
-void set_task_register(int pid, uint64_t functionAddress)
+void set_task_register(int pid, uint64_t functionAddress, enum task_type type)
 {
-    registerList[pid].rip = functionAddress;
-    registerList[pid].errorcode = 0;
-    registerList[pid].rflags = 663;
-    registerList[pid].cs = 8;
-    registerList[pid].rsp = 0xffff800000000000 + 0x400000 - (pid * 0x1000);
+    if (type == KERNEL)
+    {
+        registerList[pid].rip = functionAddress;
+        registerList[pid].errorcode = 0;
+        registerList[pid].rflags = 663;
+        registerList[pid].cs = 8;
+        registerList[pid].rsp = 0xffff800000000000 + 0x400000 - (pid * 0x1000);
+    }
+    else
+    {
+        //后期可能需要修改的地方
+        registerList[pid].rsp = 0x1000;
+    }
 }
 
 void save_registers(struct TrapFrame *curTask, struct TrapFrame *tf)
