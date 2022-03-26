@@ -24,11 +24,6 @@ struct free_mem_region
     uint64_t length;
 };
 
-struct page
-{
-    struct page *next;
-};
-
 struct page_dir
 {
     struct page_dir *next;
