@@ -25,7 +25,7 @@
 void init_memory(void);
 static void free_region(uint64_t v, uint64_t e);
 uint64_t find_physical_address();
-void set_process_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, enum task_type program);
+void set_kernel_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, enum task_type program);
 void free_page(uint64_t pageAmount);
 int get_page_attri(enum attributes attris);
 

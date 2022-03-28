@@ -44,7 +44,7 @@ void init_memory()
     pageTail->next = NULL;
 }
 
-void set_process_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, enum task_type program)
+void set_kernel_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t directory2, enum task_type program)
 {
     if (program == KERNEL)
     {
@@ -77,7 +77,7 @@ void set_process_malloc(uint64_t ttbr1_el1, uint64_t directory1, uint64_t direct
 }
 
 int get_page_attri(enum attributes attris)
-{   
+{
     switch (attris)
     {
     case DIR2:

@@ -54,7 +54,7 @@ void init_all()
 
     printk("teste2\n");
 
-    set_process_malloc(0, 0, 0, KERNEL);
+    set_kernel_malloc(0, 0, 0, KERNEL);
     malloc_page(2);
 
     // uint64_t phy = processAddr.lastPhyAddress;

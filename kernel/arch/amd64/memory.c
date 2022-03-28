@@ -57,7 +57,7 @@ void init_memory(void)
 
     init_pages(totalMemory);
 
-    set_process_malloc(0, 0, 0, KERNEL);
+    set_kernel_malloc(0, 0, 0, KERNEL);
     malloc_page(513);
     free_page(3);
 }
@@ -156,7 +156,7 @@ uint64_t map_all_physical_pages(uint64_t freePages)
  * 我们需要实现进程这个概念，所以我们需要不同的页目录表和页表，因为每一个进程都有他独自的页目录表和页表
  * 如果我们不需要实现进程，我们可以直接使用内核的页表，内核的cr3保存的地址是在0x70000
  */
-void set_process_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program)
+void set_kernel_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program)
 {
     if (program == KERNEL)
     {
@@ -189,7 +189,7 @@ void set_process_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enu
 }
 
 int get_page_attri(enum attributes attris)
-{   
+{
     switch (attris)
     {
     case DIR2:

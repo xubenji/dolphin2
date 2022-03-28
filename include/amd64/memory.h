@@ -37,7 +37,7 @@ void init_pages(uint64_t totalMemory);
 uint64_t map_all_physical_pages(uint64_t freePages);
 uint64_t link_page_dirs(uint64_t pageDirAddress, uint64_t offset, uint64_t startMemory);
 uint64_t link_page(uint64_t address, uint64_t size);
-void set_process_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program);
+void set_kernel_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program);
 void *free_page(uint64_t pageAccount);
 uint64_t find_physical_address();
 uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t Address, enum attributes attris);

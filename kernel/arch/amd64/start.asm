@@ -84,6 +84,15 @@ InitPIC:
     mov al,11111111b
     out 0xa1,al
 
+    push 0x18 | 3   ;ss selector
+    push 0x7c00     ;RSP
+    push 2          ;Rflags
+    push 0x10 | 3   ;cs selector
+    push userEntry  ;RIP
+    iretq
+
+
+    sti
     mov rax,KernelEntry
     push 8
     push rax
@@ -99,6 +108,19 @@ KernelEntry:
     mov rsp,VIRTUAL_BASE_ADDR+0x400000
     
     call kernel_init
+
+userEntry:
+    mov ax,cs
+    and al,11b
+    cmp al,3
+    jne UEnd
+    mov byte[0xb8010], 'U'
+    mov byte[0xb8011], 0xE
+    
+
+UEnd:
+    jmp UEnd
+
     
 section .text
 End:
