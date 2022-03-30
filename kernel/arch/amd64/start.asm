@@ -84,12 +84,12 @@ InitPIC:
     mov al,11111111b
     out 0xa1,al
 
-    push 0x18 | 3   ;ss selector
-    push 0x7c00     ;RSP
-    push 2          ;Rflags
-    push 0x10 | 3   ;cs selector
-    push userEntry  ;RIP
-    iretq
+   ; push 0x18 | 3   ;ss selector
+   ; push 0x7c00     ;RSP
+   ; push 2          ;Rflags
+   ; push 0x10 | 3   ;cs selector
+   ; push userEntry  ;RIP
+   ; iretq
 
 
     sti

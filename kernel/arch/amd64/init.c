@@ -13,6 +13,6 @@ void init_all()
     init_print();
     init_idt();
     init_task();
-    // init_memory();
+    init_memory();
     enable_interruption();
 }

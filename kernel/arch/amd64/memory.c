@@ -14,6 +14,7 @@
 #include "stddef.h"
 #include "task.h"
 #include "malloc.h"
+#include "stdbool.h"
 
 #define BASE_VIRTUAL_ADDRESS 0xffff800000000000
 
@@ -57,9 +58,10 @@ void init_memory(void)
 
     init_pages(totalMemory);
 
-    set_kernel_malloc(0, 0, 0, KERNEL);
-    malloc_page(513);
-    free_page(3);
+    set_kernel_malloc();
+    //实际分配的要比这个多一点，因为在load里面已经分配了3个页
+    malloc_page(1023);
+    free_page(12);
 }
 
 /**
@@ -83,18 +85,31 @@ void init_pages(uint64_t totalMemory)
 
     /* 映射机器的所有可以利用的物理页，
      *-----------------------------------------------------------------------*/
-    map_all_physical_pages(pages);
+    map_all_physical_pages(pages + *ecx);
 
     /* 将所有的可以利用的物理页用单链表连接起来
      *-----------------------------------------------------------------------*/
     uint64_t address = starMemory;
     pageHead = starMemory;
-    for (uint32_t i = 0; i < pages; i++)
+    for (uint32_t i = 0; i < pages - 1; i++)
     {
         address = link_page(address, pageSize);
     }
+
     pageTail = address;
     pageTail->next = NULL;
+    struct page *temp = pageHead;
+
+    set_kernel_malloc();
+
+    for (int i = 0; i < *ecx; i++)
+    {
+        uint64_t *new = dir2.address;
+        uint64_t *old = 0x74000;
+        new[i] = old[i];
+    }
+    uint64_t *t = 0x73000;
+    t[0] = dir2.address + 0x03;
 }
 
 /**
@@ -106,36 +121,68 @@ void init_pages(uint64_t totalMemory)
  * 描述: 将所有可以使用的物理页映射，注意这里是映射的物理地址。
  *      这样操作完成以后内核可以访问所有的物理地址。
  */
-uint64_t map_all_physical_pages(uint64_t freePages)
+bool map_all_physical_pages(int freePages)
 {
-    if (freePages < 508)
+    // if (freePages < 508)
+    // {
+    //     return NULL;
+    // }
+    // else
+    // {
+    //     uint32_t pages = (freePages - 508);
+    //     pageDirAddress = 0x75000;
+    //     for (uint64_t i = 0; i <= (freePages - 512) / 512; i++)
+    //     {
+    //         pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
+    //         uint64_t *FirstDir0x71000;
+    //         FirstDir0x71000 = 0x71000;
+    //         FirstDir0x71000[i + 1] = pageDirAddress;
+    //         FirstDir0x71000[i + 1] += 0x7;
+    //         for (uint64_t j = 0; j < 512; j++)
+    //         {
+    //             if (j >= pages)
+    //             {
+    //                 break;
+    //             }
+    //             pageDirAddress[j] = 0x40000000 * (i + 1) + 2 * 1024 * 1024 * j;
+    //             pageDirAddress[j] = pageDirAddress[j] + 0x83;
+    //         }
+    //         pages -= 512;
+    //     }
+    //     head = 1024 * 1024 * 2 + 0x2000;
+    //     head->address = pageDirAddress;
+    // }
+    if (freePages > 512)
     {
-        return NULL;
+        freePages = freePages - 512;
     }
     else
     {
-        uint32_t pages = (freePages - 508);
-        pageDirAddress = 0x75000;
-        for (uint64_t i = 0; i <= (freePages - 512) / 512; i++)
+        return false;
+    }
+    int dir = freePages / 512 + 1;
+    uint64_t *dir1A = 0x71000;
+    uint64_t *dir2A = 0x1000;
+    *dir2A = 0;
+    for (int i = 0; i < dir + 1; i++)
+    {
+        dir1A[i + 1] = dir2A;
+        dir1A[i + 1] += 0x27;
+        for (int j = 0; j < 512; j++)
         {
-            pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
-            uint64_t *FirstDir0x71000;
-            FirstDir0x71000 = 0x71000;
-            FirstDir0x71000[i + 1] = pageDirAddress;
-            FirstDir0x71000[i + 1] += 0x7;
-            for (uint64_t j = 0; j < 512; j++)
+            freePages -= 1;
+            if (freePages >= 0)
             {
-                if (j >= pages)
-                {
-                    break;
-                }
-                pageDirAddress[j] = 0x40000000 * (i + 1) + 2 * 1024 * 1024 * j;
-                pageDirAddress[j] = pageDirAddress[j] + 0x83;
+                dir2A[j] = 0x40000000;
+                dir2A[j] = dir2A[j] * (i + 1);
+                dir2A[j] += 2 * 1024 * 1024 * j + 0x87; //0x87是属性 10000011b
             }
-            pages -= 512;
+            else
+            {
+                return true;
+            }
         }
-        head = 1024 * 1024 * 2 + 0x2000;
-        head->address = pageDirAddress;
+        dir2A = 0x1000 + 0x1000 * (i + 1);
     }
 }
 
@@ -155,37 +202,33 @@ uint64_t map_all_physical_pages(uint64_t freePages)
  * 初始化cr3寄存器的值，第一阶页目录表的地址，第二阶页目录表的地址和其他信息，在64位下，2mb页需要三阶页目录表。
  * 我们需要实现进程这个概念，所以我们需要不同的页目录表和页表，因为每一个进程都有他独自的页目录表和页表
  * 如果我们不需要实现进程，我们可以直接使用内核的页表，内核的cr3保存的地址是在0x70000
+ * 0x73000是管虚拟地址的，0x71000是直接物理地址。所以内核访问比较大的地址，它会走0x73000
+ * 0x73000在0x70000的第256个位
  */
-void set_kernel_malloc(uint64_t cr3, uint64_t firstDir, uint64_t secondDir, enum task_type program)
+void set_kernel_malloc()
 {
-    if (program == KERNEL)
-    {
-        dir0.dirState = IN_USE;
-        dir0.address = 0x70000;
-        dir0.usedAmount = 1;
-        dir0.attri = DIR0;
-        dir0.next = 0;
+    dir0.dirState = IN_USE;
+    dir0.address = 0x70000;
+    dir0.usedAmount = 1;
+    dir0.attri = DIR0;
+    dir0.next = 0;
 
-        dir1.dirState = IN_USE;
-        dir1.address = 0x73000;
-        dir1.usedAmount = 1;
-        dir1.attri = DIR1;
-        dir1.next = 0;
+    dir1.dirState = IN_USE;
+    dir1.address = 0x73000;
+    dir1.usedAmount = 1;
+    dir1.attri = DIR1;
+    dir1.next = 0;
 
-        dir2.dirState = IN_USE;
-        dir2.address = 0x74000;
-        dir2.usedAmount = *ecx;
-        dir2.attri = DIR1;
-        dir2.next = pageDirAddress + 0x1000;
+    dir2.dirState = IN_USE;
+    dir2.address = 0x100000;
+    dir2.usedAmount = *ecx;
+    dir2.attri = DIR1;
+    dir2.next = 0x100000 + 0x1000;
 
-        pageInfor.dirAddress = 0x74000;
-        pageInfor.virtualAddress = *ecx * 1024 * 1024 * 2 + BASE_VIRTUAL_ADDRESS;
+    pageInfor.dirAddress = 0x100000;
+    pageInfor.virtualAddress = *ecx * 1024 * 1024 * 2 + BASE_VIRTUAL_ADDRESS;
 
-        printk("init malloc\n");
-    }
-    else
-    {
-    }
+    printk("init malloc\n");
 }
 
 int get_page_attri(enum attributes attris)

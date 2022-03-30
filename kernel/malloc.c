@@ -51,7 +51,7 @@ void malloc_page(uint64_t pageAmount)
         {
             dir2.address = dir2.next;
             dir2.next += 0x1000;
-            dir1.usedAmount = mapping(dir1.address, dir1.usedAmount, dir1.address, DIR1);
+            dir1.usedAmount = mapping(dir1.address, dir1.usedAmount, dir2.address, DIR1);
             if (dir1.usedAmount == 0)
             {
                 printk("run out of the virtual memory!!!");
@@ -73,23 +73,23 @@ void malloc_page(uint64_t pageAmount)
 void free_page(uint64_t pageAmount)
 {
     uint64_t *dir0Array = dir0.address;
-    uint32_t index = pageInfor.virtualAddress >> 39;
+    int index = pageInfor.virtualAddress >> 39;
     index = index & 0x1ff;
     uint64_t *dir1Array = (dir0Array[index] >> 12) << 12;
     uint64_t *dir2Array;
     for (uint32_t i = 0; i < pageAmount; i++)
     {
+        if (index - 1 == 0)
+        {
+            dir2.next -= 0x1000;
+            dir2.usedAmount = 512;
+        }
         index = pageInfor.virtualAddress >> 30;
         index = index & 0x1ff;
         dir2Array = (dir1Array[index] >> 12) << 12;
         index = ((pageInfor.virtualAddress << 34) >> 34) / 0x200000;
         pageTail->next = dir2Array[index - 1];
         dir2Array[index - 1] = 0;
-        if (index - 1 == 0)
-        {
-            dir2.next -= 0x1000;
-            dir2.usedAmount = 512;
-        }
         pageTail = pageTail->next;
         pageTail->next = NULL;
         pageInfor.virtualAddress -= 0x200000; // 2MB
@@ -102,6 +102,10 @@ uint64_t mapping(uint64_t dirAddress, uint64_t index, uint64_t address, enum att
     uint64_t *dirArray = dirAddress;
     dirArray[index] = address;
     dirArray[index] += get_page_attri(attris);
+    if (index == 200)
+    {
+        printk("500\n");
+    }
 
     if (index >= 511)
     {

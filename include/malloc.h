@@ -29,7 +29,7 @@ struct page_dir_manage
     uint64_t address;
     uint64_t usedAmount;
     enum attributes attri;
-    struct page_dir_manage *next;
+    uint64_t next;
 };
 
 struct page_infor

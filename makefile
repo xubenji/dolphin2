@@ -24,7 +24,7 @@ export AARCH
 export BUILD_PATH
 export SUFFIX
 
-all:
+all: clean
 	@for dir in $(BUILD_DIR);	\
 	do	\
 		make -C $$dir;	\
