@@ -12,12 +12,12 @@ enum task_type
 //我们设置了六种状态，初始值为TASK_WAIITING = 0
 enum task_status
 {
+    TASK_DIED,
     TASK_WAITTING,
     TASK_READY,
     TASK_BLOCKED,
     TASK_RUNNING,
     TASK_HANGING,
-    TASK_DIED
 };
 
 //包含了线程和进程

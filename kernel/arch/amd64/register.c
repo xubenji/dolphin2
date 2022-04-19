@@ -11,11 +11,27 @@ void set_task_register(int pid, uint64_t functionAddress, enum task_type type)
         registerList[pid].rflags = 663;
         registerList[pid].cs = 8;
         registerList[pid].rsp = 0xffff800000000000 + 0x400000 - (pid * 0x1000);
+        registerList[pid].cr3 = 0x70000;
+        p->dir0 = 0x70000;
     }
     else
     {
         //后期可能需要修改的地方
-        registerList[pid].rsp = 0x1000;
+        registerList[pid].rsp =  0x800000;
+        registerList[pid].rip = functionAddress;
+        registerList[pid].errorcode = 0;
+        registerList[pid].rflags = 663;
+        registerList[pid].cs = 8;
+        // registerList[pid].ss = 0x18 | 3;
+        // registerList[pid].cs = 0x10 | 3;
+        // registerList[pid].rflags = 2;
+        
+        uint64_t *vP = p->dir0;
+        vP[0] = p->dir1;
+        vP[0] += 0x03;
+        vP[256] = 0x73000;
+        vP[256] += 0x03;
+        // registerList[pid].rsp = 0xffff800000000000 + 0x400000 - (pid * 0x1000);
     }
 }
 

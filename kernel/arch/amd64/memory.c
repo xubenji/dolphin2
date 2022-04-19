@@ -16,8 +16,6 @@
 #include "malloc.h"
 #include "stdbool.h"
 
-#define BASE_VIRTUAL_ADDRESS 0xffff800000000000
-
 struct page_infor pageInfor = {0, 0, 0};
 struct page_dir_manage dir0;
 struct page_dir_manage dir1;
@@ -63,9 +61,9 @@ void init_memory(void)
      * 实际分配的要比这个多一点，因为在load里面已经分配了3个页,
      * 但是你注意一下，如果把虚拟地址完全分配，你需要再减1.
      **************************************************************************/
-    int temp = totalMemory / 1024 / 1024 / 2 - *ecx - 1;
-    malloc_page(temp);
-    free_page(12);
+    // int temp = totalMemory / 1024 / 1024 / 2 - *ecx - 1;
+    // malloc_page(temp);
+    // free_page(12);
 }
 
 /**
@@ -142,7 +140,7 @@ bool map_all_physical_pages(int freePages)
     for (int i = 0; i < dir + 1; i++)
     {
         dir1A[i + 1] = dir2A;
-        dir1A[i + 1] += 0x27;
+        dir1A[i + 1] += 0x23;
         for (int j = 0; j < 512; j++)
         {
             freePages -= 1;
@@ -150,7 +148,7 @@ bool map_all_physical_pages(int freePages)
             {
                 dir2A[j] = 0x40000000;
                 dir2A[j] = dir2A[j] * (i + 1);
-                dir2A[j] += 2 * 1024 * 1024 * j + 0x87; //0x87是属性 10000011b
+                dir2A[j] += 2 * 1024 * 1024 * j + 0x83; //0x87是属性 10000011b
             }
             else
             {
@@ -201,9 +199,14 @@ void set_kernel_malloc()
     dir2.next = 0x100000 + 0x1000;
 
     pageInfor.dirAddress = 0x100000;
-    pageInfor.virtualAddress = *ecx * 1024 * 1024 * 2 + BASE_VIRTUAL_ADDRESS;
+    pageInfor.virtualAddress = *ecx * 1024 * 1024 * 2 + VIRTUAL_BASE_ADDR;
 
     printk("init malloc\n");
+}
+
+void set_kernel_dir()
+{
+    p->dir0 = 0x70000;
 }
 
 int get_page_attri(enum attributes attris)

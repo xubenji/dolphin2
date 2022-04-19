@@ -200,7 +200,7 @@ LMEntry:
     mov rsp,0x7c00
 
     cld
-    mov rdi,0x400000
+    mov rdi,0x400000 ;kernel was supposed in the 0x100000(1MB). Now we copy it into the 0x400000
     mov rsi,0x10000
     mov rcx,51200/8
     rep movsq

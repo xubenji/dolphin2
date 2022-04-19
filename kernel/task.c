@@ -66,6 +66,7 @@ void init_task(void)
     //uint64_t status = find_cpu_status();
     set_task_register(0, 0, KERNEL);
     p = &tasks[0];
+    set_kernel_dir();
     tHead = p;
     tHead->before = p;
     tHead->next = p;
@@ -104,12 +105,12 @@ void create_task(char *name, enum task_type type, uint64_t functionAddress, int 
         }
         tasksNum++;
         link_task(&tasks[tasksNum - 1]);
-        set_task_status(name, &tasks[tasksNum - 1], functionAddress, type);
-
         set_task_page();
+        set_task_status(name, &tasks[tasksNum - 1], functionAddress, type);
     }
     else
     {
+
     }
 }
 
@@ -173,5 +174,5 @@ void set_task_virtual_address(uint64_t dir0Addr, uint64_t dir1Addr, uint64_t dir
     array[0] = dir2Addr + 0x03;
     set_task_malloc(p->dir0, p->dir1, p->dir2);
 
-    malloc_page(3);
+    malloc_page(10);
 }

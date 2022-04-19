@@ -45,7 +45,6 @@ void init_idt(void)
     load_idt(&idt_pointer);
 }
 
-
 void handler(struct TrapFrame *tf)
 {
     unsigned char isr_value;
@@ -66,7 +65,7 @@ void handler(struct TrapFrame *tf)
         save_registers(&registerList[p->pid], tf);
 
         p = p->next;
-
+        set_cr3(p->dir0);
         p->status = TASK_RUNNING;
         set_rsp(&registerList[p->pid]);
 
@@ -81,6 +80,7 @@ void handler(struct TrapFrame *tf)
         break;
 
     default:
+        printk("caseNumber: %d errorCode: %d", tf->trapno, tf->errorcode);
         ASSERT(1 > 2, "defalut assert");
     }
 }

@@ -41,6 +41,7 @@ struct TrapFrame {
     int64_t rflags;
     int64_t rsp;
     int64_t ss;
+    int64_t cr3;
 };
 
 

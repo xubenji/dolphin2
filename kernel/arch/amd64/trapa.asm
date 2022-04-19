@@ -25,6 +25,7 @@ global read_isr
 global load_idt
 global switch_to
 global set_rsp
+global set_cr3
 
 Trap:
     push rax
@@ -66,7 +67,7 @@ TrapReturn:
     pop	rbx
     pop	rax       
 
-    add rsp,16
+    add rsp, 16
     iretq
 
 
@@ -187,3 +188,11 @@ switch_to:
 set_rsp:
     mov rsp,rdi
     jmp TrapReturn
+
+set_cr3:
+    mov cr3,rdi
+    ret
+
+
+
+;目前的问题就是需要检查第一个进程的虚拟地址空间是否有问题，可以查查到kernel函数时候rsp的地址和pc的地址

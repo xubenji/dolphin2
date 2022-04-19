@@ -5,17 +5,21 @@
 #include "amd64/trap.h"
 #include "amd64/init.h"
 #include "task.h"
+#include "stddef.h"
 
 void test()
 {
     while (1)
     {
+        /* code */
+
         for (int i = 0; i < 1000000; i++)
         {
             /* code */
         }
-        
-        printk("yes");
+        uint64_t *p = 0x200000;
+        *p = 0x55aa;
+        printk(" test ");
     }
 }
 
@@ -27,6 +31,13 @@ void init_all()
     init_idt();
     init_task();
     init_memory();
-    create_task("1111", KERNEL, &test, -1);
+    uint64_t addr = &test;
+    addr -= VIRTUAL_BASE_ADDR;
+    create_task("1111", PROCESS, addr, -1);
+
+    uint64_t *t = 0x600010;
+    *t = 0x400000;
+    *t += 0x83;
+
     enable_interruption();
 }

@@ -3,7 +3,7 @@ ENTRY(start)
 
 SECTIONS
 {
-    . = 0x400000;
+    . = 0xffff800000400000;
 
     .text : {
         KEEP(*(.text.boot)) *(.text .text.* .gnu.linkonce.t*)
