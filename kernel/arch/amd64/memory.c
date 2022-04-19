@@ -59,8 +59,12 @@ void init_memory(void)
     init_pages(totalMemory);
 
     set_kernel_malloc();
-    //实际分配的要比这个多一点，因为在load里面已经分配了3个页
-    malloc_page(1023);
+    /************************************************************************** 
+     * 实际分配的要比这个多一点，因为在load里面已经分配了3个页,
+     * 但是你注意一下，如果把虚拟地址完全分配，你需要再减1.
+     **************************************************************************/
+    int temp = totalMemory / 1024 / 1024 / 2 - *ecx - 1;
+    malloc_page(temp);
     free_page(12);
 }
 
@@ -123,35 +127,6 @@ void init_pages(uint64_t totalMemory)
  */
 bool map_all_physical_pages(int freePages)
 {
-    // if (freePages < 508)
-    // {
-    //     return NULL;
-    // }
-    // else
-    // {
-    //     uint32_t pages = (freePages - 508);
-    //     pageDirAddress = 0x75000;
-    //     for (uint64_t i = 0; i <= (freePages - 512) / 512; i++)
-    //     {
-    //         pageDirAddress = 0x75000 + 0x1000 * i; //在load.asm中 0x70000～0x74000已经被映射完了，所以我们这里从0x7500开始。
-    //         uint64_t *FirstDir0x71000;
-    //         FirstDir0x71000 = 0x71000;
-    //         FirstDir0x71000[i + 1] = pageDirAddress;
-    //         FirstDir0x71000[i + 1] += 0x7;
-    //         for (uint64_t j = 0; j < 512; j++)
-    //         {
-    //             if (j >= pages)
-    //             {
-    //                 break;
-    //             }
-    //             pageDirAddress[j] = 0x40000000 * (i + 1) + 2 * 1024 * 1024 * j;
-    //             pageDirAddress[j] = pageDirAddress[j] + 0x83;
-    //         }
-    //         pages -= 512;
-    //     }
-    //     head = 1024 * 1024 * 2 + 0x2000;
-    //     head->address = pageDirAddress;
-    // }
     if (freePages > 512)
     {
         freePages = freePages - 512;

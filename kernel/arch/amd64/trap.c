@@ -70,48 +70,6 @@ void handler(struct TrapFrame *tf)
         p->status = TASK_RUNNING;
         set_rsp(&registerList[p->pid]);
 
-        // flage += 1;
-        // if (flage < 2)
-        // {
-        //     set_rsp(&test1);
-        // }
-        // else if (flage % 2 == 0)
-        // {
-        //     save_registers(&test1,tf);
-
-        //     set_rsp(&test2);
-        // }
-        // else
-        // {
-        //     test2.ss = tf->ss;
-        //     test2.rsp = tf->rsp;
-        //     test2.rflags = tf->rflags;
-        //     test2.cs = tf->cs;
-        //     test2.rip = tf->rip;
-        //     test2.errorcode = tf->errorcode;
-        //     test2.trapno = tf->trapno;
-        //     test2.rax = tf->rax;
-        //     test2.rbx = tf->rbx;
-        //     test2.rcx = tf->rcx;
-        //     test2.rdx = tf->rdx;
-        //     test2.rsi = tf->rsi;
-        //     test2.rdi = tf->rdi;
-        //     test2.rbp = tf->rbp;
-        //     test2.r8 = tf->r8;
-        //     test2.r9 = tf->r9;
-        //     test2.r10 = tf->r10;
-        //     test2.r11 = tf->r11;
-        //     test2.r12 = tf->r12;
-        //     test2.r13 = tf->r13;
-        //     test2.r14 = tf->r14;
-        //     test2.r15 = tf->r15;
-
-        //     set_rsp(&test1);
-        // }
-
-        // test1.cs =
-        //  __asm__ __volatile__("cli");
-
         break;
 
     case 39:

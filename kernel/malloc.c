@@ -37,6 +37,7 @@ void set_task_malloc(uint64_t d0, uint64_t d1, uint64_t d2)
  */
 void malloc_page(uint64_t pageAmount)
 {
+    dir0.usedAmount = 1;
     for (uint32_t i = 0; i < pageAmount; i++)
     {
         dir2.usedAmount = mapping(dir2.address, dir2.usedAmount, pageHead, DIR2);
