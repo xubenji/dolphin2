@@ -26,6 +26,7 @@ global load_idt
 global switch_to
 global set_rsp
 global set_cr3
+global test_process
 
 Trap:
     push rax
@@ -193,6 +194,10 @@ set_cr3:
     mov cr3,rdi
     ret
 
+test_process:
+    mov qword[0x3ef000],0xbbcc
+    push 0x55aa
+    mov qword[0x3ef000],0xbbcc
 
 
 ;目前的问题就是需要检查第一个进程的虚拟地址空间是否有问题，可以查查到kernel函数时候rsp的地址和pc的地址

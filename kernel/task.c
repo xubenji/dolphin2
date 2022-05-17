@@ -152,7 +152,8 @@ uint64_t link_task(struct task_list *tempTask)
 }
 
 void set_task_page()
-{
+{   
+    //可能后续需要修改这里
     malloc_page(1);
     uint64_t dir0Addr = processAddr.lastPhyAddress + 0x1f0000;
     uint64_t dir1Addr = dir0Addr + 0x1000;
@@ -169,9 +170,11 @@ void set_task_virtual_address(uint64_t dir0Addr, uint64_t dir1Addr, uint64_t dir
     p->dir2 = dir2Addr;
 
     uint64_t *array = dir0Addr;
-    array[0] = dir1Addr + 0x03;
+    array[0] = (array[0] >> 8) << 8;
+    array[0] = dir1Addr + 0x27;
     array = dir1Addr;
-    array[0] = dir2Addr + 0x03;
+    array[0] = (array[0] >> 8) << 8;
+    array[0] = dir2Addr + 0x27;
     set_task_malloc(p->dir0, p->dir1, p->dir2);
 
     malloc_page(10);

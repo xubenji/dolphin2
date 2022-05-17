@@ -31,7 +31,8 @@ void set_task_register(int pid, uint64_t functionAddress, enum task_type type)
         vP[0] += 0x03;
         vP[256] = 0x73000;
         vP[256] += 0x03;
-        // registerList[pid].rsp = 0xffff800000000000 + 0x400000 - (pid * 0x1000);
+       // registerList[pid].rsp = 0x400000 - (pid * 0x1000) - 0x10000;
+        registerList[pid].rsp = 0x400000 - (pid * 0x1000) - 0x10000;
     }
 }
 

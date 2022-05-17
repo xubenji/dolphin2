@@ -23,6 +23,8 @@ void test()
     }
 }
 
+void test_process(void);
+
 //初始化所有服务
 void init_all()
 {
@@ -31,13 +33,16 @@ void init_all()
     init_idt();
     init_task();
     init_memory();
-    uint64_t addr = &test;
+    uint64_t addr = &test_process;
     addr -= VIRTUAL_BASE_ADDR;
     create_task("1111", PROCESS, addr, -1);
 
     uint64_t *t = 0x600010;
+    uint64_t *t2 = 0x600008;
     *t = 0x400000;
-    *t += 0x83;
+    *t += 0xe7;
+    *t2 = 0;
+    *t2 += 0xe7;
 
     enable_interruption();
 }
