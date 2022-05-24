@@ -196,7 +196,7 @@ set_cr3:
 
 test_process:
     mov qword[0x3ef000],0xbbcc
-    push 0x55aa
+    push 0x402bfa
     mov qword[0x3ef000],0xbbcc
 
 

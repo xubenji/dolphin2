@@ -1,0 +1,14 @@
+set disassembly-flavor intel
+b *0x402be9
+display/6xg 0x600000
+display/2xg 0x7f0000
+display/2xg 0x7f1000
+display/2xg 0x70000
+display/2xg 0x71000
+display/2xg 0x72000
+
+
+display/6xg 0xffff800000600000
+display/2xg 0xffff8000007f0000
+display/2xg 0xffff8000007f1000
+
